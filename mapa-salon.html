@@ -101,7 +101,13 @@
 </head>
 <body>
 
-
+<!-- Panel de tipos de mapa -->
+<div id="panel">
+  <button onclick="setTipo('hybrid')" class="active" id="btn-hybrid">Satelital</button>
+  <button onclick="setTipo('roadmap')" id="btn-roadmap">Mapa</button>
+  <button onclick="setTipo('terrain')" id="btn-terrain">Terreno</button>
+  <button onclick="setTipo('satellite')" id="btn-satellite">Sat. puro</button>
+</div>
 
 <!-- Leyenda -->
 <div id="leyenda">
@@ -277,10 +283,17 @@
   }
 </script>
 
-<!-- API de Google Maps -->
-<script
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-gohH4hIatOou8DDAuLm4uOAOXWfmnJY&callback=initMap&v=weekly"
-  async defer>
+<!-- Carga la API key desde el servidor y luego inyecta Google Maps -->
+<script>
+  fetch('/api/maps-key')
+    .then(r => r.json())
+    .then(({ key }) => {
+      const script = document.createElement('script');
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${key}&callback=initMap&v=weekly`;
+      script.async = true;
+      script.defer = true;
+      document.head.appendChild(script);
+    });
 </script>
 
 </body>
