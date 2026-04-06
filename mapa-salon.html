@@ -1,1 +1,293 @@
-map
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mapa Interactivo</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #1a1a1a;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    #map {
+      width: 100%;
+      flex: 1;
+    }
+
+    /* Panel de controles personalizados */
+    #panel {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      gap: 6px;
+      background: rgba(255,255,255,0.95);
+      padding: 8px 12px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+    }
+
+    #panel button {
+      padding: 6px 14px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background: #f5f5f5;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    #panel button:hover { background: #e0e0e0; }
+    #panel button.active {
+      background: #1a73e8;
+      color: white;
+      border-color: #1a73e8;
+    }
+
+    /* Leyenda */
+    #leyenda {
+      position: absolute;
+      bottom: 30px;
+      right: 10px;
+      z-index: 10;
+      background: rgba(255,255,255,0.95);
+      padding: 10px 14px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+      font-size: 13px;
+      min-width: 160px;
+      display: none; /* se activa cuando hay elementos */
+    }
+
+    #leyenda h4 {
+      margin-bottom: 8px;
+      font-size: 13px;
+      color: #333;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 4px;
+    }
+
+    .leyenda-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 5px 0;
+      font-size: 12px;
+      color: #444;
+    }
+
+    .leyenda-color {
+      width: 24px;
+      height: 4px;
+      border-radius: 2px;
+    }
+
+    .leyenda-punto {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 2px solid white;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Panel de tipos de mapa -->
+<div id="panel">
+  <button onclick="setTipo('hybrid')" class="active" id="btn-hybrid">Satelital</button>
+  <button onclick="setTipo('roadmap')" id="btn-roadmap">Mapa</button>
+  <button onclick="setTipo('terrain')" id="btn-terrain">Terreno</button>
+  <button onclick="setTipo('satellite')" id="btn-satellite">Sat. puro</button>
+</div>
+
+<!-- Leyenda -->
+<div id="leyenda">
+  <h4>Referencias</h4>
+  <!-- Los items se agregan dinámicamente -->
+</div>
+
+<div id="map"></div>
+
+<script>
+  let map;
+  const CENTER = { lat: -26.769957803045017, lng: -65.22088159695605 };
+  const ZOOM   = 16;
+
+  // ── Marcadores (se completarán luego) ──────────────────────────────────────
+  const MARCADORES = [
+    {
+      lat: -26.76852,
+      lng: -65.219,
+      titulo: "Salón de Fiestas Conticello",
+      descripcion: "Aquí estuvo la pareja celebrando un casamiento",
+      color: "#1565C0"
+    },
+    {
+      lat: -26.7724,
+      lng: -65.22262,
+      titulo: "Puente donde encontraron a la pareja",
+      descripcion: "",
+      color: "#D32F2F"
+    }
+  ];
+
+  // ── Líneas (se completarán luego) ──────────────────────────────────────────
+  const LINEAS = [
+    {
+      nombre: "Recorrido",
+      color: "#D32F2F",
+      grosor: 4,
+      opacidad: 0.9,
+      puntos: [
+        { lat: -26.76852, lng: -65.219 },
+        { lat: -26.76719, lng: -65.22639 }
+      ]
+    }
+  ];
+
+  function initMap() {
+    map = new google.maps.Map(document.getElementById("map"), {
+      center: CENTER,
+      zoom: ZOOM,
+      mapTypeId: "hybrid",
+
+      // Controles
+      zoomControl: true,
+      zoomControlOptions: {
+        position: google.maps.ControlPosition.RIGHT_CENTER
+      },
+      mapTypeControl: false,        // usamos nuestro panel personalizado
+      scaleControl: true,           // escala en el mapa
+      streetViewControl: true,
+      streetViewControlOptions: {
+        position: google.maps.ControlPosition.RIGHT_BOTTOM
+      },
+      fullscreenControl: true,
+      fullscreenControlOptions: {
+        position: google.maps.ControlPosition.RIGHT_TOP
+      },
+      rotateControl: true,
+
+      // Gestos: "cooperative" = requiere Ctrl+scroll en iframe
+      // "greedy" = scroll libre (mejor para pantallas táctiles)
+      gestureHandling: "cooperative",
+
+      // Tilt 3D en zoom alto
+      tilt: 0,
+
+      // Ocultar POIs por defecto de Google Maps
+      styles: [
+        { featureType: "poi", elementType: "all", stylers: [{ visibility: "off" }] },
+        { featureType: "poi.park", elementType: "all", stylers: [{ visibility: "off" }] },
+        { featureType: "transit", elementType: "all", stylers: [{ visibility: "off" }] }
+      ]
+    });
+
+    cargarMarcadores();
+    cargarLineas();
+  }
+
+  // ── Cambio de tipo de mapa ─────────────────────────────────────────────────
+  function setTipo(tipo) {
+    map.setMapTypeId(tipo);
+    document.querySelectorAll('#panel button').forEach(b => b.classList.remove('active'));
+    document.getElementById('btn-' + tipo).classList.add('active');
+  }
+
+  // ── Marcadores ─────────────────────────────────────────────────────────────
+  function cargarMarcadores() {
+    const leyenda = document.getElementById('leyenda');
+
+    MARCADORES.forEach((m, i) => {
+      const marker = new google.maps.Marker({
+        position: { lat: m.lat, lng: m.lng },
+        map: map,
+        title: m.titulo,
+        icon: {
+          path: google.maps.SymbolPath.CIRCLE,
+          scale: 10,
+          fillColor: m.color || '#FF5722',
+          fillOpacity: 1,
+          strokeColor: '#ffffff',
+          strokeWeight: 2
+        }
+      });
+
+      const infoWindow = new google.maps.InfoWindow({
+        content: `
+          <div style="font-family:Arial;max-width:200px;">
+            <strong style="font-size:14px;">${m.titulo}</strong>
+            ${m.descripcion ? `<p style="margin:6px 0 0;font-size:12px;color:#555;">${m.descripcion}</p>` : ''}
+          </div>
+        `,
+        disableAutoPan: true
+      });
+
+      // Abrir al cargar
+      infoWindow.open(map, marker);
+
+      // Permitir cerrar y reabrir con clic
+      let abierto = true;
+      marker.addListener('click', () => {
+        if (abierto) { infoWindow.close(); abierto = false; }
+        else { infoWindow.open(map, marker); abierto = true; }
+      });
+
+      // Agregar a leyenda
+      const item = document.createElement('div');
+      item.className = 'leyenda-item';
+      item.innerHTML = `
+        <span class="leyenda-punto" style="background:${m.color || '#FF5722'}"></span>
+        <span>${m.titulo}</span>
+      `;
+      leyenda.appendChild(item);
+    });
+
+    if (MARCADORES.length > 0) leyenda.style.display = 'block';
+  }
+
+  // ── Líneas ─────────────────────────────────────────────────────────────────
+  function cargarLineas() {
+    const leyenda = document.getElementById('leyenda');
+
+    LINEAS.forEach(l => {
+      const polyline = new google.maps.Polyline({
+        path: l.puntos,
+        geodesic: true,
+        strokeColor: l.color || '#2196F3',
+        strokeOpacity: l.opacidad || 0.9,
+        strokeWeight: l.grosor || 3
+      });
+      polyline.setMap(map);
+
+      // Agregar a leyenda
+      const item = document.createElement('div');
+      item.className = 'leyenda-item';
+      item.innerHTML = `
+        <span class="leyenda-color" style="background:${l.color || '#2196F3'};height:3px;"></span>
+        <span>${l.nombre || 'Línea'}</span>
+      `;
+      leyenda.appendChild(item);
+    });
+
+    if (LINEAS.length > 0) leyenda.style.display = 'block';
+  }
+</script>
+
+<!-- API de Google Maps -->
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-gohH4hIatOou8DDAuLm4uOAOXWfmnJY&callback=initMap&v=weekly"
+  async defer>
+</script>
+
+</body>
+</html>
