@@ -129,14 +129,16 @@
       lng: -65.219,
       titulo: "Salón de Fiestas Conticello",
       descripcion: "Aquí estuvo la pareja celebrando un casamiento",
-      color: "#1565C0"
+      color: "#1565C0",
+      imagen: "images/salon.jpeg"
     },
     {
       lat: -26.7724,
       lng: -65.22262,
       titulo: "Puente donde encontraron a la pareja",
       descripcion: "",
-      color: "#D32F2F"
+      color: "#D32F2F",
+      imagen: "images/auto.jpg"
     }
   ];
 
@@ -224,7 +226,8 @@
 
       const infoWindow = new google.maps.InfoWindow({
         content: `
-          <div style="font-family:Arial;max-width:200px;">
+          <div style="font-family:Arial;max-width:220px;">
+            ${m.imagen ? `<img src="${m.imagen}" alt="${m.titulo}" style="width:100%;height:130px;object-fit:cover;border-radius:6px;margin-bottom:8px;display:block;">` : ''}
             <strong style="font-size:14px;">${m.titulo}</strong>
             ${m.descripcion ? `<p style="margin:6px 0 0;font-size:12px;color:#555;">${m.descripcion}</p>` : ''}
           </div>
