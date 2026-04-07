@@ -3,37 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Misión Artemis II — Trayectoria</title>
+  <title>Cómo será la misión Artemis II</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: #0a0d14;
+      background: #fff;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      min-height: 100vh;
       font-family: 'Segoe UI', system-ui, sans-serif;
-      padding: 24px 16px;
+      padding: 20px 16px 16px;
     }
 
+    /* ── Encabezado ── */
     header {
       width: 100%;
       max-width: 800px;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
 
     header h1 {
-      color: #e8eaf0;
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      opacity: 0.6;
+      font-size: 22px;
+      font-weight: 700;
+      color: #111;
+      line-height: 1.25;
+      margin-bottom: 4px;
     }
 
-    /* ── Contenedor principal ── */
+    header p {
+      font-size: 13px;
+      color: #666;
+    }
+
+    /* ── Contenedor imagen ── */
     .scene {
       position: relative;
       width: 100%;
@@ -44,14 +47,14 @@
       display: block;
       width: 100%;
       height: auto;
-      border-radius: 6px;
+      border-radius: 4px;
     }
 
     /* ── Puntos ── */
     .dot {
       position: absolute;
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
       transform: translate(-50%, -50%);
       cursor: pointer;
@@ -63,42 +66,35 @@
       color: #fff;
       transition: transform 0.15s ease, box-shadow 0.15s ease;
       z-index: 10;
-      border: 2px solid rgba(255,255,255,0.25);
+      border: 2px solid rgba(255,255,255,0.35);
     }
 
-    .dot:hover {
-      transform: translate(-50%, -50%) scale(1.25);
-    }
+    .dot:hover           { transform: translate(-50%, -50%) scale(1.3); }
+    .dot.active          { transform: translate(-50%, -50%) scale(1.2); box-shadow: 0 0 0 4px rgba(0,0,0,0.12); }
+    .dot.red             { background: #c0392b; }
+    .dot.blue            { background: #2471a3; }
 
-    .dot.active {
-      transform: translate(-50%, -50%) scale(1.2);
-      box-shadow: 0 0 0 4px rgba(255,255,255,0.15);
-    }
-
-    .dot.red  { background: #c0392b; border-color: rgba(255,180,160,0.4); }
-    .dot.blue { background: #2980b9; border-color: rgba(140,200,255,0.4); }
-
-    /* Pulso suave al cargar */
     @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.0); }
-      50%       { box-shadow: 0 0 0 5px rgba(255,255,255,0.12); }
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0,0,0,0); }
+      50%       { box-shadow: 0 0 0 5px rgba(0,0,0,0.10); }
     }
-    .dot { animation: pulse 3s ease-in-out infinite; }
+    .dot                 { animation: pulse 3s ease-in-out infinite; }
     .dot:hover, .dot.active { animation: none; }
 
-    /* ── Tarjeta de info ── */
+    /* ── Tarjeta ── */
     .card {
       position: absolute;
-      width: 240px;
-      background: #12151f;
-      border: 1px solid rgba(255,255,255,0.09);
-      border-radius: 8px;
-      padding: 14px 16px;
+      width: 230px;
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 12px 14px;
       z-index: 100;
       pointer-events: none;
       opacity: 0;
       transform: translateY(6px) scale(0.97);
-      transition: opacity 0.18s ease, transform 0.18s ease;
+      transition: opacity 0.16s ease, transform 0.16s ease;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
     }
 
     .card.visible {
@@ -108,100 +104,114 @@
     }
 
     .card-num {
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 700;
       letter-spacing: 0.1em;
-      margin-bottom: 4px;
-      opacity: 0.45;
+      text-transform: uppercase;
+      margin-bottom: 3px;
     }
-
-    .card.red  .card-num { color: #e57b7b; }
-    .card.blue .card-num { color: #7ab8e8; }
+    .card.red  .card-num { color: #c0392b; }
+    .card.blue .card-num { color: #2471a3; }
 
     .card-title {
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: #e8eaf0;
-      margin-bottom: 8px;
+      color: #111;
+      margin-bottom: 6px;
       line-height: 1.4;
+      padding-right: 18px;
     }
 
     .card-body {
       font-size: 11.5px;
-      color: #9aa0b0;
-      line-height: 1.65;
+      color: #555;
+      line-height: 1.6;
     }
 
     .card-close {
       position: absolute;
-      top: 10px;
-      right: 10px;
+      top: 8px;
+      right: 8px;
       width: 18px;
       height: 18px;
       background: none;
       border: none;
-      color: rgba(255,255,255,0.3);
+      color: #aaa;
       cursor: pointer;
-      font-size: 14px;
-      line-height: 1;
+      font-size: 13px;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 0;
       transition: color 0.1s;
     }
+    .card-close:hover { color: #333; }
 
-    .card-close:hover { color: rgba(255,255,255,0.7); }
-
-    /* ── Hint ── */
-    .hint {
+    /* ── Créditos ── */
+    footer {
       width: 100%;
       max-width: 800px;
-      margin-top: 12px;
-      font-size: 11px;
-      color: rgba(255,255,255,0.2);
-      text-align: center;
-      letter-spacing: 0.06em;
+      margin-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    footer span {
+      font-size: 10px;
+      color: #aaa;
+      letter-spacing: 0.04em;
+    }
+
+    footer span b {
+      font-weight: 600;
+      color: #888;
     }
   </style>
 </head>
 <body>
 
-  
+  <header>
+    <h1>Cómo será la misión Artemis II</h1>
+    <p>Hacé click en un punto para ver información de cada etapa</p>
+  </header>
+
   <div class="scene" id="scene">
     <img src="images/trayecto.jpg" alt="Trayectoria Misión Artemis II" id="img" draggable="false">
   </div>
 
-  <p class="hint">Haz click en un punto para más información</p>
+  <footer>
+    <span>Imagen y textos: <b>NASA</b></span>
+    <span>Interactivo: <b>LA GACETA</b></span>
+  </footer>
 
   <script>
     const points = [
-      { n:1,  x:23.75, y:16.64, color:'red',  title:'Lanzamiento',                       body:'Los astronautas despegan desde la plataforma de lanzamiento 39B en el Centro Espacial Kennedy.' },
-      { n:2,  x:27.25, y:16.64, color:'red',  title:'Desprendimiento',                   body:'Se separan los cohetes aceleradores sólidos, los carenados y el sistema de aborto de lanzamiento.' },
-      { n:3,  x:30.75, y:15.67, color:'red',  title:'Corte del motor principal',          body:'Se produce el apagado del motor y la separación de la etapa central.' },
-      { n:4,  x:35.38, y:14.21, color:'red',  title:'Maniobra de elevación del perigeo',  body:'Ajuste de la trayectoria orbital inicial.' },
-      { n:5,  x:9.00,  y:45.33, color:'red',  title:'Encendido — Elevación del apogeo',   body:'Comienza una revisión técnica de la nave espacial que dura 23.5 horas.' },
-      { n:6,  x:14.37, y:58.46, color:'red',  title:'Separación de Orion',                body:'La nave Orion se separa de la Etapa de Propulsión Criogénica Interina (ICPS). Se realiza una demostración de operaciones de proximidad de hasta 2 horas.' },
-      { n:7,  x:42.38, y:46.55, color:'blue', title:'Encendido separación USS',           body:'Inicia la revisión en órbita terrestre alta. Se evalúan los sistemas de soporte vital, equipos de ejercicio y habitabilidad.' },
-      { n:8,  x:55.38, y:6.18,  color:'red',  title:'Encendido — Elevación del perigeo',  body:'Ajuste adicional de la órbita.' },
-      { n:9,  x:3.62,  y:52.14, color:'red',  title:'Inyección trans-lunar (TLI)',        body:'Realizada por el motor principal de Orion. Se inicia la trayectoria de retorno libre lunar con el módulo de servicio europeo.' },
-      { n:10, x:33.25, y:68.92, color:'red',  title:'Tránsito de salida hacia la Luna',   body:'Se realizan encendidos de corrección de trayectoria (OTC) según sea necesario. El tiempo de viaje es de aproximadamente 4 días.' },
-      { n:11, x:98.25, y:80.34, color:'blue', title:'Sobrevuelo lunar',                   body:'La nave pasa por el lado lejano de la Luna a una altitud media de 4,047 millas (6,513 km).' },
-      { n:12, x:66.38, y:84.72, color:'blue', title:'Regreso trans-tierra',               body:'Encendidos de corrección (RTC) para apuntar a la atmósfera terrestre. El viaje de vuelta dura unos 4 días.' },
+      { n:1,  x:23.75, y:16.64, color:'red',  title:'Lanzamiento',                         body:'Los astronautas despegan desde la plataforma de lanzamiento 39B en el Centro Espacial Kennedy.' },
+      { n:2,  x:27.25, y:16.64, color:'red',  title:'Desprendimiento',                     body:'Se separan los cohetes aceleradores sólidos, los carenados y el sistema de aborto de lanzamiento.' },
+      { n:3,  x:30.75, y:15.67, color:'red',  title:'Corte del motor principal',            body:'Se produce el apagado del motor y la separación de la etapa central.' },
+      { n:4,  x:35.38, y:14.21, color:'red',  title:'Maniobra de elevación del perigeo',    body:'Ajuste de la trayectoria orbital inicial.' },
+      { n:5,  x:9.00,  y:45.33, color:'red',  title:'Encendido — Elevación del apogeo',     body:'Comienza una revisión técnica de la nave espacial que dura 23.5 horas.' },
+      { n:6,  x:14.37, y:58.46, color:'red',  title:'Separación de Orion',                  body:'La nave Orion se separa de la Etapa de Propulsión Criogénica Interina (ICPS). Se realiza una demostración de operaciones de proximidad de hasta 2 horas.' },
+      { n:7,  x:42.38, y:46.55, color:'blue', title:'Encendido separación USS',             body:'Inicia la revisión en órbita terrestre alta. Se evalúan los sistemas de soporte vital, equipos de ejercicio y habitabilidad.' },
+      { n:8,  x:55.38, y:6.18,  color:'red',  title:'Encendido — Elevación del perigeo',    body:'Ajuste adicional de la órbita.' },
+      { n:9,  x:3.62,  y:52.14, color:'red',  title:'Inyección trans-lunar (TLI)',          body:'Realizada por el motor principal de Orion. Se inicia la trayectoria de retorno libre lunar con el módulo de servicio europeo.' },
+      { n:10, x:33.25, y:68.92, color:'red',  title:'Tránsito de salida hacia la Luna',     body:'Se realizan encendidos de corrección de trayectoria (OTC) según sea necesario. El tiempo de viaje es de aproximadamente 4 días.' },
+      { n:11, x:98.25, y:80.34, color:'blue', title:'Sobrevuelo lunar',                     body:'La nave pasa por el lado lejano de la Luna a una altitud media de 4,047 millas (6,513 km).' },
+      { n:12, x:66.38, y:84.72, color:'blue', title:'Regreso trans-tierra',                 body:'Encendidos de corrección (RTC) para apuntar a la atmósfera terrestre. El viaje de vuelta dura unos 4 días.' },
       { n:13, x:46.00, y:17.86, color:'blue', title:'Separación del módulo de tripulación', body:'La cápsula donde viajan los astronautas se desprende del módulo de servicio.' },
-      { n:14, x:13.75, y:11.53, color:'red',  title:'Interfaz de entrada (EI)',            body:'La nave entra en la atmósfera de la Tierra.' },
-      { n:15, x:11.63, y:22.96, color:'red',  title:'Amerizaje',                          body:'La cápsula cae al océano y un barco recupera tanto a los astronautas como a la nave.' },
+      { n:14, x:13.75, y:11.53, color:'red',  title:'Interfaz de entrada (EI)',              body:'La nave entra en la atmósfera de la Tierra.' },
+      { n:15, x:11.63, y:22.96, color:'red',  title:'Amerizaje',                            body:'La cápsula cae al océano y un barco recupera tanto a los astronautas como a la nave.' },
     ];
 
     const scene = document.getElementById('scene');
     let activeCard = null;
     let activeDot  = null;
 
-    // Crear puntos y tarjetas
     points.forEach(p => {
-      // Dot
       const dot = document.createElement('div');
       dot.className = `dot ${p.color}`;
       dot.style.left = p.x + '%';
@@ -209,13 +219,12 @@
       dot.textContent = p.n;
       dot.dataset.id = p.n;
 
-      // Card
       const card = document.createElement('div');
       card.className = `card ${p.color}`;
       card.dataset.id = p.n;
       card.innerHTML = `
         <button class="card-close" aria-label="Cerrar">✕</button>
-        <div class="card-num">PASO ${p.n} / 15</div>
+        <div class="card-num">Paso ${p.n} de 15</div>
         <div class="card-title">${p.title}</div>
         <div class="card-body">${p.body}</div>
       `;
@@ -237,42 +246,33 @@
     });
 
     function openCard(dot, card) {
-      activeDot = dot;
+      activeDot  = dot;
       activeCard = card;
       dot.classList.add('active');
-
-      // Posicionar la tarjeta
       positionCard(dot, card);
       card.classList.add('visible');
     }
 
     function positionCard(dot, card) {
-      const dx = parseFloat(dot.style.left);   // %
-      const dy = parseFloat(dot.style.top);    // %
-      const CARD_W = 240;
+      const dx     = parseFloat(dot.style.left);
+      const dy     = parseFloat(dot.style.top);
+      const CARD_W = 230;
       const sceneW = scene.offsetWidth;
       const sceneH = scene.offsetHeight;
-      const cardH  = 120; // estimado
+      const cardH  = 130;
+      const pxX    = dx / 100 * sceneW;
+      const pxY    = dy / 100 * sceneH;
+      const gap    = 12;
 
-      const pxX = dx / 100 * sceneW;
-      const pxY = dy / 100 * sceneH;
-
-      // Horizontal: mostrar a la derecha; si no cabe, a la izquierda
       let left, right;
-      const gap = 14;
       if (pxX + CARD_W + gap < sceneW - 8) {
-        left  = (pxX + gap) + 'px';
-        right = 'auto';
+        left = (pxX + gap) + 'px'; right = 'auto';
       } else {
-        left  = 'auto';
-        right = (sceneW - pxX + gap) + 'px';
+        left = 'auto'; right = (sceneW - pxX + gap) + 'px';
       }
 
-      // Vertical: centrado en el punto; si se sale por abajo, sube
       let top = (pxY - 20) + 'px';
-      if (pxY + cardH > sceneH - 8) {
-        top = (pxY - cardH + 20) + 'px';
-      }
+      if (pxY + cardH > sceneH - 8) top = (pxY - cardH + 20) + 'px';
 
       card.style.left  = left;
       card.style.right = right;
@@ -286,11 +286,8 @@
       activeDot  = null;
     }
 
-    // Click fuera cierra la tarjeta
     document.addEventListener('click', closeAll);
     scene.addEventListener('click', (e) => e.stopPropagation());
-
-    // Reposicionar si cambia el tamaño de ventana
     window.addEventListener('resize', () => {
       if (activeCard && activeDot) positionCard(activeDot, activeCard);
     });
