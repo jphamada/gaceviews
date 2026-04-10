@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts para una tipografía moderna sin serif -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="carousel-container">
+
+        <!-- Diapositivas -->
+        <div class="slide active">
+            <div class="image-area">
+                <img src="01.png" alt="Imagen 01">
+                <h2 class="title">Máximo nivel término</h2>
+            </div>
+            <div class="description-area">
+                <p class="description">La cápsula se separará y girará para que su escudo térmico resista el calor del
+                    reingreso, protegiendo así la integridad de los astronautas.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="image-area">
+                <img src="02.png" alt="Imagen 02">
+                <h2 class="title">Entrada a la atmósfera</h2>
+            </div>
+            <div class="description-area">
+                <p class="description">A 40.000 km/h, la nave enfrentará 2.700 °C (la mitad del calor solar) al cruzar
+                    la atmósfera, un desafío térmico extremo para su estructura.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="image-area">
+                <img src="03.png" alt="Imagen 03">
+                <h2 class="title">Reducción de velocidad</h2>
+            </div>
+            <div class="description-area">
+                <p class="description">Al descender, la nave reduce drásticamente su velocidad hasta los 480 km/h,
+                    preparando el terreno para las fases finales del aterrizaje.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="image-area">
+                <img src="04.png" alt="Imagen 04">
+                <h2 class="title">Apertura de paracaídas</h2>
+            </div>
+            <div class="description-area">
+                <p class="description">A los 7.600 metros se activa un sistema de paracaídas que se despliegan en
+                    secuencia para estabilizar la cápsula y disminuir aún más la velocidad.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="image-area">
+                <img src="05.png" alt="Imagen 05">
+                <h2 class="title">Amerizaje en el Pacífico</h2>
+            </div>
+            <div class="description-area">
+                <p class="description">Los astronautas amerizarán suavemente en el Pacífico, cerca de California, donde
+                    un equipo de rescate los recibirá para completar la misión.</p>
+            </div>
+        </div>
+
+        <!-- Controles de navegación -->
+        <button class="nav-btn prev" id="prevBtn" aria-label="Anterior">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28">
+                <path fill="currentColor" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z" />
+            </svg>
+        </button>
+        <button class="nav-btn next" id="nextBtn" aria-label="Siguiente">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28">
+                <path fill="currentColor" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z" />
+            </svg>
+        </button>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
