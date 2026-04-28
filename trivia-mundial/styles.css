@@ -1,0 +1,259 @@
+:root {
+  --bg: #f4efe6;
+  --surface: rgba(255, 252, 248, 0.88);
+  --surface-strong: #fffaf3;
+  --text: #1f1a17;
+  --muted: #6c6158;
+  --accent: #e76f51;
+  --accent-dark: #cb5c40;
+  --accent-soft: #f5c8ba;
+  --success: #1f8f63;
+  --error: #c74646;
+  --shadow: 0 18px 40px rgba(66, 40, 24, 0.12);
+  --radius: 24px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Manrope", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top, rgba(255, 214, 169, 0.72), transparent 35%),
+    linear-gradient(180deg, #f7f1e7 0%, #f0e5d5 100%);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.app-shell {
+  min-height: 100dvh;
+  padding: 16px;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.screen {
+  display: none;
+  width: 100%;
+  max-width: 440px;
+  min-height: calc(100dvh - 32px);
+  margin: 0 auto;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.screen--active {
+  display: flex;
+}
+
+.hero-image {
+  flex: 0 0 34vh;
+  min-height: 220px;
+  max-height: 320px;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.hero-image--small {
+  flex-basis: 24vh;
+  min-height: 170px;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.panel {
+  flex: 1;
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: var(--radius);
+  padding: 24px 20px 20px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.panel--quiz {
+  justify-content: flex-start;
+  gap: 18px;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-dark);
+}
+
+h1,
+h2 {
+  margin: 0;
+  line-height: 1.08;
+}
+
+h1 {
+  font-size: clamp(2rem, 6vw, 2.55rem);
+}
+
+h2 {
+  font-size: clamp(1.55rem, 5vw, 2rem);
+}
+
+.lead,
+.final-score,
+.feedback {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.lead {
+  color: var(--muted);
+  margin: 14px 0 24px;
+}
+
+.primary-btn {
+  width: 100%;
+  border: 0;
+  border-radius: 18px;
+  padding: 16px 20px;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent) 0%, #ef946c 100%);
+  box-shadow: 0 14px 24px rgba(231, 111, 81, 0.28);
+}
+
+.primary-btn:active {
+  transform: translateY(1px);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.progress-label,
+.score-chip {
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.score-chip {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: var(--surface-strong);
+  color: var(--accent-dark);
+}
+
+.progress-track {
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(116, 92, 70, 0.14);
+  overflow: hidden;
+}
+
+.progress-fill {
+  width: 20%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent) 0%, #f4a261 100%);
+  transition: width 0.25s ease;
+}
+
+.question-block {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.options {
+  display: grid;
+  gap: 12px;
+}
+
+.option-btn {
+  width: 100%;
+  padding: 15px 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(121, 94, 70, 0.16);
+  background: rgba(255, 255, 255, 0.7);
+  text-align: left;
+  color: var(--text);
+  font-weight: 600;
+  transition:
+    transform 0.18s ease,
+    background-color 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.option-btn:active {
+  transform: scale(0.99);
+}
+
+.option-btn.is-correct {
+  background: rgba(31, 143, 99, 0.14);
+  border-color: rgba(31, 143, 99, 0.5);
+}
+
+.option-btn.is-wrong {
+  background: rgba(199, 70, 70, 0.13);
+  border-color: rgba(199, 70, 70, 0.45);
+}
+
+.option-btn:disabled {
+  color: #3f3732;
+}
+
+.feedback {
+  min-height: 24px;
+  margin: 0;
+  font-weight: 800;
+}
+
+.feedback.success {
+  color: var(--success);
+}
+
+.feedback.error {
+  color: var(--error);
+}
+
+.final-score {
+  margin: 16px 0 24px;
+  color: var(--muted);
+}
+
+@media (min-width: 700px) {
+  .app-shell {
+    padding: 24px;
+  }
+
+  .screen {
+    min-height: calc(100dvh - 48px);
+  }
+}
