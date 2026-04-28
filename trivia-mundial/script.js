@@ -1,90 +1,90 @@
 const questions = [
     {
-        image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
+        image: "images/02.jpg",
         question: "¿Qué selección fue la primera en ganar dos Mundiales consecutivos?",
         options: ["Brasil", "Italia", "Alemania", "Uruguay"],
         correctIndex: 1,
     },
     {
-        image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=900&q=80",
+        image: "images/03.jpg",
         question: "¿En qué Mundial se implementaron por primera vez las tarjetas amarilla y roja?",
         options: ["México 1970", "Inglaterra 1966", "Alemania 1974", "España 1982"],
         correctIndex: 0,
     },
     {
-        image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80",
+        image: "images/04.jpg",
         question: "¿Qué jugador argentino fue el máximo goleador del Mundial 1978?",
         options: ["Mario Kempes", "Leopoldo Luque", "Daniel Bertoni", "Osvaldo Ardiles"],
         correctIndex: 0,
     },
     {
-        image: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=900&q=80",
+        image: "images/05.jpg",
         question: "¿Cuál fue la única selección africana que llegó a semifinales de un Mundial hasta 2022?",
         options: ["Nigeria", "Senegal", "Ghana", "Marruecos"],
         correctIndex: 3,
     },
     {
-        image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80",
+        image: "images/06.jpg",
         question: "¿Qué selección eliminó a Argentina en el Mundial 2002 en fase de grupos?",
         options: ["Inglaterra", "Suecia", "Nigeria", "Dinamarca"],
         correctIndex: 1,
     },
     {
-        image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
+        image: "images/07.jpg",
         question: "¿Quién fue el goleador del Mundial 1998?",
         options: ["Ronaldo", "Davor Šuker", "Zinedine Zidane", "Gabriel Batistuta"],
         correctIndex: 1,
     },
     {
-        image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=900&q=80",
+        image: "images/08.jpg",
         question: "¿En qué Mundial se jugó la final conocida como el “Maracanazo”?",
         options: ["1930", "1950", "1954", "1962"],
         correctIndex: 1,
     },
     {
-        image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80",
+        image: "images/09.jpg",
         question: "¿Qué arquero fue figura en la tanda de penales de Argentina ante Países Bajos en Qatar 2022?",
         options: ["Sergio Romero", "Emiliano Martínez", "Franco Armani", "Willy Caballero"],
         correctIndex: 1,
     },
     {
-        image: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=900&q=80",
+        image: "images/10.jpg",
         question: "¿Qué selección ganó el Mundial de 1954, conocido como el “Milagro de Berna”?",
         options: ["Hungría", "Alemania Federal", "Austria", "Suiza"],
         correctIndex: 1,
     },
     {
-        image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80",
+        image: "images/11.jpg",
         question: "¿Quién fue el técnico de Argentina campeón en 1986?",
         options: ["César Luis Menotti", "Alfio Basile", "Carlos Bilardo", "Marcelo Bielsa"],
         correctIndex: 2,
     },
     {
-        image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
+        image: "images/12.jpg",
         question: "¿Qué selección europea ganó su primer Mundial recién en 2010?",
         options: ["Países Bajos", "España", "Portugal", "Inglaterra"],
         correctIndex: 1,
     },
     {
-        image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=900&q=80",
+        image: "images/13.jpg",
         question: "¿Qué país organizó el Mundial de 1986 tras la renuncia de Colombia?",
         options: ["Brasil", "Estados Unidos", "México", "Argentina"],
         correctIndex: 2,
     },
     {
-        image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80",
+        image: "images/14.jpg",
         question: "¿Qué jugador argentino convirtió el gol más rápido de la historia de los Mundiales?",
         options: ["Diego Maradona", "Claudio Caniggia", "Gabriel Batistuta", "(Ninguno, no es argentino)"],
         correctIndex: 3,
     },
     {
-        image: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=900&q=80",
+        image: "images/15.jpg",
         question: "¿Qué selección fue la primera en ganar un Mundial fuera de su continente?",
         options: ["Brasil", "Alemania", "Argentina", "España"],
         correctIndex: 0,
     },
     {
-        image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80",
+        image: "images/16.jpg",
         question: "¿Qué país fue campeón del Mundial de 1990?",
         options: ["Argentina", "Alemania Federal", "Italia", "Brasil"],
         correctIndex: 1,
@@ -104,6 +104,11 @@ const feedback = document.getElementById("feedback");
 const scoreChip = document.getElementById("score-chip");
 const finalScore = document.getElementById("final-score");
 const quizHeroImage = document.querySelector("#quiz-screen .hero-image img");
+const startHeroImage = document.querySelector("#start-screen .hero-image img");
+const endHeroImage = document.querySelector("#end-screen .hero-image img");
+
+startHeroImage.src = "images/01.jpg";
+endHeroImage.src = "images/01.jpg";
 
 let currentQuestionIndex = 0;
 let score = 0;
