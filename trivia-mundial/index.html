@@ -1,80 +1,73 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Trivia Interactiva</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
+</head>
+
+<body>
     <main class="app-shell">
-      <section class="screen screen--active" id="start-screen">
-        <div class="hero-image" aria-hidden="true">
-          <img
-            src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80"
-            alt=""
-          />
-        </div>
-        <div class="panel">
-          <p class="eyebrow">Trivia interactiva</p>
-          <h1>Jugá cinco preguntas y descubrí tu puntaje final</h1>
-          <p class="lead">
-            Respondé una por una. Después de cada elección, la app te dirá si fue correcta
-            o incorrecta y avanzará automáticamente.
-          </p>
-          <button class="primary-btn" id="start-button">Comenzar</button>
-        </div>
-      </section>
+        <section class="screen screen--active" id="start-screen">
+            <div class="hero-image" aria-hidden="true">
+                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80"
+                    alt="" />
+            </div>
+            <div class="panel">
+                <p class="eyebrow">Trivia interactiva</p>
+                <h1>¿Cuánto sabés de la historia de los Mundiales?</h1>
+                <p class="lead">
+                    Poné a prueba tus conocimientos. Te desafiamos con 16 preguntas para conocer tu nivel de fanatismo.
+                </p>
+                <button class="primary-btn" id="start-button">Comenzar</button>
+            </div>
+        </section>
 
-      <section class="screen" id="quiz-screen">
-        <div class="hero-image hero-image--small" aria-hidden="true">
-          <img
-            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80"
-            alt=""
-          />
-        </div>
+        <section class="screen" id="quiz-screen">
+            <div class="hero-image hero-image--small" aria-hidden="true">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80"
+                    alt="" />
+            </div>
 
-        <div class="panel panel--quiz">
-          <div class="topbar">
-            <span class="progress-label" id="progress-label">Pregunta 1 de 5</span>
-            <span class="score-chip" id="score-chip">Aciertos: 0</span>
-          </div>
+            <div class="panel panel--quiz">
+                <div class="topbar">
+                    <span class="progress-label" id="progress-label">Pregunta 1 de 5</span>
+                    <span class="score-chip" id="score-chip">Aciertos: 0</span>
+                </div>
 
-          <div class="progress-track" aria-hidden="true">
-            <div class="progress-fill" id="progress-fill"></div>
-          </div>
+                <div class="progress-track" aria-hidden="true">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
 
-          <div class="question-block">
-            <h2 id="question-text"></h2>
-            <div class="options" id="options-container"></div>
-          </div>
+                <div class="question-block">
+                    <h2 id="question-text"></h2>
+                    <div class="options" id="options-container"></div>
+                </div>
 
-          <p class="feedback" id="feedback" aria-live="polite"></p>
-        </div>
-      </section>
+                <p class="feedback" id="feedback" aria-live="polite"></p>
+            </div>
+        </section>
 
-      <section class="screen" id="end-screen">
-        <div class="hero-image" aria-hidden="true">
-          <img
-            src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?auto=format&fit=crop&w=900&q=80"
-            alt=""
-          />
-        </div>
-        <div class="panel">
-          <p class="eyebrow">Resultado final</p>
-          <h2 id="final-title">Terminaste la trivia</h2>
-          <p class="final-score" id="final-score"></p>
-          <button class="primary-btn" id="restart-button">Jugar de nuevo</button>
-        </div>
-      </section>
+        <section class="screen" id="end-screen">
+            <div class="hero-image" aria-hidden="true">
+                <img src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?auto=format&fit=crop&w=900&q=80"
+                    alt="" />
+            </div>
+            <div class="panel">
+                <p class="eyebrow">Resultado final</p>
+                <h2 id="final-title">Terminaste la trivia</h2>
+                <p class="final-score" id="final-score"></p>
+                <button class="primary-btn" id="restart-button">Jugar de nuevo</button>
+            </div>
+        </section>
     </main>
 
     <script src="script.js"></script>
-  </body>
+</body>
+
 </html>
