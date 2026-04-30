@@ -61,7 +61,7 @@ const questions = [
     },
     {
         image: "images/12.jpg",
-        question: "¿Qué selección europea ganó su primer Mundial recién en 2010?",
+        question: "¿Qué selección europea ganó su primer Mundial en 2010?",
         options: ["Países Bajos", "España", "Portugal", "Inglaterra"],
         correctIndex: 1,
     },
