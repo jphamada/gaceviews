@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mundial 2026 — Partidos por Bloque Horario</title>
+    <title>Mundial 2026 — Partidos por Día</title>
     <style>
         * {
             box-sizing: border-box;
@@ -27,7 +28,7 @@
         header h1 {
             font-size: 2rem;
             font-weight: 800;
-            background: linear-gradient(90deg, #f59e0b, #ef4444, #f59e0b);
+            background: linear-gradient(90deg, #3b82f6, #6366f1, #3b82f6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -68,13 +69,12 @@
         }
 
         .bar-lbl {
-            width: 130px;
+            width: 100px;
             text-align: right;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 600;
             color: #9ca3af;
             flex-shrink: 0;
-            line-height: 1.2;
         }
 
         .bar-track {
@@ -109,8 +109,8 @@
             }
 
             .bar-lbl {
-                width: 100px;
-                font-size: 0.7rem;
+                width: 80px;
+                font-size: 0.75rem;
             }
 
             .bar-track {
@@ -125,52 +125,36 @@
 
 
     <div class="chart-wrapper">
-        <p class="section-title">Total de partidos por bloque horario</p>
-        <div id="bar-block" class="bar-grid"></div>
+        <p class="section-title">Total de partidos por día</p>
+        <div id="bar-day" class="bar-grid"></div>
     </div>
 
     <script>
         const rawData = [['Jueves', '16:00', 1], ['Jueves', '23:00', 1], ['Viernes', '16:00', 1], ['Viernes', '22:00', 1], ['Sábado', '16:00', 1], ['Sábado', '19:00', 1], ['Sábado', '22:00', 1], ['Sábado', '01:00', 1], ['Domingo', '14:00', 1], ['Domingo', '17:00', 1], ['Domingo', '20:00', 1], ['Domingo', '23:00', 1], ['Lunes', '13:00', 1], ['Lunes', '16:00', 1], ['Lunes', '19:00', 1], ['Lunes', '22:00', 1], ['Martes', '16:00', 1], ['Martes', '19:00', 1], ['Martes', '22:00', 1], ['Martes', '01:00', 1], ['Miércoles', '14:00', 1], ['Miércoles', '17:00', 1], ['Miércoles', '20:00', 1], ['Miércoles', '23:00', 1], ['Jueves', '13:00', 1], ['Jueves', '16:00', 1], ['Jueves', '19:00', 1], ['Jueves', '22:00', 1], ['Viernes', '16:00', 1], ['Viernes', '19:00', 1], ['Viernes', '22:00', 1], ['Viernes', '01:00', 1], ['Sábado', '14:00', 1], ['Sábado', '17:00', 1], ['Sábado', '23:00', 1], ['Sábado', '01:00', 1], ['Domingo', '13:00', 1], ['Domingo', '16:00', 1], ['Domingo', '19:00', 1], ['Domingo', '22:00', 1], ['Lunes', '14:00', 1], ['Lunes', '18:00', 1], ['Lunes', '21:00', 1], ['Martes', '00:00', 1], ['Martes', '14:00', 1], ['Martes', '17:00', 1], ['Martes', '20:00', 1], ['Martes', '23:00', 1], ['Miércoles', '16:00', 1], ['Miércoles', '16:00', 1], ['Miércoles', '19:00', 1], ['Miércoles', '19:00', 1], ['Miércoles', '22:00', 1], ['Miércoles', '22:00', 1], ['Jueves', '17:00', 1], ['Jueves', '17:00', 1], ['Jueves', '20:00', 1], ['Jueves', '20:00', 1], ['Jueves', '23:00', 1], ['Jueves', '23:00', 1], ['Viernes', '16:00', 1], ['Viernes', '16:00', 1], ['Viernes', '21:00', 1], ['Viernes', '21:00', 1], ['Sábado', '00:00', 1], ['Sábado', '00:00', 1], ['Sábado', '18:00', 1], ['Sábado', '18:00', 1], ['Sábado', '20:30', 1], ['Sábado', '20:30', 1], ['Sábado', '23:00', 1], ['Sábado', '23:00', 1]];
 
-        function toMins(t) {
-            const [h, m] = t.split(':').map(Number);
-            return h * 60 + m;
-        }
-
-        const blocks = [
-            { id: 'b0', label: 'Madrugada', range: '0 – 4h', start: 0, end: 239 },
-            { id: 'b4', label: 'Mañana', range: '4 – 8h', start: 240, end: 479 },
-            { id: 'b8', label: 'Mediodía', range: '8 – 12h', start: 480, end: 719 },
-            { id: 'b12', label: 'Tarde', range: '12 – 16h', start: 720, end: 959 },
-            { id: 'b16', label: 'Tarde-Noche', range: '16 – 20h', start: 960, end: 1199 },
-            { id: 'b20', label: 'Noche', range: '20 – 24h', start: 1200, end: 1439 },
-        ];
-
-        const blockTotals = blocks.map(b => ({
-            label: `${b.label} (${b.range})`,
-            t: rawData.reduce((acc, [day, time, cnt]) => {
-                const mins = toMins(time);
-                return (mins >= b.start && mins <= b.end) ? acc + cnt : acc;
-            }, 0)
+        const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+        const dayTotals = days.map(d => ({
+            d,
+            t: rawData.filter(r => r[0] === d).reduce((s, r) => s + r[2], 0)
         }));
 
-        const maxBT = Math.max(...blockTotals.map(x => x.t));
-        const blockColors = ['#4b5563', '#4b5563', '#4b5563', '#2563eb', '#f97316', '#dc2626'];
-        const barBlock = document.getElementById('bar-block');
+        const maxDT = Math.max(...dayTotals.map(x => x.t));
+        const dayColors = ['#1d4ed8', '#7c3aed', '#dc2626', '#f97316', '#16a34a', '#0891b2', '#E65C5C'];
+        const barDay = document.getElementById('bar-day');
 
-        blockTotals.forEach(({ label, t }, i) => {
-            const pct = (t / Math.max(maxBT, 1) * 100).toFixed(1);
-            barBlock.innerHTML += `<div class="bar-row">
-                <span class="bar-lbl">${label}</span>
-                <div class="bar-track"><div class="bar-fill" style="width:0%;background:${blockColors[i]}">${t > 0 ? t + ' partidos' : '0'}</div></div>
+        dayTotals.forEach(({ d, t }, i) => {
+            const pct = (t / maxDT * 100).toFixed(1);
+            barDay.innerHTML += `<div class="bar-row">
+                <span class="bar-lbl">${d}</span>
+                <div class="bar-track"><div class="bar-fill" style="width:0%;background:${dayColors[i]}">${t} partidos</div></div>
             </div>`;
         });
 
         // Trigger animation
         setTimeout(() => {
             const fills = document.querySelectorAll('.bar-fill');
-            blockTotals.forEach((data, i) => {
-                fills[i].style.width = (data.t / Math.max(maxBT, 1) * 100).toFixed(1) + '%';
+            dayTotals.forEach((data, i) => {
+                fills[i].style.width = (data.t / maxDT * 100).toFixed(1) + '%';
             });
         }, 100);
     </script>
