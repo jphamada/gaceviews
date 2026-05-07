@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mundial 2026 — Partidos por Día</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: #080c18;
+            color: #e8eaf0;
+            min-height: 100vh;
+            padding: 36px 24px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 44px;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #3b82f6, #6366f1, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 6px;
+            letter-spacing: 0.4px;
+        }
+
+        header p {
+            color: #6b7280;
+            font-size: 0.87rem;
+        }
+
+        .chart-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #e8eaf0;
+            margin-bottom: 24px;
+            letter-spacing: 0.5px;
+        }
+
+        .bar-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .bar-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .bar-lbl {
+            width: 100px;
+            text-align: right;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #9ca3af;
+            flex-shrink: 0;
+        }
+
+        .bar-track {
+            flex: 1;
+            background: #1a2035;
+            border-radius: 6px;
+            height: 32px;
+            overflow: hidden;
+            border: 1px solid #1e2d47;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            padding: 0 14px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: #fff;
+            white-space: nowrap;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 24px 16px;
+            }
+
+            header h1 {
+                font-size: 1.6rem;
+            }
+
+            .bar-lbl {
+                width: 80px;
+                font-size: 0.75rem;
+            }
+
+            .bar-track {
+                height: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+    <div class="chart-wrapper">
+        <p class="section-title">Total de partidos por día</p>
+        <div id="bar-day" class="bar-grid"></div>
+    </div>
+
+    <script>
+        const rawData = [
+            ['Domingo', '1:00 a.m.', 2], ['Domingo', '1:00 p.m.', 1], ['Domingo', '2:00 p.m.', 1],
+            ['Domingo', '4:00 p.m.', 2], ['Domingo', '5:00 p.m.', 1], ['Domingo', '7:00 p.m.', 1],
+            ['Domingo', '8:00 p.m.', 1], ['Domingo', '10:00 p.m.', 1], ['Domingo', '11:00 p.m.', 1],
+            ['Lunes', '1:00 p.m.', 1], ['Lunes', '2:00 p.m.', 2], ['Lunes', '4:00 p.m.', 1],
+            ['Lunes', '5:30 p.m.', 1], ['Lunes', '6:00 p.m.', 1], ['Lunes', '7:00 p.m.', 1],
+            ['Lunes', '9:00 p.m.', 1], ['Lunes', '10:00 p.m.', 2],
+            ['Martes', '12:00 a.m.', 1], ['Martes', '2:00 p.m.', 2], ['Martes', '4:00 p.m.', 1],
+            ['Martes', '5:00 p.m.', 1], ['Martes', '6:00 p.m.', 1], ['Martes', '7:00 p.m.', 1],
+            ['Martes', '8:00 p.m.', 1], ['Martes', '10:00 p.m.', 2], ['Martes', '11:00 p.m.', 1],
+            ['Miércoles', '1:00 a.m.', 1], ['Miércoles', '1:00 p.m.', 1], ['Miércoles', '2:00 p.m.', 1],
+            ['Miércoles', '4:00 p.m.', 2], ['Miércoles', '5:00 p.m.', 2], ['Miércoles', '7:00 p.m.', 2],
+            ['Miércoles', '8:00 p.m.', 1], ['Miércoles', '9:00 p.m.', 1], ['Miércoles', '10:00 p.m.', 2],
+            ['Miércoles', '11:00 p.m.', 1],
+            ['Jueves', '1:00 p.m.', 1], ['Jueves', '4:00 p.m.', 3], ['Jueves', '5:00 p.m.', 2],
+            ['Jueves', '7:00 p.m.', 1], ['Jueves', '8:00 p.m.', 3], ['Jueves', '10:00 p.m.', 1],
+            ['Jueves', '11:00 p.m.', 3],
+            ['Viernes', '12:00 a.m.', 1], ['Viernes', '3:00 p.m.', 1], ['Viernes', '4:00 p.m.', 4],
+            ['Viernes', '7:00 p.m.', 2], ['Viernes', '9:00 p.m.', 2], ['Viernes', '9:30 p.m.', 1],
+            ['Viernes', '10:00 p.m.', 1],
+        ];
+
+        const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
+        const dayTotals = days.map(d => ({
+            d,
+            t: rawData.filter(r => r[0] === d).reduce((s, r) => s + r[2], 0)
+        }));
+
+        const maxDT = Math.max(...dayTotals.map(x => x.t));
+        const dayColors = ['#1d4ed8', '#7c3aed', '#dc2626', '#f97316', '#16a34a', '#0891b2'];
+        const barDay = document.getElementById('bar-day');
+
+        dayTotals.forEach(({ d, t }, i) => {
+            const pct = (t / maxDT * 100).toFixed(1);
+            barDay.innerHTML += `<div class="bar-row">
+                <span class="bar-lbl">${d}</span>
+                <div class="bar-track"><div class="bar-fill" style="width:0%;background:${dayColors[i]}">${t} partidos</div></div>
+            </div>`;
+        });
+
+        // Trigger animation
+        setTimeout(() => {
+            const fills = document.querySelectorAll('.bar-fill');
+            dayTotals.forEach((data, i) => {
+                fills[i].style.width = (data.t / maxDT * 100).toFixed(1) + '%';
+            });
+        }, 100);
+    </script>
+
+</body>
+
+</html>

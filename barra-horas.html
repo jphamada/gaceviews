@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mundial 2026 — Partidos por Bloque Horario</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: #080c18;
+            color: #e8eaf0;
+            min-height: 100vh;
+            padding: 36px 24px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 44px;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #f59e0b, #ef4444, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 6px;
+            letter-spacing: 0.4px;
+        }
+
+        header p {
+            color: #6b7280;
+            font-size: 0.87rem;
+        }
+
+        .chart-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #e8eaf0;
+            margin-bottom: 24px;
+            letter-spacing: 0.5px;
+        }
+
+        .bar-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .bar-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .bar-lbl {
+            width: 130px;
+            text-align: right;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #9ca3af;
+            flex-shrink: 0;
+            line-height: 1.2;
+        }
+
+        .bar-track {
+            flex: 1;
+            background: #1a2035;
+            border-radius: 6px;
+            height: 32px;
+            overflow: hidden;
+            border: 1px solid #1e2d47;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            padding: 0 14px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: #fff;
+            white-space: nowrap;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 24px 16px;
+            }
+
+            header h1 {
+                font-size: 1.6rem;
+            }
+
+            .bar-lbl {
+                width: 100px;
+                font-size: 0.7rem;
+            }
+
+            .bar-track {
+                height: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+    <div class="chart-wrapper">
+        <p class="section-title">Total de partidos por bloque horario</p>
+        <div id="bar-block" class="bar-grid"></div>
+    </div>
+
+    <script>
+        const rawData = [
+            ['Domingo', '1:00 a.m.', 2], ['Domingo', '1:00 p.m.', 1], ['Domingo', '2:00 p.m.', 1],
+            ['Domingo', '4:00 p.m.', 2], ['Domingo', '5:00 p.m.', 1], ['Domingo', '7:00 p.m.', 1],
+            ['Domingo', '8:00 p.m.', 1], ['Domingo', '10:00 p.m.', 1], ['Domingo', '11:00 p.m.', 1],
+            ['Lunes', '1:00 p.m.', 1], ['Lunes', '2:00 p.m.', 2], ['Lunes', '4:00 p.m.', 1],
+            ['Lunes', '5:30 p.m.', 1], ['Lunes', '6:00 p.m.', 1], ['Lunes', '7:00 p.m.', 1],
+            ['Lunes', '9:00 p.m.', 1], ['Lunes', '10:00 p.m.', 2],
+            ['Martes', '12:00 a.m.', 1], ['Martes', '2:00 p.m.', 2], ['Martes', '4:00 p.m.', 1],
+            ['Martes', '5:00 p.m.', 1], ['Martes', '6:00 p.m.', 1], ['Martes', '7:00 p.m.', 1],
+            ['Martes', '8:00 p.m.', 1], ['Martes', '10:00 p.m.', 2], ['Martes', '11:00 p.m.', 1],
+            ['Miércoles', '1:00 a.m.', 1], ['Miércoles', '1:00 p.m.', 1], ['Miércoles', '2:00 p.m.', 1],
+            ['Miércoles', '4:00 p.m.', 2], ['Miércoles', '5:00 p.m.', 2], ['Miércoles', '7:00 p.m.', 2],
+            ['Miércoles', '8:00 p.m.', 1], ['Miércoles', '9:00 p.m.', 1], ['Miércoles', '10:00 p.m.', 2],
+            ['Miércoles', '11:00 p.m.', 1],
+            ['Jueves', '1:00 p.m.', 1], ['Jueves', '4:00 p.m.', 3], ['Jueves', '5:00 p.m.', 2],
+            ['Jueves', '7:00 p.m.', 1], ['Jueves', '8:00 p.m.', 3], ['Jueves', '10:00 p.m.', 1],
+            ['Jueves', '11:00 p.m.', 3],
+            ['Viernes', '12:00 a.m.', 1], ['Viernes', '3:00 p.m.', 1], ['Viernes', '4:00 p.m.', 4],
+            ['Viernes', '7:00 p.m.', 2], ['Viernes', '9:00 p.m.', 2], ['Viernes', '9:30 p.m.', 1],
+            ['Viernes', '10:00 p.m.', 1],
+        ];
+
+        function toMins(t) {
+            const m = t.match(/(\d+):(\d+)\s*(a\.m\.|p\.m\.)/i);
+            if (!m) return 0;
+            let h = parseInt(m[1]), min = parseInt(m[2]);
+            const ap = m[3].replace(/\./g, '').toLowerCase();
+            if (ap === 'am') { if (h === 12) h = 0; }
+            else { if (h !== 12) h += 12; }
+            return h * 60 + min;
+        }
+
+        const blocks = [
+            { id: 'b0', label: 'Madrugada', range: '0 – 4h', start: 0, end: 239 },
+            { id: 'b4', label: 'Mañana', range: '4 – 8h', start: 240, end: 479 },
+            { id: 'b8', label: 'Mediodía', range: '8 – 12h', start: 480, end: 719 },
+            { id: 'b12', label: 'Tarde', range: '12 – 16h', start: 720, end: 959 },
+            { id: 'b16', label: 'Tarde-Noche', range: '16 – 20h', start: 960, end: 1199 },
+            { id: 'b20', label: 'Noche', range: '20 – 24h', start: 1200, end: 1439 },
+        ];
+
+        const blockTotals = blocks.map(b => ({
+            label: `${b.label} (${b.range})`,
+            t: rawData.reduce((acc, [day, time, cnt]) => {
+                const mins = toMins(time);
+                return (mins >= b.start && mins <= b.end) ? acc + cnt : acc;
+            }, 0)
+        }));
+
+        const maxBT = Math.max(...blockTotals.map(x => x.t));
+        const blockColors = ['#4b5563', '#4b5563', '#4b5563', '#2563eb', '#f97316', '#dc2626'];
+        const barBlock = document.getElementById('bar-block');
+
+        blockTotals.forEach(({ label, t }, i) => {
+            const pct = (t / Math.max(maxBT, 1) * 100).toFixed(1);
+            barBlock.innerHTML += `<div class="bar-row">
+                <span class="bar-lbl">${label}</span>
+                <div class="bar-track"><div class="bar-fill" style="width:0%;background:${blockColors[i]}">${t > 0 ? t + ' partidos' : '0'}</div></div>
+            </div>`;
+        });
+
+        // Trigger animation
+        setTimeout(() => {
+            const fills = document.querySelectorAll('.bar-fill');
+            blockTotals.forEach((data, i) => {
+                fills[i].style.width = (data.t / Math.max(maxBT, 1) * 100).toFixed(1) + '%';
+            });
+        }, 100);
+    </script>
+
+</body>
+
+</html>
