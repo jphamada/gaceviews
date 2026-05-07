@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mundial 2026 — Mapa de Calor</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #080c18;
+      color: #e8eaf0;
+      min-height: 100vh;
+      padding: 36px 24px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 44px;
+    }
+    header h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #f97316, #ef4444, #f97316);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 6px;
+      letter-spacing: 0.4px;
+    }
+    header p { color: #6b7280; font-size: 0.87rem; }
+
+    .chart-wrapper { max-width: 880px; margin: 0 auto; }
+
+    /* ── Heatmap grid ── */
+    .heatmap {
+      display: grid;
+      grid-template-columns: 120px repeat(6, 1fr);
+      gap: 6px;
+    }
+
+    /* Corner */
+    .corner { min-height: 0; }
+
+    /* Column headers */
+    .col-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding-bottom: 10px;
+      gap: 2px;
+    }
+    .col-header .abbr {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #e8eaf0;
+    }
+    .col-header .full {
+      font-size: 0.7rem;
+      color: #6b7280;
+      font-weight: 500;
+    }
+
+    /* Row headers */
+    .row-header {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-end;
+      padding-right: 12px;
+      gap: 3px;
+      min-height: 80px;
+    }
+    .row-header .block-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #c4c9d8;
+      text-align: right;
+    }
+    .row-header .block-time {
+      font-size: 0.67rem;
+      color: #4b5563;
+      text-align: right;
+    }
+
+    /* Data cells */
+    .data-cell {
+      border-radius: 10px;
+      min-height: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: default;
+      transition: transform 0.14s, box-shadow 0.14s;
+      position: relative;
+      gap: 3px;
+    }
+    .data-cell:hover { transform: scale(1.06); z-index: 10; }
+
+    .data-cell .count {
+      font-size: 1.7rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .data-cell .pts {
+      font-size: 0.62rem;
+      font-weight: 600;
+      opacity: 0.75;
+      letter-spacing: 0.3px;
+    }
+
+    /* Color scale — 7 levels */
+    .h0 { background: #10141f; color: #2d3548; }
+    .h1 { background: #1e3a5f; color: #fff; }
+    .h2 { background: #1a56a0; color: #fff; }
+    .h3 { background: #6d28d9; color: #fff; }
+    .h4 { background: #b91c1c; color: #fff; }
+    .h5 { background: #ea580c; color: #fff; box-shadow: 0 0 16px 2px rgba(234,88,12,0.35); }
+    .h6 { background: #f97316; color: #fff; box-shadow: 0 0 22px 4px rgba(249,115,22,0.5); }
+    .h7 { background: linear-gradient(135deg,#f97316,#fbbf24); color: #1a0a00; box-shadow: 0 0 28px 6px rgba(251,191,36,0.55); }
+
+    /* Tooltip */
+    .data-cell[data-tip]::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1f2937;
+      color: #f3f4f6;
+      font-size: 0.73rem;
+      padding: 5px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.13s;
+      z-index: 30;
+      border: 1px solid #374151;
+    }
+    .data-cell:hover[data-tip]::after { opacity: 1; }
+
+    /* ── Legend ── */
+    .legend {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+    .legend-label { font-size: 0.75rem; color: #6b7280; }
+    .legend-row { display: flex; gap: 4px; align-items: center; }
+    .ls {
+      width: 30px;
+      height: 18px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.64rem;
+      font-weight: 700;
+    }
+
+    /* ── Stats ── */
+    .stats {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+    .stat-card {
+      background: #111827;
+      border: 1px solid #1e2d47;
+      border-radius: 10px;
+      padding: 14px 20px;
+      text-align: center;
+      min-width: 120px;
+    }
+    .stat-card .v { font-size: 1.8rem; font-weight: 900; color: #f97316; }
+    .stat-card .d { font-size: 0.7rem; color: #6b7280; margin-top: 4px; line-height: 1.3; }
+
+    /* ── Bar chart ── */
+    .section-title {
+      text-align: center;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #9ca3af;
+      margin: 36px 0 14px;
+      letter-spacing: 0.3px;
+    }
+    .bar-grid {
+      max-width: 700px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .bar-row { display: flex; align-items: center; gap: 10px; }
+    .bar-lbl { width: 110px; text-align: right; font-size: 0.74rem; color: #9ca3af; flex-shrink: 0; }
+    .bar-track { flex: 1; background: #1a2035; border-radius: 5px; height: 24px; overflow: hidden; }
+    .bar-fill {
+      height: 100%;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      font-size: 0.73rem;
+      font-weight: 700;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>⚽ FIFA World Cup 2026</h1>
+  <p>Partidos agrupados por bloques de 4 horas · Concentración por día y franja</p>
+</header>
+
+<div class="chart-wrapper">
+  <div id="heatmap" class="heatmap"></div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <span class="legend-label">Sin partidos</span>
+    <div class="legend-row">
+      <div class="ls h0" style="color:#4b5563">0</div>
+      <div class="ls h1">1–2</div>
+      <div class="ls h2">3</div>
+      <div class="ls h3">4</div>
+      <div class="ls h4">5</div>
+      <div class="ls h5">6</div>
+      <div class="ls h6">7</div>
+      <div class="ls h7" style="color:#1a0a00">8+</div>
+    </div>
+    <span class="legend-label">Máxima concentración</span>
+  </div>
+
+  <div id="stats" class="stats"></div>
+
+  <p class="section-title">Total de partidos por día</p>
+  <div id="bar-day" class="bar-grid"></div>
+
+  <p class="section-title">Total de partidos por bloque horario</p>
+  <div id="bar-block" class="bar-grid"></div>
+</div>
+
+<script>
+const rawData = [
+  ['Domingo','1:00 a.m.',2],['Domingo','1:00 p.m.',1],['Domingo','2:00 p.m.',1],
+  ['Domingo','4:00 p.m.',2],['Domingo','5:00 p.m.',1],['Domingo','7:00 p.m.',1],
+  ['Domingo','8:00 p.m.',1],['Domingo','10:00 p.m.',1],['Domingo','11:00 p.m.',1],
+
+  ['Lunes','1:00 p.m.',1],['Lunes','2:00 p.m.',2],['Lunes','4:00 p.m.',1],
+  ['Lunes','5:30 p.m.',1],['Lunes','6:00 p.m.',1],['Lunes','7:00 p.m.',1],
+  ['Lunes','9:00 p.m.',1],['Lunes','10:00 p.m.',2],
+
+  ['Martes','12:00 a.m.',1],['Martes','2:00 p.m.',2],['Martes','4:00 p.m.',1],
+  ['Martes','5:00 p.m.',1],['Martes','6:00 p.m.',1],['Martes','7:00 p.m.',1],
+  ['Martes','8:00 p.m.',1],['Martes','10:00 p.m.',2],['Martes','11:00 p.m.',1],
+
+  ['Miércoles','1:00 a.m.',1],['Miércoles','1:00 p.m.',1],['Miércoles','2:00 p.m.',1],
+  ['Miércoles','4:00 p.m.',2],['Miércoles','5:00 p.m.',2],['Miércoles','7:00 p.m.',2],
+  ['Miércoles','8:00 p.m.',1],['Miércoles','9:00 p.m.',1],['Miércoles','10:00 p.m.',2],
+  ['Miércoles','11:00 p.m.',1],
+
+  ['Jueves','1:00 p.m.',1],['Jueves','4:00 p.m.',3],['Jueves','5:00 p.m.',2],
+  ['Jueves','7:00 p.m.',1],['Jueves','8:00 p.m.',3],['Jueves','10:00 p.m.',1],
+  ['Jueves','11:00 p.m.',3],
+
+  ['Viernes','12:00 a.m.',1],['Viernes','3:00 p.m.',1],['Viernes','4:00 p.m.',4],
+  ['Viernes','7:00 p.m.',2],['Viernes','9:00 p.m.',2],['Viernes','9:30 p.m.',1],
+  ['Viernes','10:00 p.m.',1],
+];
+
+// Convert time string → minutes from midnight
+function toMins(t) {
+  const m = t.match(/(\d+):(\d+)\s*(a\.m\.|p\.m\.)/i);
+  if (!m) return 0;
+  let h = parseInt(m[1]), min = parseInt(m[2]);
+  const ap = m[3].replace(/\./g,'').toLowerCase();
+  if (ap === 'am') { if (h === 12) h = 0; }
+  else { if (h !== 12) h += 12; }
+  return h * 60 + min;
+}
+
+// 4-hour blocks
+const blocks = [
+  { id: 'b0',  label: 'Madrugada', range: '0 – 4h',  start: 0,   end: 239  },
+  { id: 'b4',  label: 'Mañana',    range: '4 – 8h',  start: 240, end: 479  },
+  { id: 'b8',  label: 'Mediodía',  range: '8 – 12h', start: 480, end: 719  },
+  { id: 'b12', label: 'Tarde',     range: '12 – 16h',start: 720, end: 959  },
+  { id: 'b16', label: 'Tarde-Noche',range:'16 – 20h',start: 960, end: 1199 },
+  { id: 'b20', label: 'Noche',     range: '20 – 24h',start: 1200,end: 1439 },
+];
+
+const days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes'];
+const dayAbbr = ['DOM','LUN','MAR','MIÉ','JUE','VIE'];
+
+// Build matrix: block × day → count
+const matrix = {};
+for (const b of blocks) {
+  matrix[b.id] = {};
+  for (const d of days) matrix[b.id][d] = 0;
+}
+
+for (const [day, time, cnt] of rawData) {
+  const mins = toMins(time);
+  for (const b of blocks) {
+    if (mins >= b.start && mins <= b.end) {
+      matrix[b.id][day] += cnt;
+      break;
+    }
+  }
+}
+
+// Max value for color scale
+const allVals = blocks.flatMap(b => days.map(d => matrix[b.id][d]));
+const maxVal = Math.max(...allVals);
+
+function heatClass(v) {
+  if (v === 0) return 'h0';
+  if (v <= 2)  return 'h1';
+  if (v === 3) return 'h2';
+  if (v === 4) return 'h3';
+  if (v === 5) return 'h4';
+  if (v === 6) return 'h5';
+  if (v === 7) return 'h6';
+  return 'h7';
+}
+
+// ── Render heatmap ──
+const grid = document.getElementById('heatmap');
+
+// Corner + col headers
+grid.appendChild(Object.assign(document.createElement('div'), { className: 'corner' }));
+days.forEach((day, i) => {
+  const h = document.createElement('div');
+  h.className = 'col-header';
+  h.innerHTML = `<span class="abbr">${dayAbbr[i]}</span><span class="full">${day}</span>`;
+  grid.appendChild(h);
+});
+
+// Rows
+for (const b of blocks) {
+  // Row header
+  const rh = document.createElement('div');
+  rh.className = 'row-header';
+  rh.innerHTML = `<span class="block-label">${b.label}</span><span class="block-time">${b.range}</span>`;
+  grid.appendChild(rh);
+
+  // Data cells
+  for (const day of days) {
+    const v = matrix[b.id][day];
+    const cell = document.createElement('div');
+    cell.className = `data-cell ${heatClass(v)}`;
+    if (v > 0) {
+      cell.innerHTML = `<span class="count">${v}</span><span class="pts">${v === 1 ? 'partido' : 'partidos'}</span>`;
+      cell.setAttribute('data-tip', `${day} · ${b.label} (${b.range}): ${v} ${v===1?'partido':'partidos'}`);
+    }
+    grid.appendChild(cell);
+  }
+}
+
+// ── Stats ──
+const totalPartidos = rawData.reduce((s,[,,c])=>s+c,0);
+const peakBlock = blocks.map(b => ({
+  b, total: days.reduce((s,d)=>s+matrix[b.id][d],0)
+})).sort((a,z)=>z.total-a.total)[0];
+const peakDay = days.map(d => ({
+  d, total: blocks.reduce((s,b)=>s+matrix[b.id][d],0)
+})).sort((a,z)=>z.total-a.total)[0];
+
+const statsData = [
+  { v: totalPartidos, d: 'Partidos totales' },
+  { v: rawData.length, d: 'Franjas horarias distintas' },
+  { v: peakDay.total, d: `Día más intenso\n${peakDay.d}` },
+  { v: peakBlock.total, d: `Bloque más cargado\n${peakBlock.b.label} (${peakBlock.b.range})` },
+];
+
+const statsEl = document.getElementById('stats');
+statsData.forEach(s => {
+  statsEl.innerHTML += `<div class="stat-card"><div class="v">${s.v}</div><div class="d">${s.d}</div></div>`;
+});
+
+// ── Bar by day ──
+const dayTotals = days.map(d => ({ d, t: blocks.reduce((s,b)=>s+matrix[b.id][d],0) }));
+const maxDT = Math.max(...dayTotals.map(x=>x.t));
+const dayColors = ['#1d4ed8','#7c3aed','#dc2626','#f97316','#16a34a','#0891b2'];
+const barDay = document.getElementById('bar-day');
+dayTotals.forEach(({d,t},i) => {
+  const pct = (t/maxDT*100).toFixed(1);
+  barDay.innerHTML += `<div class="bar-row">
+    <span class="bar-lbl">${d}</span>
+    <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${dayColors[i]}">${t} partidos</div></div>
+  </div>`;
+});
+
+// ── Bar by block ──
+const blockTotals = blocks.map(b => ({ label: `${b.label} (${b.range})`, t: days.reduce((s,d)=>s+matrix[b.id][d],0) }));
+const maxBT = Math.max(...blockTotals.map(x=>x.t));
+const blockColors = ['#374151','#374151','#374151','#1d4ed8','#f97316','#ef4444'];
+const barBlock = document.getElementById('bar-block');
+blockTotals.forEach(({label,t},i) => {
+  const pct = (t/Math.max(maxBT,1)*100).toFixed(1);
+  barBlock.innerHTML += `<div class="bar-row">
+    <span class="bar-lbl">${label}</span>
+    <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${blockColors[i]}">${t > 0 ? t+' partidos' : '0'}</div></div>
+  </div>`;
+});
+</script>
+
+</body>
+</html>
