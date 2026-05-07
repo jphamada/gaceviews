@@ -130,36 +130,11 @@
     </div>
 
     <script>
-        const rawData = [
-            ['Domingo', '1:00 a.m.', 2], ['Domingo', '1:00 p.m.', 1], ['Domingo', '2:00 p.m.', 1],
-            ['Domingo', '4:00 p.m.', 2], ['Domingo', '5:00 p.m.', 1], ['Domingo', '7:00 p.m.', 1],
-            ['Domingo', '8:00 p.m.', 1], ['Domingo', '10:00 p.m.', 1], ['Domingo', '11:00 p.m.', 1],
-            ['Lunes', '1:00 p.m.', 1], ['Lunes', '2:00 p.m.', 2], ['Lunes', '4:00 p.m.', 1],
-            ['Lunes', '5:30 p.m.', 1], ['Lunes', '6:00 p.m.', 1], ['Lunes', '7:00 p.m.', 1],
-            ['Lunes', '9:00 p.m.', 1], ['Lunes', '10:00 p.m.', 2],
-            ['Martes', '12:00 a.m.', 1], ['Martes', '2:00 p.m.', 2], ['Martes', '4:00 p.m.', 1],
-            ['Martes', '5:00 p.m.', 1], ['Martes', '6:00 p.m.', 1], ['Martes', '7:00 p.m.', 1],
-            ['Martes', '8:00 p.m.', 1], ['Martes', '10:00 p.m.', 2], ['Martes', '11:00 p.m.', 1],
-            ['Miércoles', '1:00 a.m.', 1], ['Miércoles', '1:00 p.m.', 1], ['Miércoles', '2:00 p.m.', 1],
-            ['Miércoles', '4:00 p.m.', 2], ['Miércoles', '5:00 p.m.', 2], ['Miércoles', '7:00 p.m.', 2],
-            ['Miércoles', '8:00 p.m.', 1], ['Miércoles', '9:00 p.m.', 1], ['Miércoles', '10:00 p.m.', 2],
-            ['Miércoles', '11:00 p.m.', 1],
-            ['Jueves', '1:00 p.m.', 1], ['Jueves', '4:00 p.m.', 3], ['Jueves', '5:00 p.m.', 2],
-            ['Jueves', '7:00 p.m.', 1], ['Jueves', '8:00 p.m.', 3], ['Jueves', '10:00 p.m.', 1],
-            ['Jueves', '11:00 p.m.', 3],
-            ['Viernes', '12:00 a.m.', 1], ['Viernes', '3:00 p.m.', 1], ['Viernes', '4:00 p.m.', 4],
-            ['Viernes', '7:00 p.m.', 2], ['Viernes', '9:00 p.m.', 2], ['Viernes', '9:30 p.m.', 1],
-            ['Viernes', '10:00 p.m.', 1],
-        ];
+        const rawData = [['Jueves', '16:00', 1], ['Jueves', '23:00', 1], ['Viernes', '16:00', 1], ['Viernes', '22:00', 1], ['Sábado', '16:00', 1], ['Sábado', '19:00', 1], ['Sábado', '22:00', 1], ['Sábado', '01:00', 1], ['Domingo', '14:00', 1], ['Domingo', '17:00', 1], ['Domingo', '20:00', 1], ['Domingo', '23:00', 1], ['Lunes', '13:00', 1], ['Lunes', '16:00', 1], ['Lunes', '19:00', 1], ['Lunes', '22:00', 1], ['Martes', '16:00', 1], ['Martes', '19:00', 1], ['Martes', '22:00', 1], ['Martes', '01:00', 1], ['Miércoles', '14:00', 1], ['Miércoles', '17:00', 1], ['Miércoles', '20:00', 1], ['Miércoles', '23:00', 1], ['Jueves', '13:00', 1], ['Jueves', '16:00', 1], ['Jueves', '19:00', 1], ['Jueves', '22:00', 1], ['Viernes', '16:00', 1], ['Viernes', '19:00', 1], ['Viernes', '22:00', 1], ['Viernes', '01:00', 1], ['Sábado', '14:00', 1], ['Sábado', '17:00', 1], ['Sábado', '23:00', 1], ['Sábado', '01:00', 1], ['Domingo', '13:00', 1], ['Domingo', '16:00', 1], ['Domingo', '19:00', 1], ['Domingo', '22:00', 1], ['Lunes', '14:00', 1], ['Lunes', '18:00', 1], ['Lunes', '21:00', 1], ['Martes', '00:00', 1], ['Martes', '14:00', 1], ['Martes', '17:00', 1], ['Martes', '20:00', 1], ['Martes', '23:00', 1], ['Miércoles', '16:00', 1], ['Miércoles', '16:00', 1], ['Miércoles', '19:00', 1], ['Miércoles', '19:00', 1], ['Miércoles', '22:00', 1], ['Miércoles', '22:00', 1], ['Jueves', '17:00', 1], ['Jueves', '17:00', 1], ['Jueves', '20:00', 1], ['Jueves', '20:00', 1], ['Jueves', '23:00', 1], ['Jueves', '23:00', 1], ['Viernes', '16:00', 1], ['Viernes', '16:00', 1], ['Viernes', '21:00', 1], ['Viernes', '21:00', 1], ['Sábado', '00:00', 1], ['Sábado', '00:00', 1], ['Sábado', '18:00', 1], ['Sábado', '18:00', 1], ['Sábado', '20:30', 1], ['Sábado', '20:30', 1], ['Sábado', '23:00', 1], ['Sábado', '23:00', 1]];
 
         function toMins(t) {
-            const m = t.match(/(\d+):(\d+)\s*(a\.m\.|p\.m\.)/i);
-            if (!m) return 0;
-            let h = parseInt(m[1]), min = parseInt(m[2]);
-            const ap = m[3].replace(/\./g, '').toLowerCase();
-            if (ap === 'am') { if (h === 12) h = 0; }
-            else { if (h !== 12) h += 12; }
-            return h * 60 + min;
+            const [h, m] = t.split(':').map(Number);
+            return h * 60 + m;
         }
 
         const blocks = [
