@@ -241,18 +241,21 @@ sorteoForm.addEventListener("submit", async (e) => {
             body: JSON.stringify({ nombre, email, telefono })
         });
 
+        if (!response.ok) {
+            console.error("Error en la respuesta del servidor:", response.status);
+            alert("Hubo un error al enviar tus datos. Por favor, intentá nuevamente.");
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+            return;
+        }
+
         const data = await response.json();
 
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
+        sorteoForm.reset();
+        showScreen(successScreen);
 
-        if (!response.ok) {
-            console.error("Error al guardar datos:", data.error);
-            alert("Hubo un error al enviar tus datos. Por favor, intentá nuevamente.");
-        } else {
-            sorteoForm.reset();
-            showScreen(successScreen);
-        }
     } catch (error) {
         console.error("Error de red:", error);
         submitBtn.textContent = originalText;
