@@ -91,9 +91,6 @@ const questions = [
     }
 ];
 
-const supabaseUrl = 'https://cjpgerlpvdhuleirrxgf.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqcGdlcmxwdmRodWxlaXJyeGdmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1MDc1NzEsImV4cCI6MjA5NDA4MzU3MX0.p8M0J1h72JBAOtZFiXotMazd3QApvWC-zQ2B7TM73Ww';
-const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 const startScreen = document.getElementById("start-screen");
 const quizScreen = document.getElementById("quiz-screen");
@@ -235,20 +232,31 @@ sorteoForm.addEventListener("submit", async (e) => {
     const email = document.getElementById("email").value;
     const telefono = document.getElementById("telefono").value;
 
-    const { data, error } = await supabase
-        .from('participantes')
-        .insert([
-            { nombre: nombre, email: email, telefono: telefono }
-        ]);
+    try {
+        const response = await fetch('/api/sorteo', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ nombre, email, telefono })
+        });
 
-    submitBtn.textContent = originalText;
-    submitBtn.disabled = false;
+        const data = await response.json();
 
-    if (error) {
-        console.error("Error al guardar datos:", error);
-        alert("Hubo un error al enviar tus datos. Por favor, intentá nuevamente.");
-    } else {
-        sorteoForm.reset();
-        showScreen(successScreen);
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+
+        if (!response.ok) {
+            console.error("Error al guardar datos:", data.error);
+            alert("Hubo un error al enviar tus datos. Por favor, intentá nuevamente.");
+        } else {
+            sorteoForm.reset();
+            showScreen(successScreen);
+        }
+    } catch (error) {
+        console.error("Error de red:", error);
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+        alert("No se pudo conectar con el servidor. Por favor, intentá nuevamente.");
     }
 });

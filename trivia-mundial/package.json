@@ -1,0 +1,9 @@
+{
+  "name": "trivia-mundial",
+  "version": "1.0.0",
+  "description": "Trivia Mundial con sorteo LA GACETA",
+  "main": "script.js",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.42.0"
+  }
+}
