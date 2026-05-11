@@ -61,7 +61,7 @@ const questions = [
     },
     {
         image: "images/12.jpg",
-        question: "¿Qué selección europea ganó su primer Mundial en 2010?",
+        question: "¿Qué selección europea ganó su primer Mundial recién en 2010?",
         options: ["Países Bajos", "España", "Portugal", "Inglaterra"],
         correctIndex: 1,
     },
@@ -91,31 +91,43 @@ const questions = [
     }
 ];
 
+const supabaseUrl = 'https://cjpgerlpvdhuleirrxgf.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqcGdlcmxwdmRodWxlaXJyeGdmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1MDc1NzEsImV4cCI6MjA5NDA4MzU3MX0.p8M0J1h72JBAOtZFiXotMazd3QApvWC-zQ2B7TM73Ww';
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
 const startScreen = document.getElementById("start-screen");
 const quizScreen = document.getElementById("quiz-screen");
-const endScreen = document.getElementById("end-screen");
+const loseScreen = document.getElementById("lose-screen");
+const winScreen = document.getElementById("win-screen");
+const successScreen = document.getElementById("success-screen");
 const startButton = document.getElementById("start-button");
-const restartButton = document.getElementById("restart-button");
+const restartButtonLose = document.querySelector("#lose-screen #restart-button");
+const restartButtonSuccess = document.getElementById("restart-button-success");
 const questionText = document.getElementById("question-text");
 const optionsContainer = document.getElementById("options-container");
 const progressLabel = document.getElementById("progress-label");
 const progressFill = document.getElementById("progress-fill");
 const feedback = document.getElementById("feedback");
 const scoreChip = document.getElementById("score-chip");
-const finalScore = document.getElementById("final-score");
+const loseScore = document.getElementById("lose-score");
 const quizHeroImage = document.querySelector("#quiz-screen .hero-image img");
 const startHeroImage = document.querySelector("#start-screen .hero-image img");
-const endHeroImage = document.querySelector("#end-screen .hero-image img");
+const loseHeroImage = document.querySelector("#lose-screen .hero-image img");
+const winHeroImage = document.querySelector("#win-screen .hero-image img");
+const successHeroImage = document.querySelector("#success-screen .hero-image img");
+const sorteoForm = document.getElementById("sorteo-form");
 
 startHeroImage.src = "images/01.jpg";
-endHeroImage.src = "images/01.jpg";
+loseHeroImage.src = "images/01.jpg";
+winHeroImage.src = "images/01.jpg";
+successHeroImage.src = "images/01.jpg";
 
 let currentQuestionIndex = 0;
 let score = 0;
 let isLocked = false;
 
 function showScreen(screen) {
-    [startScreen, quizScreen, endScreen].forEach((section) => {
+    [startScreen, quizScreen, loseScreen, winScreen, successScreen].forEach((section) => {
         section.classList.remove("screen--active");
     });
     screen.classList.add("screen--active");
@@ -200,9 +212,43 @@ function handleAnswer(selectedIndex, selectedButton) {
 }
 
 function renderFinalScreen() {
-    finalScore.textContent = `Acertaste ${score} de ${questions.length} preguntas.`;
-    showScreen(endScreen);
+    if (score === questions.length) {
+        showScreen(winScreen);
+    } else {
+        loseScore.textContent = `Acertaste ${score} de ${questions.length} preguntas.`;
+        showScreen(loseScreen);
+    }
 }
 
 startButton.addEventListener("click", startGame);
-restartButton.addEventListener("click", startGame);
+restartButtonLose.addEventListener("click", startGame);
+restartButtonSuccess.addEventListener("click", startGame);
+
+sorteoForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const submitBtn = document.getElementById("submit-sorteo");
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = "Enviando...";
+    submitBtn.disabled = true;
+
+    const nombre = document.getElementById("nombre").value;
+    const email = document.getElementById("email").value;
+    const telefono = document.getElementById("telefono").value;
+
+    const { data, error } = await supabase
+        .from('participantes')
+        .insert([
+            { nombre: nombre, email: email, telefono: telefono }
+        ]);
+
+    submitBtn.textContent = originalText;
+    submitBtn.disabled = false;
+
+    if (error) {
+        console.error("Error al guardar datos:", error);
+        alert("Hubo un error al enviar tus datos. Por favor, intentá nuevamente.");
+    } else {
+        sorteoForm.reset();
+        showScreen(successScreen);
+    }
+});

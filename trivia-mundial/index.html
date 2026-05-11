@@ -22,7 +22,10 @@
                 <p class="eyebrow">Trivia interactiva</p>
                 <h1>¿Cuánto sabés de la historia de los Mundiales?</h1>
                 <p class="lead">
-                    Poné a prueba tus conocimientos. Te desafiamos con 16 preguntas para conocer tu nivel de fanatismo.
+                    Poné a prueba tus conocimientos. Te desafiamos con 15 preguntas para conocer tu nivel de
+                    fanatismo.<br><br>
+                    <strong>Si acertás todas las preguntas participás de un sorteo exclusivo de LA GACETA.
+                        ¡Participá!</strong>
                 </p>
                 <button class="primary-btn" id="start-button">Comenzar</button>
                 <p class="credits">Desarrollada por LA GACETA - 2026</p>
@@ -54,21 +57,65 @@
             </div>
         </section>
 
-        <section class="screen" id="end-screen">
+        <section class="screen" id="lose-screen">
             <div class="hero-image" aria-hidden="true">
                 <img src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?auto=format&fit=crop&w=900&q=80"
                     alt="" />
             </div>
             <div class="panel">
                 <p class="eyebrow">Resultado final</p>
-                <h2 id="final-title">Terminaste la trivia</h2>
-                <p class="final-score" id="final-score"></p>
-                <button class="primary-btn" id="restart-button">Jugar de nuevo</button>
+                <h2>Lo siento, no completaste de forma correcta todas las preguntas</h2>
+                <p class="final-score" id="lose-score"></p>
+                <button class="primary-btn" id="restart-button">Volver a participar</button>
+                <p class="credits">Desarrollada por LA GACETA - 2026</p>
+            </div>
+        </section>
+
+        <section class="screen" id="win-screen">
+            <div class="hero-image" aria-hidden="true">
+                <img src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?auto=format&fit=crop&w=900&q=80"
+                    alt="" />
+            </div>
+            <div class="panel">
+                <p class="eyebrow">¡Sorteo Exclusivo!</p>
+                <h2>Felicitaciones, respondiste todas las preguntas de forma correcta.</h2>
+                <p class="lead" style="margin-bottom: 15px;">Completá los datos para participar del sorteo.</p>
+
+                <form id="sorteo-form" class="sorteo-form">
+                    <div class="form-group">
+                        <label for="nombre">Nombre y apellido</label>
+                        <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre completo">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Mail</label>
+                        <input type="email" id="email" name="email" required placeholder="tu@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Teléfono</label>
+                        <input type="tel" id="telefono" name="telefono" required placeholder="Tu número">
+                    </div>
+                    <button type="submit" class="primary-btn" id="submit-sorteo">Enviar</button>
+                </form>
+                <p class="credits">Desarrollada por LA GACETA - 2026</p>
+            </div>
+        </section>
+
+        <section class="screen" id="success-screen">
+            <div class="hero-image" aria-hidden="true">
+                <img src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?auto=format&fit=crop&w=900&q=80"
+                    alt="" />
+            </div>
+            <div class="panel">
+                <p class="eyebrow">¡Éxito!</p>
+                <h2>¡Ya estás participando!</h2>
+                <p class="lead">Mucha suerte en el sorteo exclusivo de LA GACETA.</p>
+                <button class="primary-btn" id="restart-button-success">Volver a jugar</button>
                 <p class="credits">Desarrollada por LA GACETA - 2026</p>
             </div>
         </section>
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js"></script>
 </body>
 
