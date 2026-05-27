@@ -6,574 +6,630 @@
 */
 
 :root {
-  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  
-  /* Colores Minimalistas Claros */
-  --bg-page: #f8f9fa;
-  --bg-card: #ffffff;
-  --bg-expanded: #f9fafb;
-  
-  --border-light: #e5e7eb;
-  --border-focus: #2563eb;
-  
-  /* Colores de Barras (Planos y Sólidos) */
-  --color-high: #ef4444; /* Rojo plano */
-  --color-med: #f59e0b;  /* Ámbar plano */
-  --color-low: #10b981;  /* Verde plano */
-  --bar-track: #e5e7eb;
-  
-  /* Textos */
-  --text-main: #111827;      /* Negro Carbón */
-  --text-muted: #6b7280;     /* Gris Medio */
-  --text-light: #9ca3af;     /* Gris Claro */
-  
-  /* Botones y Acentos */
-  --accent-blue: #2563eb;
-  --btn-active-bg: #111827;
-  --btn-active-text: #ffffff;
-  
-  --transition-fast: all 0.2s ease-out;
-  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.02);
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+    /* Colores Minimalistas Claros */
+    --bg-page: #f8f9fa;
+    --bg-card: #ffffff;
+    --bg-expanded: #f9fafb;
+
+    --border-light: #e5e7eb;
+    --border-focus: #2563eb;
+
+    /* Colores de Barras (Planos y Sólidos) */
+    --color-high: #ef4444;
+    /* Rojo plano */
+    --color-med: #f59e0b;
+    /* Ámbar plano */
+    --color-low: #10b981;
+    /* Verde plano */
+    --bar-track: #e5e7eb;
+
+    /* Textos */
+    --text-main: #111827;
+    /* Negro Carbón */
+    --text-muted: #6b7280;
+    /* Gris Medio */
+    --text-light: #9ca3af;
+    /* Gris Claro */
+
+    /* Botones y Acentos */
+    --accent-blue: #2563eb;
+    --btn-active-bg: #111827;
+    --btn-active-text: #ffffff;
+
+    --transition-fast: all 0.2s ease-out;
+    --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.02);
 }
 
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-  background-color: var(--bg-page);
-  color: var(--text-main);
-  font-family: var(--font-family);
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
-  padding: 30px 15px;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    font-family: var(--font-family);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 30px 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* Contenedor Principal (Límite 800px responsivo) */
 .widget-container {
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 /* =========================================
-   CABECERA MINIMALISTA (Sin bordes ni fondos llamativos)
+   CABECERA OFICIAL FIFA (Vibrante y Premium)
    ========================================= */
-.widget-header {
-  text-align: left;
-  padding: 10px 5px;
+.fifa-header {
+    background-color: #1b4df8; /* Azul oficial de la FIFA */
+    color: #ffffff;
+    border-radius: 12px;
+    padding: 22px 26px;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    box-shadow: 0 4px 15px rgba(27, 77, 248, 0.12);
 }
 
-.widget-header h1 {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: var(--text-main);
-  letter-spacing: -0.5px;
-  line-height: 1.2;
+.fifa-logo {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
 }
 
-.subtitle {
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  margin-top: 6px;
-  font-weight: 400;
+.fifa-header-text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.fifa-title {
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+    line-height: 1.25;
+}
+
+.fifa-subtitle {
+    font-size: 0.92rem;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 400;
 }
 
 /* =========================================
    KPIs SUPERIORES (Estilo Tarjeta de Crédito/Partido)
    ========================================= */
 .stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
 }
 
 .stat-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-light);
-  border-radius: 8px;
-  padding: 12px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  box-shadow: var(--card-shadow);
-  transition: var(--transition-fast);
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    box-shadow: var(--card-shadow);
+    transition: var(--transition-fast);
 }
 
 .stat-card:hover {
-  border-color: #d1d5db;
+    border-color: #cbd5e1;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 .stat-label {
-  font-size: 0.68rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: var(--text-light);
-  letter-spacing: 0.5px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--text-light);
+    letter-spacing: 0.5px;
 }
 
 .stat-value {
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--text-main);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .stat-sub {
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  font-weight: 400;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 400;
 }
 
 /* =========================================
    CONTROLES: BÚSQUEDA Y ORDENAMIENTO
    ========================================= */
 .controls-area {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-light);
-  border-radius: 8px;
-  padding: 10px 14px;
-  box-shadow: var(--card-shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 10px 14px;
+    box-shadow: var(--card-shadow);
 }
 
 .search-box {
-  display: flex;
-  align-items: center;
-  background: #ffffff;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  padding: 0 10px;
-  height: 36px;
-  flex-grow: 1;
-  max-width: 320px;
-  position: relative;
-  transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    padding: 0 10px;
+    height: 36px;
+    flex-grow: 1;
+    max-width: 320px;
+    position: relative;
+    transition: var(--transition-fast);
 }
 
 .search-box:focus-within {
-  border-color: var(--border-focus);
-  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
 }
 
 .search-icon {
-  width: 16px;
-  height: 16px;
-  color: var(--text-muted);
-  margin-right: 6px;
-  flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    color: var(--text-muted);
+    margin-right: 6px;
+    flex-shrink: 0;
 }
 
 .search-box input {
-  background: none;
-  border: none;
-  outline: none;
-  color: var(--text-main);
-  font-family: var(--font-family);
-  font-size: 0.85rem;
-  width: 100%;
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--text-main);
+    font-family: var(--font-family);
+    font-size: 0.85rem;
+    width: 100%;
 }
 
 .search-box input::placeholder {
-  color: var(--text-light);
+    color: var(--text-light);
 }
 
 .clear-search-btn {
-  position: absolute;
-  right: 8px;
-  background: none;
-  border: none;
-  color: var(--text-light);
-  font-size: 1.1rem;
-  cursor: pointer;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
+    position: absolute;
+    right: 8px;
+    background: none;
+    border: none;
+    color: var(--text-light);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
 }
 
 .clear-search-btn:hover {
-  color: var(--text-main);
+    color: var(--text-main);
 }
 
 .sort-group {
-  display: flex;
-  gap: 6px;
+    display: flex;
+    gap: 6px;
 }
 
 .sort-btn {
-  background: #ffffff;
-  border: 1px solid #d1d5db;
-  color: var(--text-muted);
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-family: var(--font-family);
-  font-size: 0.8rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: var(--transition-fast);
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    color: var(--text-muted);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-family: var(--font-family);
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-fast);
 }
 
 .sort-btn:hover {
-  background: #f9fafb;
-  border-color: #9ca3af;
-  color: var(--text-main);
+    background: #f9fafb;
+    border-color: #9ca3af;
+    color: var(--text-main);
 }
 
 .sort-btn.active {
-  background: var(--btn-active-bg);
-  border-color: var(--btn-active-bg);
-  color: var(--btn-active-text);
-  font-weight: 600;
+    background: var(--btn-active-bg);
+    border-color: var(--btn-active-bg);
+    color: var(--btn-active-text);
+    font-weight: 600;
 }
 
 /* =========================================
    GRAFICO DE BARRAS (Natural, Sin scrolls)
    ========================================= */
 .chart-container {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
 /* Encabezados */
 .chart-header {
-  display: grid;
-  grid-template-columns: 35px 160px 1fr 90px;
-  gap: 16px;
-  padding: 6px 14px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  letter-spacing: 0.5px;
+    display: grid;
+    grid-template-columns: 35px 160px 1fr 90px;
+    gap: 16px;
+    padding: 6px 14px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
 }
 
 /* Lista de Filas sin restricción de altura (Para evitar que no se vea) */
 .chart-rows {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
 /* Fila Individual */
 .chart-row-wrapper {
-  background: var(--bg-card);
-  border: 1px solid var(--border-light);
-  border-radius: 6px;
-  box-shadow: var(--card-shadow);
-  transition: var(--transition-fast);
-  overflow: hidden;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    box-shadow: var(--card-shadow);
+    transition: var(--transition-fast);
+    overflow: hidden;
 }
 
 .chart-row-wrapper:hover {
-  border-color: #d1d5db;
-  transform: translateY(-1px);
+    border-color: #d1d5db;
+    transform: translateY(-1px);
 }
 
 .chart-row-wrapper.expanded {
-  border-color: #9ca3af;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-color: #9ca3af;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 /* Encabezado Fila */
 .chart-row-header {
-  display: grid;
-  grid-template-columns: 35px 160px 1fr 90px;
-  gap: 16px;
-  align-items: center;
-  padding: 10px 14px;
-  cursor: pointer;
-  user-select: none;
+    display: grid;
+    grid-template-columns: 35px 160px 1fr 90px;
+    gap: 16px;
+    align-items: center;
+    padding: 10px 14px;
+    cursor: pointer;
+    user-select: none;
 }
 
 .row-rank {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-muted);
 }
 
 .row-country-box {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
 }
 
 .country-flag {
-  width: 22px;
-  height: 15px;
-  object-fit: cover;
-  border-radius: 1px;
-  border: 1px solid rgba(0,0,0,0.08);
-  flex-shrink: 0;
+    width: 22px;
+    height: 15px;
+    object-fit: cover;
+    border-radius: 1px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    flex-shrink: 0;
 }
 
 .country-name {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-main);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .row-bar-container {
-  display: flex;
-  align-items: center;
-  width: 100%;
+    display: flex;
+    align-items: center;
+    width: 100%;
 }
 
 .bar-track {
-  width: 100%;
-  height: 8px;
-  background-color: var(--bar-track);
-  border-radius: 4px;
-  overflow: hidden;
+    width: 100%;
+    height: 8px;
+    background-color: var(--bar-track);
+    border-radius: 4px;
+    overflow: hidden;
 }
 
 .bar-fill {
-  height: 100%;
-  width: 0;
-  border-radius: 4px;
-  transition: width 1s cubic-bezier(0.1, 0.8, 0.2, 1);
+    height: 100%;
+    width: 0;
+    border-radius: 4px;
+    transition: width 1s cubic-bezier(0.1, 0.8, 0.2, 1);
 }
 
 .row-distance {
-  font-size: 0.85rem;
-  font-weight: 700;
-  text-align: right;
-  color: var(--text-main);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 5px;
 }
 
 .row-distance span {
-  font-size: 0.72rem;
-  font-weight: 400;
-  color: var(--text-muted);
-  margin-left: 1px;
+    font-size: 0.72rem;
+    font-weight: 400;
+    color: var(--text-muted);
 }
 
 /* =========================================
    DESGLOSE ACORDEÓN MINIMALISTA
    ========================================= */
 .trip-details-panel {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease-out;
-  background: var(--bg-expanded);
-  border-top: 1px solid transparent;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background: var(--bg-expanded);
+    border-top: 1px solid transparent;
 }
 
 .chart-row-wrapper.expanded .trip-details-panel {
-  max-height: 220px;
-  border-top: 1px solid var(--border-light);
+    max-height: 220px;
+    border-top: 1px solid var(--border-light);
 }
 
 .trip-details-content {
-  padding: 12px 14px 14px;
+    padding: 12px 14px 14px;
 }
 
 .trip-details-title {
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 8px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
 }
 
 .itinerary-list {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
 .itinerary-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 6px 10px;
-  background: #ffffff;
-  border: 1px solid var(--border-light);
-  border-radius: 4px;
-  font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 10px;
+    background: #ffffff;
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    font-size: 0.8rem;
 }
 
 .flight-route {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .city-pill {
-  font-weight: 500;
-  color: var(--text-main);
+    font-weight: 500;
+    color: var(--text-main);
 }
 
 .city-pill.base {
-  color: #c084fc; /* Tono morado suave para concentración */
-  font-weight: 600;
+    color: #c084fc;
+    /* Tono morado suave para concentración */
+    font-weight: 600;
 }
 
 body.light-theme .city-pill.base {
-  color: #7c3aed;
+    color: #7c3aed;
 }
 
 .flight-arrow {
-  color: var(--text-light);
-  font-size: 0.7rem;
+    color: var(--text-light);
+    font-size: 0.85rem;
+    display: inline-block;
+    transform: rotate(45deg);
+    line-height: 1;
 }
 
 .flight-distance {
-  font-weight: 600;
-  color: var(--text-main);
+    font-weight: 600;
+    color: var(--text-main);
 }
 
 /* Sede Local sin traslados */
 .flight-distance.zero {
-  color: var(--color-low);
-  background: #d1fae5;
-  font-size: 0.7rem;
-  padding: 1px 6px;
-  border-radius: 3px;
-  font-weight: 600;
+    color: var(--color-low);
+    background: #d1fae5;
+    font-size: 0.7rem;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-weight: 600;
 }
 
 /* =========================================
    FOOTER
    ========================================= */
 .widget-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 5px;
-  font-size: 0.78rem;
-  color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5px;
+    font-size: 0.78rem;
+    color: var(--text-muted);
 }
 
 .instructions {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .pulse-dot {
-  width: 6px;
-  height: 6px;
-  background-color: var(--color-low);
-  border-radius: 50%;
-  animation: pulse 1.6s infinite;
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-low);
+    border-radius: 50%;
+    animation: pulse 1.6s infinite;
 }
 
 /* Sin Resultados */
 .no-results {
-  text-align: center;
-  padding: 40px 20px;
-  color: var(--text-muted);
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-muted);
 }
 
 .no-results svg {
-  width: 40px;
-  height: 40px;
-  margin-bottom: 8px;
-  opacity: 0.3;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 8px;
+    opacity: 0.3;
 }
 
 .no-results.hidden {
-  display: none !important;
+    display: none !important;
 }
 
 /* =========================================
    ANIMACIONES Y RESPONSIVE (MÓVIL)
    ========================================= */
 @keyframes pulse {
-  0% { transform: scale(0.9); opacity: 0.6; }
-  50% { transform: scale(1.1); opacity: 1; }
-  100% { transform: scale(0.9); opacity: 0.6; }
+    0% {
+        transform: scale(0.9);
+        opacity: 0.6;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(0.9);
+        opacity: 0.6;
+    }
 }
 
 @media (max-width: 768px) {
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-  }
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
 }
 
 @media (max-width: 580px) {
-  body {
-    padding: 15px 8px;
-  }
+    body {
+        padding: 15px 8px;
+    }
 
-  .widget-header h1 {
-    font-size: 1.5rem;
-  }
+    .fifa-header {
+        padding: 16px;
+        gap: 16px;
+    }
 
-  .chart-header {
-    grid-template-columns: 30px 1fr 80px;
-  }
+    .fifa-logo {
+        height: 36px;
+    }
 
-  .ch-bar-label {
-    display: none;
-  }
+    .fifa-title {
+        font-size: 1.25rem;
+    }
 
-  .chart-row-header {
-    grid-template-columns: 30px 1.4fr 0.6fr;
-    gap: 8px;
-    position: relative;
-    padding-bottom: 16px;
-  }
+    .fifa-subtitle {
+        font-size: 0.8rem;
+    }
 
-  .row-bar-container {
-    position: absolute;
-    bottom: 5px;
-    left: 45px;
-    width: calc(100% - 55px);
-  }
+    .chart-header {
+        grid-template-columns: 30px 1fr 80px;
+    }
 
-  .bar-track {
-    height: 4px;
-  }
+    .ch-bar-label {
+        display: none;
+    }
 
-  .controls-area {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-  }
+    .chart-row-header {
+        grid-template-columns: 30px 1.4fr 0.6fr;
+        gap: 8px;
+        position: relative;
+        padding-bottom: 16px;
+    }
 
-  .search-box {
-    max-width: none;
-  }
+    .row-bar-container {
+        position: absolute;
+        bottom: 5px;
+        left: 45px;
+        width: calc(100% - 55px);
+    }
 
-  .sort-group {
-    justify-content: space-between;
-  }
+    .bar-track {
+        height: 4px;
+    }
 
-  .sort-btn {
-    flex-grow: 1;
-    text-align: center;
-    padding: 6px 0;
-  }
+    .controls-area {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .search-box {
+        max-width: none;
+    }
+
+    .sort-group {
+        justify-content: space-between;
+    }
+
+    .sort-btn {
+        flex-grow: 1;
+        text-align: center;
+        padding: 6px 0;
+    }
 }
 
 @media (max-width: 400px) {
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
 }

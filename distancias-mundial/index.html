@@ -2,111 +2,112 @@
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Distancias de Traslado - Mundial 2026</title>
-  <!-- Google Fonts: Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet">
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distancias de Traslado - Mundial 2026</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-  <div class="widget-container">
-    <!-- Header Minimalista -->
-    <header class="widget-header">
-      <div class="header-main">
-        <h1>Cuánto tendrá que viajar cada selección en el Mundial 2026</h1>
-        <p class="subtitle">Distancias totales de viaje para las selecciones en la fase de grupos</p>
-      </div>
-    </header>
+    <div class="widget-container">
+        <!-- Header Oficial FIFA -->
+        <header class="fifa-header">
+            <img class="fifa-logo" src="logo-copa.png" alt="Logo Copa Mundial de la FIFA 2026">
+            <div class="fifa-header-text">
+                <h1 class="fifa-title">Copa Mundial de la FIFA 2026™</h1>
+                <p class="fifa-subtitle">Distancias totales de viaje para las selecciones en la fase de grupos</p>
+            </div>
+        </header>
 
-    <!-- KPIs Superiores Minimalistas -->
-    <section class="stats-grid">
-      <div class="stat-card">
-        <span class="stat-label">Más Viajero</span>
-        <span class="stat-value" id="max-traveler-name">Curazao</span>
-        <span class="stat-sub" id="max-traveler-value">9.870 km</span>
-      </div>
+        <!-- KPIs Superiores Minimalistas -->
+        <section class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-label">Más Viajero ✈️</span>
+                <span class="stat-value" id="max-traveler-name">Curazao</span>
+                <span class="stat-sub" id="max-traveler-value">9.870 km</span>
+            </div>
 
-      <div class="stat-card">
-        <span class="stat-label">Menos Viajero</span>
-        <span class="stat-value" id="min-traveler-name">México</span>
-        <span class="stat-sub" id="min-traveler-value">910 km</span>
-      </div>
+            <div class="stat-card">
+                <span class="stat-label">Menos Viajero 📍</span>
+                <span class="stat-value" id="min-traveler-name">México</span>
+                <span class="stat-sub" id="min-traveler-value">910 km</span>
+            </div>
 
-      <div class="stat-card">
-        <span class="stat-label">Promedio de Viaje</span>
-        <span class="stat-value" id="avg-travel-value">4.920 km</span>
-        <span class="stat-sub">Por selección</span>
-      </div>
+            <div class="stat-card">
+                <span class="stat-label">Promedio de Viaje 🏃‍♂️</span>
+                <span class="stat-value" id="avg-travel-value">4.920 km</span>
+                <span class="stat-sub">Por selección</span>
+            </div>
 
-      <div class="stat-card">
-        <span class="stat-label">Distancia Total</span>
-        <span class="stat-value" id="total-travel-value">236.164 km</span>
-        <span class="stat-sub">48 selecciones</span>
-      </div>
-    </section>
+            <div class="stat-card">
+                <span class="stat-label">Distancia Total 🌍</span>
+                <span class="stat-value" id="total-travel-value">236.164 km</span>
+                <span class="stat-sub">48 selecciones</span>
+            </div>
+        </section>
 
-    <!-- Controles de Búsqueda y Ordenamiento Limpios -->
-    <section class="controls-area">
-      <div class="search-box">
-        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="11" cy="11" r="8" />
-          <line x1="21" y1="21" x2="16.65" y2="16.65" />
-        </svg>
-        <input type="text" id="search-input" placeholder="Buscar selección o ciudad sede..." autocomplete="off">
-        <button id="clear-search" class="clear-search-btn" title="Limpiar">&times;</button>
-      </div>
+        <!-- Controles de Búsqueda y Ordenamiento Limpios -->
+        <section class="controls-area">
+            <div class="search-box">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <input type="text" id="search-input" placeholder="Buscar selección o ciudad sede..." autocomplete="off">
+                <button id="clear-search" class="clear-search-btn" title="Limpiar">&times;</button>
+            </div>
 
-      <div class="sort-group">
-        <button id="sort-desc" class="sort-btn active">Máx Viaje</button>
-        <button id="sort-asc" class="sort-btn">Mín Viaje</button>
-        <button id="sort-alpha" class="sort-btn">A-Z</button>
-      </div>
-    </section>
+            <div class="sort-group">
+                <button id="sort-desc" class="sort-btn active">Máx Viaje</button>
+                <button id="sort-asc" class="sort-btn">Mín Viaje</button>
+                <button id="sort-alpha" class="sort-btn">A-Z</button>
+            </div>
+        </section>
 
-    <!-- Contenedor del Gráfico de Barras -->
-    <main class="chart-container">
-      <div class="chart-header">
-        <span class="ch-rank">Pos</span>
-        <span class="ch-country">Selección</span>
-        <span class="ch-bar-label">Distancia Recorrida (km)</span>
-        <span class="ch-distance">Total</span>
-      </div>
+        <!-- Contenedor del Gráfico de Barras -->
+        <main class="chart-container">
+            <div class="chart-header">
+                <span class="ch-rank">Pos 🔢</span>
+                <span class="ch-country">Selección 🛡️</span>
+                <span class="ch-bar-label">Distancia Recorrida (km) 🗺️</span>
+                <span class="ch-distance">Total 🏁</span>
+            </div>
 
-      <!-- Las filas se renderizan dinámicamente y crecen verticalmente sin scroll interno -->
-      <div id="chart-rows" class="chart-rows">
-        <!-- Render dinámico aquí -->
-      </div>
+            <!-- Las filas se renderizan dinámicamente y crecen verticalmente sin scroll interno -->
+            <div id="chart-rows" class="chart-rows">
+                <!-- Render dinámico aquí -->
+            </div>
 
-      <!-- Mensaje cuando no hay resultados en la búsqueda -->
-      <div id="no-results" class="no-results hidden">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" />
-        </svg>
-        <p>No se encontraron selecciones que coincidan con tu búsqueda.</p>
-      </div>
-    </main>
+            <!-- Mensaje cuando no hay resultados en la búsqueda -->
+            <div id="no-results" class="no-results hidden">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" />
+                </svg>
+                <p>No se encontraron selecciones que coincidan con tu búsqueda.</p>
+            </div>
+        </main>
 
-    <!-- Footer Explicativo Minimalista -->
-    <footer class="widget-footer">
-      <div class="instructions">
-        <span class="pulse-dot"></span>
-        <p>Hacé clic en cualquier selección para desplegar el itinerario de traslados en fase de grupos.</p>
-      </div>
-      <div class="credits">
-        <span>LA GACETA</span>
-      </div>
-    </footer>
-  </div>
+        <!-- Footer Explicativo Minimalista -->
+        <footer class="widget-footer">
+            <div class="instructions">
+                <span class="pulse-dot"></span>
+                <p>Hacé clic en cualquier selección para desplegar el itinerario de traslados en fase de grupos. ⚽</p>
+            </div>
+            <div class="credits">
+                <span>LA GACETA</span>
+            </div>
+        </footer>
+    </div>
 
-  <!-- Scripts -->
-  <script src="data.js"></script>
-  <script src="app.js"></script>
+    <!-- Scripts -->
+    <script src="data.js"></script>
+    <script src="app.js"></script>
 </body>
 
 </html>
