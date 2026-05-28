@@ -372,8 +372,32 @@
       <div class="footer-source">
         <span>Basado en un informe nacional de <strong>+6.400 casos</strong> y el INDEC (4° trim. 2025).</span>
       </div>
-
+      <div class="footer-actions">
+        <button id="btn-embed" class="btn-action-embed" aria-label="Insertar esta infografía">
+          <svg class="embed-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 18 22 12 16 6"></polyline>
+            <polyline points="8 6 2 12 8 18"></polyline>
+          </svg>
+          Insertar
+        </button>
+      </div>
     </footer>
+
+    <!-- Modal para insertar (Embed) -->
+    <div id="embed-modal" class="modal-overlay" aria-hidden="true">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Insertar infografía</h3>
+          <button id="btn-close-modal" class="btn-close-modal" aria-label="Cerrar modal">&times;</button>
+        </div>
+        <p class="modal-desc">Copia el siguiente código para insertar esta infografía interactiva en tu sitio web o artículo periodístico.</p>
+        <div class="code-box-wrapper">
+          <textarea id="embed-code-textarea" readonly></textarea>
+          <button id="btn-copy-code" class="btn-copy-code">Copiar</button>
+        </div>
+        <div id="copy-success-message" class="copy-success-message">¡Código copiado al portapapeles!</div>
+      </div>
+    </div>
 
   </div>
 
