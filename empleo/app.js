@@ -196,59 +196,61 @@ document.addEventListener("DOMContentLoaded", () => {
     return `<iframe src="${currentUrl}" width="100%" height="600" style="border:none; aspect-ratio:4/3; max-width:900px; width:100%; border-radius:16px; box-shadow:0 8px 30px rgba(0,0,0,0.06);" title="Infografía Interactiva: Crisis del Empleo"></iframe>`;
   }
 
-  btnEmbed.addEventListener("click", () => {
-    embedCodeTextarea.value = generateEmbedCode();
-    embedModal.classList.add("active");
-    embedModal.setAttribute("aria-hidden", "false");
-  });
+  if (btnEmbed && embedModal && btnCloseModal && btnCopyCode && embedCodeTextarea && copySuccess) {
+    btnEmbed.addEventListener("click", () => {
+      embedCodeTextarea.value = generateEmbedCode();
+      embedModal.classList.add("active");
+      embedModal.setAttribute("aria-hidden", "false");
+    });
 
-  function closeModal() {
-    embedModal.classList.remove("active");
-    embedModal.setAttribute("aria-hidden", "true");
-    copySuccess.classList.remove("show");
-  }
-
-  btnCloseModal.addEventListener("click", closeModal);
-
-  // Cerrar modal al hacer click fuera del contenido
-  embedModal.addEventListener("click", (e) => {
-    if (e.target === embedModal) {
-      closeModal();
+    function closeModal() {
+      embedModal.classList.remove("active");
+      embedModal.setAttribute("aria-hidden", "true");
+      copySuccess.classList.remove("show");
     }
-  });
 
-  // Copiar código al portapapeles
-  btnCopyCode.addEventListener("click", () => {
-    embedCodeTextarea.select();
-    embedCodeTextarea.setSelectionRange(0, 99999); // Para móviles
+    btnCloseModal.addEventListener("click", closeModal);
 
-    try {
-      navigator.clipboard.writeText(embedCodeTextarea.value)
-        .then(() => showCopySuccess())
-        .catch(() => fallbackCopyText());
-    } catch (err) {
-      fallbackCopyText();
+    // Cerrar modal al hacer click fuera del contenido
+    embedModal.addEventListener("click", (e) => {
+      if (e.target === embedModal) {
+        closeModal();
+      }
+    });
+
+    // Copiar código al portapapeles
+    btnCopyCode.addEventListener("click", () => {
+      embedCodeTextarea.select();
+      embedCodeTextarea.setSelectionRange(0, 99999); // Para móviles
+
+      try {
+        navigator.clipboard.writeText(embedCodeTextarea.value)
+          .then(() => showCopySuccess())
+          .catch(() => fallbackCopyText());
+      } catch (err) {
+        fallbackCopyText();
+      }
+    });
+
+    function fallbackCopyText() {
+      // Método fallback tradicional
+      document.execCommand("copy");
+      showCopySuccess();
     }
-  });
 
-  function fallbackCopyText() {
-    // Método fallback tradicional
-    document.execCommand("copy");
-    showCopySuccess();
-  }
-
-  function showCopySuccess() {
-    copySuccess.classList.add("show");
-    
-    // Cambiar estado visual del botón
-    const originalText = btnCopyCode.textContent;
-    btnCopyCode.textContent = "¡Copiado!";
-    btnCopyCode.style.backgroundColor = "#27AE60";
-    
-    setTimeout(() => {
-      btnCopyCode.textContent = originalText;
-      btnCopyCode.style.backgroundColor = "var(--color-primary)";
-    }, 2000);
+    function showCopySuccess() {
+      copySuccess.classList.add("show");
+      
+      // Cambiar estado visual del botón
+      const originalText = btnCopyCode.textContent;
+      btnCopyCode.textContent = "¡Copiado!";
+      btnCopyCode.style.backgroundColor = "#27AE60";
+      
+      setTimeout(() => {
+        btnCopyCode.textContent = originalText;
+        btnCopyCode.style.backgroundColor = "var(--color-primary)";
+      }, 2000);
+    }
   }
 
   // ==========================================================================
@@ -260,8 +262,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Agregar soporte para navegación por teclado (Flechas izq/der)
   document.addEventListener("keydown", (e) => {
     // Si el modal está activo, no interceptar teclas excepto Esc para cerrar
-    if (embedModal.classList.contains("active")) {
-      if (e.key === "Escape") closeModal();
+    if (embedModal && embedModal.classList.contains("active")) {
+      if (e.key === "Escape" && typeof closeModal === "function") closeModal();
       return;
     }
 
