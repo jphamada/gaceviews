@@ -1223,18 +1223,16 @@ body {
   }
 
   .stat-card {
-    padding: 14px;
-    flex-direction: row;
-    align-items: center;
-    gap: 15px;
+    padding: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
     text-align: left !important;
   }
 
   .stat-card .card-badge {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    margin-bottom: 0;
+    position: static;
+    margin-bottom: 4px;
   }
 
   .stat-visual {
