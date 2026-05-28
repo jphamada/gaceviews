@@ -1,7 +1,1 @@
-{
-  "version": 2,
-  "cleanUrls": true,
-  "framework": null,
-  "buildCommand": null,
-  "outputDirectory": "."
-}
+{"version": 2, "cleanUrls": true, "trailingSlash": true}
