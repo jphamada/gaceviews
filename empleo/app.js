@@ -47,12 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // ==========================================================================
 
   function triggerSlideAnimations(index) {
-    // Diapositiva 1: Radiografía del Bolsillo
-    if (index === 0) {
-      animatePocketNumbers();
-    }
     // Diapositiva 2: Costo de Vida
-    else if (index === 1) {
+    if (index === 1) {
       animateExpenseBars();
     }
     // Diapositiva 3: El Pluriempleo
@@ -69,44 +65,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const activeTabId = document.querySelector(".profile-tab.active").id;
       triggerProfileTabAnimation(activeTabId);
     }
-  }
-
-  // ==========================================================================
-  // ANIMACIONES ESPECÍFICAS: DIAPOSITIVA 1 (INGRESOS)
-  // ==========================================================================
-
-  function animatePocketNumbers() {
-    if (animatedSlides.has("pocket")) return; // Evitar re-animar innecesariamente
-    animatedSlides.add("pocket");
-
-    const numbersToAnimate = document.querySelectorAll("#slide-pocket .stat-number");
-    
-    numbersToAnimate.forEach(numElement => {
-      const targetVal = parseInt(numElement.getAttribute("data-target"), 10);
-      animateCountUp(numElement, 0, targetVal, 1200, "%");
-    });
-  }
-
-  // Función genérica de conteo ascendente
-  function animateCountUp(element, start, end, duration, suffix = "") {
-    let startTimestamp = null;
-    const step = (timestamp) => {
-      if (!startTimestamp) startTimestamp = timestamp;
-      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-      
-      // Easing cúbico hacia afuera para un movimiento más natural y premium
-      const easeProgress = 1 - Math.pow(1 - progress, 3);
-      const currentVal = Math.floor(easeProgress * (end - start) + start);
-      
-      element.textContent = `${currentVal}${suffix}`;
-      
-      if (progress < 1) {
-        window.requestAnimationFrame(step);
-      } else {
-        element.textContent = `${end}${suffix}`;
-      }
-    };
-    window.requestAnimationFrame(step);
   }
 
   // ==========================================================================
