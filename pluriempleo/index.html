@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crisis del Empleo: Radiografía de los Ingresos y el Pluriempleo</title>
+  <meta name="description"
+    content="Infografía interactiva sobre la crisis del empleo, la capacidad de ahorro, el pluriempleo en Tucumán y a nivel nacional, y el costo de vida actual.">
+
+  <!-- Google Fonts: Outfit (para números y títulos) e Inter (para lectura fluida) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <!-- Contenedor Principal con proporción 4:3 -->
+  <div class="info-card-container" id="main-container">
+
+    <!-- Encabezado Editorial -->
+    <header class="info-header">
+      <h1 class="main-title">¿Cómo sobreviven los trabajadores hoy?</h1>
+      <p class="main-subtitle">La brecha entre salarios y costo de vida impulsa el fenómeno de los múltiples empleos.
+      </p>
+    </header>
+
+    <!-- Contenido Principal Dinámico -->
+    <main class="info-content">
+
+      <!-- DIAPOSITIVA 1: RADIOGRAFÍA DEL BOLSILLO -->
+      <section class="info-slide active" id="slide-pocket" aria-hidden="false">
+        <div class="pocket-grid">
+          <!-- Tarjeta 1: Salario Insuficiente -->
+          <div class="stat-card highlight-card" id="card-pocket-insufficient">
+            <div class="card-badge">Ingresos</div>
+            <div class="stat-visual">
+              <span class="stat-number" data-target="87">0%</span>
+            </div>
+            <h2 class="card-title">Salarios insuficientes</h2>
+            <p class="card-desc">Considera que sus ingresos mensuales no alcanzan para cubrir sus <strong>necesidades
+                básicas</strong> a nivel nacional.</p>
+          </div>
+
+          <!-- Tarjeta 2: Duración del Sueldo -->
+          <div class="stat-card" id="card-pocket-duration">
+            <div class="card-badge badge-slate">Sostenibilidad</div>
+            <div class="stat-visual">
+              <span class="stat-number" data-target="73">0%</span>
+            </div>
+            <h2 class="card-title">Sueldos a corto plazo</h2>
+            <p class="card-desc">Asegura que el dinero total de sus ingresos le dura <strong>menos de dos
+                semanas</strong> de corrido.</p>
+          </div>
+
+          <!-- Tarjeta 3: Capacidad de Ahorro -->
+          <div class="stat-card text-center-card" id="card-pocket-saving">
+            <div class="card-badge badge-warning">Ahorro</div>
+            <div class="saving-gauge-container">
+              <!-- SVG Donut de Ahorros -->
+              <svg viewBox="0 0 36 36" class="circular-chart orange">
+                <path class="circle-bg"
+                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                <path class="circle" stroke-dasharray="90, 100"
+                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+              </svg>
+              <div class="gauge-percentage-center">
+                <span class="gauge-number">90%</span>
+                <span class="gauge-label">Sin margen</span>
+              </div>
+            </div>
+            <p class="card-desc">De las personas encuestadas <strong>no tiene capacidad alguna de ahorro</strong>.
+              Apenas un <strong>10%</strong> declara lograrlo.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- DIAPOSITIVA 2: COSTO DE VIDA -->
+      <section class="info-slide" id="slide-expenses" aria-hidden="true">
+        <div class="slide-two-cols">
+          <!-- Columna Izquierda: Información contextual -->
+          <div class="col-text">
+            <div class="card-badge badge-orange">El Costo de Vida</div>
+            <h2 class="section-heading">¿Adónde se va el dinero?</h2>
+            <p class="section-desc">El alquiler, la alimentación y las deudas absorben casi la totalidad de los ingresos
+              familiares. Conocé cómo se distribuyen los principales gastos del presupuesto:</p>
+
+            <div class="total-alert-box">
+              <span class="alert-percent">87%</span>
+              <p class="alert-text">del total de los ingresos mensuales se destina únicamente a cubrir <strong>alquiler,
+                  comida y pago de deudas anteriores</strong>.</p>
+            </div>
+          </div>
+
+          <!-- Columna Derecha: Gráfico de Barras Interactivo -->
+          <div class="col-chart">
+            <div class="expense-bars-container">
+              <!-- Alquiler -->
+              <div class="expense-row" data-expense="alquiler" tabindex="0" id="bar-alquiler">
+                <div class="expense-label-row">
+                  <span class="expense-name">Alquiler</span>
+                  <span class="expense-value text-orange">44%</span>
+                </div>
+                <div class="progress-bar-bg">
+                  <div class="progress-bar-fill fill-orange" style="width: 0%"></div>
+                </div>
+                <p class="expense-detail">Representa el gasto principal de asfixia económica para las familias
+                  inquilinas.</p>
+              </div>
+
+              <!-- Comida -->
+              <div class="expense-row" data-expense="comida" tabindex="0" id="bar-comida">
+                <div class="expense-label-row">
+                  <span class="expense-name">Alimentación</span>
+                  <span class="expense-value text-gold">27%</span>
+                </div>
+                <div class="progress-bar-bg">
+                  <div class="progress-bar-fill fill-gold" style="width: 0%"></div>
+                </div>
+                <p class="expense-detail">La comida básica y artículos de consumo esencial continúan en alza.</p>
+              </div>
+
+              <!-- Deudas -->
+              <div class="expense-row" data-expense="deudas" tabindex="0" id="bar-deudas">
+                <div class="expense-label-row">
+                  <span class="expense-name">Pago de deudas</span>
+                  <span class="expense-value text-slate">16%</span>
+                </div>
+                <div class="progress-bar-bg">
+                  <div class="progress-bar-fill fill-slate" style="width: 0%"></div>
+                </div>
+                <p class="expense-detail">Tarjetas de crédito refinanciadas y préstamos informales para llegar a fin de
+                  mes.</p>
+              </div>
+
+              <!-- Otros -->
+              <div class="expense-row" data-expense="otros" tabindex="0" id="bar-otros">
+                <div class="expense-label-row">
+                  <span class="expense-name">Otros gastos</span>
+                  <span class="expense-value text-gray">13%</span>
+                </div>
+                <div class="progress-bar-bg">
+                  <div class="progress-bar-fill fill-gray" style="width: 0%"></div>
+                </div>
+                <p class="expense-detail">Servicios públicos, transporte, salud y educación representan el remanente.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DIAPOSITIVA 3: EL AUGE DEL PLURIEMPLEO -->
+      <section class="info-slide" id="slide-multijob" aria-hidden="true">
+        <div class="slide-two-cols">
+          <!-- Columna Izquierda: Tucumán vs Nación -->
+          <div class="col-text">
+            <div class="card-badge">Pluriempleo</div>
+            <h2 class="section-heading">Multiplicar trabajos para sobrevivir</h2>
+            <p class="section-desc">Tener un empleo ya no es garantía de estabilidad. El pluriempleo se expande
+              velozmente tanto en provincias como a nivel país como una estrategia para compensar el poder de compra
+              perdido.</p>
+
+            <div class="toggle-control-container">
+              <span class="toggle-label">Ver datos de:</span>
+              <div class="toggle-group">
+                <button id="toggle-tucuman" class="toggle-btn active">Gran Tucumán</button>
+                <button id="toggle-nacion" class="toggle-btn">Nivel Nacional</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Columna Derecha: Tarjetas de Datos de Pluriempleo con Toggle -->
+          <div class="col-chart display-flex-center">
+            <!-- Bloque de Datos Tucumán (Activo por defecto) -->
+            <div id="data-tucuman" class="pluri-data-view active">
+              <div class="pluri-metric-card highlight-card">
+                <div class="metric-top">
+                  <span class="metric-percent text-blue">28,6%</span>
+                  <span class="metric-title">Trabajadores Demandantes</span>
+                </div>
+                <p class="metric-paragraph">Casi <strong>3 de cada 10 trabajadores</strong> ocupados en Tucumán buscan
+                  activamente una segunda fuente de ingresos mensuales.</p>
+              </div>
+
+              <div class="pluri-sub-grid">
+                <div class="pluri-mini-card">
+                  <span class="mini-number">+131.000</span>
+                  <span class="mini-label">Personas con empleo que buscan más trabajo</span>
+                </div>
+                <div class="pluri-mini-card">
+                  <span class="mini-number text-gray">5,6%</span>
+                  <span class="mini-label">Baja desocupación (4° trim. 2025)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bloque de Datos Nación (Oculto por defecto) -->
+            <div id="data-nacion" class="pluri-data-view">
+              <div class="pluri-metric-card highlight-card">
+                <div class="metric-top">
+                  <span class="metric-percent text-blue">12,2%</span>
+                  <span class="metric-title">Tasa de Pluriempleo</span>
+                </div>
+                <p class="metric-paragraph">Es el porcentaje de ocupados que sostienen **dos o más empleos** a nivel
+                  país (al cuarto trimestre de 2025).</p>
+              </div>
+
+              <!-- Comparación Histórica -->
+              <div class="history-comparison-bar">
+                <div class="history-label-row">
+                  <span>Pluriempleo en 2016</span>
+                  <span class="bold">8,8%</span>
+                </div>
+                <div class="history-line-bg">
+                  <div class="history-line-fill" style="width: 72%"></div>
+                </div>
+
+                <div class="history-label-row margin-top-sm">
+                  <span>Pluriempleo en 2025</span>
+                  <span class="bold text-blue">12,2%</span>
+                </div>
+                <div class="history-line-bg">
+                  <div class="history-line-fill fill-blue" style="width: 100%"></div>
+                </div>
+
+                <p class="history-footer-text">Equivale a más de <strong>1,6 millones de trabajadores</strong>
+                  pluriempleados en toda la Argentina.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DIAPOSITIVA 4: PERFIL DEL PLURIEMPLEADO -->
+      <section class="info-slide" id="slide-profile" aria-hidden="true">
+        <div class="profile-container">
+          <!-- Navegación de Perfil Interna -->
+          <div class="profile-nav-header">
+            <h2 class="profile-heading">Perfil de quienes tienen múltiples empleos</h2>
+            <div class="profile-tabs" role="tablist">
+              <button class="profile-tab active" id="tab-gender" role="tab" aria-selected="true"
+                aria-controls="panel-gender">Género</button>
+              <button class="profile-tab" id="tab-age" role="tab" aria-selected="false"
+                aria-controls="panel-age">Edad</button>
+              <button class="profile-tab" id="tab-role" role="tab" aria-selected="false" aria-controls="panel-role">Rol
+                Hogar</button>
+            </div>
+          </div>
+
+          <!-- Paneles de Datos -->
+          <div class="profile-panels-content">
+
+            <!-- Panel Género -->
+            <div class="profile-panel active" id="panel-gender" role="tabpanel" aria-labelledby="tab-gender">
+              <div class="gender-panel-layout">
+                <div class="gender-column">
+                  <div class="gender-bar-header">
+                    <span class="gender-title">Mujeres Ocupadas</span>
+                    <span class="gender-value text-teal">15,5%</span>
+                  </div>
+                  <div class="gender-track">
+                    <div class="gender-bar fill-teal" style="width: 100%"></div>
+                  </div>
+                  <p class="gender-description">Tienen una tasa de pluriempleo muy superior. Representan el
+                    <strong>56,6%</strong> del total de pluriempleados del país.
+                  </p>
+                </div>
+
+                <div class="gender-column">
+                  <div class="gender-bar-header">
+                    <span class="gender-title">Varones Ocupados</span>
+                    <span class="gender-value text-slate">9,5%</span>
+                  </div>
+                  <div class="gender-track">
+                    <div class="gender-bar fill-slate" style="width: 61%"></div>
+                  </div>
+                  <p class="gender-description">Registran una menor tasa de pluriempleo, viéndose menos forzados al
+                    multiempleo directo.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel Edad -->
+            <div class="profile-panel" id="panel-age" role="tabpanel" aria-labelledby="tab-age">
+              <div class="age-chart-container">
+                <p class="age-main-highlight">Más del <strong>85%</strong> de los trabajadores con más de un empleo se
+                  concentra entre los <strong>30 y 65 años</strong>.</p>
+
+                <div class="age-bars">
+                  <!-- Adultos mayores -->
+                  <div class="age-bar-row">
+                    <span class="age-label-text">De 45 a 65 años</span>
+                    <div class="age-bar-bg">
+                      <div class="age-bar-fill fill-blue" style="width: 100%"></div>
+                    </div>
+                    <span class="age-percent-val">14,6%</span>
+                  </div>
+
+                  <!-- Adultos jóvenes -->
+                  <div class="age-bar-row">
+                    <span class="age-label-text">De 30 a 44 años</span>
+                    <div class="age-bar-bg">
+                      <div class="age-bar-fill fill-blue" style="width: 92%"></div>
+                    </div>
+                    <span class="age-percent-val">13,4%</span>
+                  </div>
+
+                  <!-- Jóvenes -->
+                  <div class="age-bar-row">
+                    <span class="age-label-text">De 14 a 29 años</span>
+                    <div class="age-bar-bg">
+                      <div class="age-bar-fill fill-gray" style="width: 50%"></div>
+                    </div>
+                    <span class="age-percent-val">7,3%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel Rol en el Hogar -->
+            <div class="profile-panel" id="panel-role" role="tabpanel" aria-labelledby="tab-role">
+              <div class="role-panel-layout">
+                <div class="role-metric highlight-card">
+                  <span class="role-stat text-orange">63%</span>
+                  <span class="role-title">Jefes o Jefas de Hogar</span>
+                  <p class="role-description">La gran mayoría de los pluriempleados tiene la principal responsabilidad
+                    del sustento de su hogar.</p>
+                </div>
+
+                <div class="role-metric highlight-card">
+                  <span class="role-stat text-slate">23,4%</span>
+                  <span class="role-title">Cónyuges o Parejas</span>
+                  <p class="role-description">Constituyen el segundo grupo de aportantes de ingresos familiares bajo
+                    pluriempleo.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Controles de Navegación (Stepper) -->
+    <nav class="info-nav">
+      <button class="nav-step active" id="step-0" aria-label="Ver Ingresos">
+        <span class="step-circle">1</span>
+        <span class="step-label">Bolsillo</span>
+      </button>
+      <button class="nav-step" id="step-1" aria-label="Ver Gastos">
+        <span class="step-circle">2</span>
+        <span class="step-label">Gastos</span>
+      </button>
+      <button class="nav-step" id="step-2" aria-label="Ver Pluriempleo">
+        <span class="step-circle">3</span>
+        <span class="step-label">Pluriempleo</span>
+      </button>
+      <button class="nav-step" id="step-3" aria-label="Ver Perfil">
+        <span class="step-circle">4</span>
+        <span class="step-label">Perfil</span>
+      </button>
+    </nav>
+
+    <!-- Pie de Página (Footer) -->
+    <footer class="info-footer">
+      <div class="footer-source">
+        <span>Basado en un informe nacional de <strong>+6.400 casos</strong> y el INDEC (4° trim. 2025).</span>
+      </div>
+
+    </footer>
+
+  </div>
+
+
+  <script src="app.js"></script>
+</body>
+
+</html>
