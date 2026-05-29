@@ -1,1 +1,213 @@
-.
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Ruta Aérea de la Cocaína en el NOA - LA GACETA</title>
+  <!-- Google Fonts: Outfit for headers, Inter for text and metrics -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- Contenedor Principal de la Infografía (Limitada a Relación 4:3, Altura Máxima 700px) -->
+  <div class="infographic-wrapper" id="info-widget">
+
+    <!-- Encabezado Táctico del Widget -->
+    <header class="info-header">
+      <div class="header-badge">INFORME ESPECIAL</div>
+      <h1 class="info-title">La Ruta Aérea de la Cocaína</h1>
+      <p class="info-subtitle">Cómo el crimen organizado burla la vigilancia aérea en el NOA</p>
+    </header>
+
+    <!-- Área del Carrusel (Desplazamiento Horizontal) -->
+    <div class="carousel-viewport">
+      <div class="carousel-track" id="carousel-track">
+
+        <!-- ================= SLIDE 1: LA RUTA ================= -->
+        <section class="carousel-slide active" data-slide="0">
+          <div class="slide-grid slide-1-layout">
+
+            <!-- Panel Lateral de Información y Control de Fases -->
+            <div class="slide-panel">
+              <span class="slide-number">PANTALLA 1 / 1</span>
+              <h2 class="slide-title">La Logística del Tránsito</h2>
+              <p class="slide-description">
+                El bloqueo terrestre empujó la droga al cielo. Las organizaciones vuelan desde Bolivia para descargar en
+                el NOA y distribuir por tierra.
+              </p>
+
+              <!-- Botones de Control de Fases del Mapa -->
+              <div class="map-controls">
+                <button class="map-btn active" data-phase="1">
+                  <span class="phase-indicator">1</span>
+                  <div class="btn-text-group">
+                    <span class="btn-label">Fase Aérea</span>
+                    <span class="btn-sub">Vuelos desde Bolivia</span>
+                  </div>
+                </button>
+                <button class="map-btn" data-phase="2">
+                  <span class="phase-indicator">2</span>
+                  <div class="btn-text-group">
+                    <span class="btn-label">Fase Terrestre</span>
+                    <span class="btn-sub">Ruta 34 e Hidrovía</span>
+                  </div>
+                </button>
+                <button class="map-btn" data-phase="3">
+                  <span class="phase-indicator">3</span>
+                  <div class="btn-text-group">
+                    <span class="btn-label">Destinos de Salida</span>
+                    <span class="btn-sub">Paraná y Pacífico</span>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <!-- Panel del Mapa SVG -->
+            <div class="slide-visual map-visual-container">
+              <!-- Información contextual dinámica sobre el mapa -->
+              <div class="map-info-overlay" id="map-info-box">
+                Seleccioná una fase de la ruta para ver los detalles del recorrido estratégico.
+              </div>
+              <!-- SVG del Mapa Táctico (Redimensionado a 747x667 en función del nuevo mapa de referencia) -->
+              <svg viewBox="0 0 747 667" class="radar-map" id="argentina-map" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
+                <defs>
+                  <pattern id="radar-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255, 255, 255, 0.02)" stroke-width="0.8" />
+                  </pattern>
+                  <radialGradient id="radar-glow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="var(--color-amber-dim)" stop-opacity="0.15" />
+                    <stop offset="100%" stop-color="var(--color-bg)" stop-opacity="0" />
+                  </radialGradient>
+                  <!-- Marcador de flecha para rutas terrestres -->
+                  <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6"
+                    orient="auto-start-reverse">
+                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--color-amber)" />
+                  </marker>
+                  <marker id="arrow-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6"
+                    orient="auto-start-reverse">
+                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--color-cyan)" />
+                  </marker>
+                </defs>
+
+                <!-- Fondo de cuadrícula táctica -->
+                <rect width="100%" height="100%" fill="url(#radar-grid)" />
+                <rect width="100%" height="100%" fill="url(#radar-glow)" />
+
+                <!-- MAPA DE FONDO GEOGRÁFICO DE REFERENCIA OPTIMIZADO (Adaptado a 747x667) -->
+                <image href="images/mapa_referencia.png" x="0" y="0" width="747" height="667" class="radar-map-image" />
+
+                <!-- Ejes Fluviales: Hidrovía del Paraná (Glowing Winding River matching the new geographic alignment) -->
+                <path d="M 590 140 Q 540 280 490 400 T 464 482.7 T 520 570" class="map-river-path" id="parana-river" />
+
+                <!-- === RUTAS ANIMADAS === -->
+                <!-- Fase Aérea (Rutas de vuelo desde Santa Cruz, Bolivia) -->
+                <g class="route-group group-phase-1">
+                  <!-- Bolivia -> Salta -->
+                  <path d="M 314.4 41.9 Q 312 115 306.1 188.2" class="flight-path flight-1" />
+                  <!-- Bolivia -> Tucumán -->
+                  <path d="M 314.4 41.9 Q 302 150 289.7 257.4" class="flight-path flight-2" />
+                  <!-- Bolivia -> Chaco -->
+                  <path d="M 314.4 41.9 Q 381 128 448.3 214.3" class="flight-path flight-3" />
+                  <!-- Bolivia -> Santiago del Estero -->
+                  <path d="M 314.4 41.9 Q 337 161 359.4 280.9" class="flight-path flight-4" />
+                  <!-- Bolivia -> Catamarca -->
+                  <path d="M 314.4 41.9 Q 261.5 152 208.6 262.7" class="flight-path flight-5" />
+                </g>
+
+                <!-- Fase Terrestre (Rutas terrestres hacia Paraná y Pacífico) -->
+                <g class="route-group group-phase-2">
+                  <!-- Salta a Puerto de Paraná -->
+                  <path d="M 306.1 188.2 Q 385 335 464 482.7" class="land-path land-1" marker-end="url(#arrow)" />
+                  <!-- Tucumán a Puerto de Paraná -->
+                  <path d="M 289.7 257.4 Q 377 370 464 482.7" class="land-path land-2" marker-end="url(#arrow)" />
+                  <!-- Chaco a Puerto de Paraná -->
+                  <path d="M 448.3 214.3 Q 456 348 464 482.7" class="land-path land-3" marker-end="url(#arrow)" />
+                  <!-- Santiago del Estero a Puerto de Paraná -->
+                  <path d="M 359.4 280.9 Q 412 381 464 482.7" class="land-path land-4" marker-end="url(#arrow)" />
+                  <!-- Catamarca a Vía Pacífico -->
+                  <path d="M 208.6 262.7 Q 149 262.7 90 262.7" class="land-path land-5" marker-end="url(#arrow)" />
+                </g>
+
+                <!-- Fase Destino Final (Exportación al exterior) - Solo puntos (sin líneas) -->
+                <g class="route-group group-phase-3">
+                </g>
+
+                <!-- === NODOS GEOGRÁFICOS REALES === -->
+                <!-- Bolivia (Origen de los vuelos) -->
+                <g class="map-node node-bolivia" data-node="bolivia" transform="translate(314.4, 41.9)">
+                  <circle cx="0" cy="0" r="6" class="node-core" />
+                  <circle cx="0" cy="0" r="12" class="node-pulse" />
+                  <text x="0" y="-14" style="text-anchor: middle;" class="node-label">Sta Cruz (Bolivia)</text>
+                </g>
+
+                <!-- Salta -->
+                <g class="map-node node-noa" data-node="salta" transform="translate(306.1, 188.2)">
+                  <circle cx="0" cy="0" r="4.5" class="node-core" />
+                  <circle cx="0" cy="0" r="9" class="node-pulse" />
+                  <text x="0" y="-12" style="text-anchor: middle;" class="node-label">Salta</text>
+                </g>
+
+                <!-- Tucumán -->
+                <g class="map-node node-noa" data-node="tucuman" transform="translate(289.7, 257.4)">
+                  <circle cx="0" cy="0" r="4.5" class="node-core" />
+                  <circle cx="0" cy="0" r="9" class="node-pulse" />
+                  <text x="-10" y="4" class="node-label node-left">Tucumán</text>
+                </g>
+
+                <!-- Chaco -->
+                <g class="map-node node-noa" data-node="chaco" transform="translate(448.3, 214.3)">
+                  <circle cx="0" cy="0" r="4.5" class="node-core" />
+                  <circle cx="0" cy="0" r="9" class="node-pulse" />
+                  <text x="10" y="4" class="node-label">Chaco</text>
+                </g>
+
+                <!-- Catamarca -->
+                <g class="map-node node-noa" data-node="catamarca" transform="translate(208.6, 262.7)">
+                  <circle cx="0" cy="0" r="4.5" class="node-core" />
+                  <circle cx="0" cy="0" r="9" class="node-pulse" />
+                  <text x="0" y="16" style="text-anchor: middle;" class="node-label">Catamarca</text>
+                </g>
+
+                <!-- Santiago del Estero -->
+                <g class="map-node node-noa" data-node="santiago" transform="translate(359.4, 280.9)">
+                  <circle cx="0" cy="0" r="4.5" class="node-core" />
+                  <circle cx="0" cy="0" r="9" class="node-pulse" />
+                  <text x="0" y="16" style="text-anchor: middle;" class="node-label">Santiago del Estero</text>
+                </g>
+
+                <!-- Puerto de Paraná -->
+                <g class="map-node node-ports" data-node="ports" transform="translate(464.0, 482.7)">
+                  <circle cx="0" cy="0" r="5.5" class="node-core cyan-core" />
+                  <circle cx="0" cy="0" r="11" class="node-pulse cyan-pulse" />
+                  <text x="12" y="4" class="node-label cyan-text font-bold">Puerto de Paraná</text>
+                </g>
+
+                <!-- Vía Pacífico (Chile) -->
+                <g class="map-node node-pacific" data-node="pacific" transform="translate(90.0, 262.7)">
+                  <circle cx="0" cy="0" r="4.5" class="node-core cyan-core" />
+                  <circle cx="0" cy="0" r="9" class="node-pulse cyan-pulse" />
+                  <text x="-8" y="-6" class="node-label node-left cyan-text">Vía Pacífico</text>
+                </g>
+              </svg>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
