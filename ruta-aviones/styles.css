@@ -806,34 +806,182 @@ body {
 }
 
 /* ==========================================
-   RESPONSIVIDAD Y OPTIMIZACIÓN MÓVIL
+   RESPONSIVIDAD Y OPTIMIZACIÓN MÓVIL SUPREMA
    ========================================== */
-/* Como forzamos el aspect-ratio 4:3 en el contenedor principal, 
-   en dispositivos muy pequeños se autoescala. No obstante, 
-   podemos optimizar componentes para pantallas angostas. */
+@media (max-width: 768px) {
+  body {
+    padding: 8px;
+    align-items: flex-start;
+    min-height: auto;
+  }
 
-@media (max-width: 540px) {
+  .infographic-wrapper {
+    aspect-ratio: auto; /* Liberamos relación 4:3 en móviles para permitir scroll vertical natural */
+    max-height: none;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  /* Desbloquear alturas del carrusel en móvil */
+  .carousel-viewport, .carousel-track, .carousel-slide {
+    height: auto !important;
+    min-height: auto !important;
+  }
+
+  .info-header {
+    padding: 12px 14px;
+  }
+
   .slide-grid {
-    grid-template-columns: 155px 1fr;
-    gap: 8px;
-    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    padding: 12px;
+    gap: 14px;
   }
+
+  /* El panel de texto/controles ahora se apila arriba del mapa/avión */
   .slide-panel {
-    padding-right: 8px;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+    padding-right: 0;
+    padding-bottom: 12px;
   }
+
+  .slide-title {
+    font-size: 17px;
+    margin-bottom: 4px;
+  }
+
+  .slide-description {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  /* Los botones de fase se distribuyen horizontalmente en móvil en una sola fila táctil */
+  .map-controls {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-top: 4px;
+  }
+
   .map-btn {
-    padding: 4px 6px;
-    gap: 4px;
-  }
-  .phase-indicator {
-    width: 12px;
-    height: 12px;
-    font-size: 7px;
-  }
-  .btn-sub {
-    display: none; /* Oculta descripciones largas */
-  }
-  .matrix-grid {
+    padding: 6px 4px;
+    flex-direction: column;
+    text-align: center;
     gap: 2px;
+    border-radius: 6px;
+  }
+
+  .phase-indicator {
+    width: 14px;
+    height: 14px;
+    font-size: 8px;
+    margin-right: 0;
+    margin-bottom: 2px;
+  }
+
+  .btn-text-group {
+    align-items: center;
+  }
+
+  .btn-label {
+    font-size: 10.5px !important;
+  }
+
+  .btn-sub {
+    display: none !important; /* Ocultamos subtextos largos de botones en móvil para evitar empastes */
+  }
+
+  /* El visualizador (mapa o avión SVG) toma una altura dinámica táctil y legible */
+  .slide-visual {
+    height: auto;
+    min-height: 480px;
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: 12px;
+    position: relative;
+  }
+
+  .radar-map {
+    height: 360px;
+    width: 100%;
+    object-fit: contain;
+    order: 1;
+    flex-shrink: 0;
+  }
+
+  /* Caja de referencias de mapa agrandada: ajuste móvil sin superposición */
+  .map-info-overlay {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    margin-top: 8px;
+    width: 100%;
+    order: 2;
+    padding: 12px 16px;
+    font-size: 13.5px;
+    background-color: var(--color-card);
+    box-shadow: none;
+    pointer-events: auto;
+  }
+
+  /* Ajustes específicos para el contenedor de la aeronave */
+  .aircraft-visual-container {
+    height: auto;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    position: relative;
+  }
+
+  .aircraft-diagram {
+    height: 260px;
+    width: 100%;
+    object-fit: contain;
+    order: 2;
+    flex-shrink: 0;
+  }
+
+  /* Hotspot overlay en avioneta standalone sin superposición */
+  .aircraft-hotspot-info {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    margin-top: 8px;
+    width: 100%;
+    order: 3;
+    padding: 10px 14px;
+    font-size: 12px;
+    background-color: var(--color-card);
+    box-shadow: none;
+    pointer-events: auto;
+  }
+
+  /* Indicadores de peso Cessna en móvil */
+  .weight-gauge-container {
+    top: 6px;
+    left: 6px;
+    padding: 4px 8px;
+  }
+
+  .gauge-value {
+    font-size: 14px;
+  }
+
+  /* Cessna simulator details box */
+  .sim-details-box {
+    font-size: 12.5px;
+    padding: 10px 12px;
   }
 }
