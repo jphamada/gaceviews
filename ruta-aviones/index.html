@@ -4,12 +4,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Infografía interactiva sobre la ruta aérea del narcotráfico en el NOA argentino. Cómo el crimen organizado burla la vigilancia aérea en Salta, Tucumán, Chaco y Catamarca.">
+  <meta name="description"
+    content="Infografía interactiva sobre la ruta aérea del narcotráfico en el NOA argentino. Cómo el crimen organizado burla la vigilancia aérea en Salta, Tucumán, Chaco y Catamarca.">
   <title>La Ruta Aérea de la Cocaína en el NOA - LA GACETA</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles-alt.css">
 </head>
 
 <body>
@@ -72,116 +75,123 @@
                 Seleccioná una fase de la ruta para ver los detalles del recorrido estratégico.
               </div>
 
-              <!-- Mapa SVG táctico -->
-              <svg viewBox="0 0 747 667" class="radar-map" id="argentina-map"
-                xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mapa de rutas del narcotráfico aéreo en el NOA">
+              <!-- Mapa SVG -->
+              <svg viewBox="0 0 747 667" class="radar-map" id="argentina-map" xmlns="http://www.w3.org/2000/svg"
+                role="img" aria-label="Mapa de rutas del narcotráfico aéreo en el NOA">
                 <defs>
-                  <!-- Cuadrícula táctica -->
+                  <!-- Cuadrícula sutil -->
                   <pattern id="radar-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.025)" stroke-width="0.8"/>
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0,112,215,0.07)" stroke-width="0.8" />
                   </pattern>
                   <!-- Resplandor central -->
                   <radialGradient id="radar-glow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="#ff9f1c" stop-opacity="0.1"/>
-                    <stop offset="100%" stop-color="#070a0e" stop-opacity="0"/>
+                    <stop offset="0%" stop-color="#0070D7" stop-opacity="0.06" />
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
                   </radialGradient>
-                  <!-- Sombra para etiquetas de texto -->
+                  <!-- Sombra para etiquetas -->
                   <filter id="label-shadow" x="-25%" y="-25%" width="150%" height="150%">
-                    <feDropShadow dx="0" dy="0" stdDeviation="2.5" flood-color="#070a0e" flood-opacity="1"/>
+                    <feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="#ffffff" flood-opacity="1" />
                   </filter>
-                  <!-- Flechas para rutas terrestres -->
-                  <marker id="arrow-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#ff9f1c"/>
+                  <!-- Flechas: color primario -->
+                  <marker id="arrow-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6"
+                    orient="auto-start-reverse">
+                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#D68500" />
                   </marker>
-                  <marker id="arrow-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#00f5d4"/>
+                  <!-- Flechas: color secundario -->
+                  <marker id="arrow-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6"
+                    orient="auto-start-reverse">
+                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0070D7" />
                   </marker>
                 </defs>
 
                 <!-- Fondos -->
-                <rect width="100%" height="100%" fill="url(#radar-grid)"/>
-                <rect width="100%" height="100%" fill="url(#radar-glow)"/>
+                <rect width="100%" height="100%" fill="url(#radar-grid)" />
+                <rect width="100%" height="100%" fill="url(#radar-glow)" />
 
                 <!-- Imagen de referencia geográfica -->
-                <image href="images/mapa_referencia.png" x="0" y="0" width="747" height="667" class="radar-map-image"/>
+                <image href="images/mapa_referencia.png" x="0" y="0" width="747" height="667" class="radar-map-image" />
 
                 <!-- Hidrovía del Paraná -->
-                <path d="M 590 140 Q 540 280 490 400 T 464 482.7 T 520 570" class="map-river-path"/>
+                <path d="M 590 140 Q 540 280 490 400 T 464 482.7 T 520 570" class="map-river-path" />
 
                 <!-- FASE 1: Rutas aéreas desde Bolivia -->
                 <g class="route-group group-phase-1">
-                  <path d="M 314.4 41.9 Q 312 115 306.1 188.2" class="flight-path"/>
-                  <path d="M 314.4 41.9 Q 302 150 289.7 257.4" class="flight-path"/>
-                  <path d="M 314.4 41.9 Q 381 128 448.3 214.3" class="flight-path"/>
-                  <path d="M 314.4 41.9 Q 337 161 359.4 280.9" class="flight-path"/>
-                  <path d="M 314.4 41.9 Q 261.5 152 208.6 262.7" class="flight-path"/>
+                  <path d="M 314.4 41.9 Q 312 115 306.1 188.2" class="flight-path" />
+                  <path d="M 314.4 41.9 Q 302 150 289.7 257.4" class="flight-path" />
+                  <path d="M 314.4 41.9 Q 381 128 448.3 214.3" class="flight-path" />
+                  <path d="M 314.4 41.9 Q 337 161 359.4 280.9" class="flight-path" />
+                  <path d="M 314.4 41.9 Q 261.5 152 208.6 262.7" class="flight-path" />
                 </g>
 
                 <!-- FASE 2: Rutas terrestres -->
                 <g class="route-group group-phase-2">
-                  <path d="M 306.1 188.2 Q 385 335 464 482.7" class="land-path" marker-end="url(#arrow-amber)"/>
-                  <path d="M 289.7 257.4 Q 377 370 464 482.7" class="land-path" marker-end="url(#arrow-amber)"/>
-                  <path d="M 448.3 214.3 Q 456 348 464 482.7" class="land-path" marker-end="url(#arrow-amber)"/>
-                  <path d="M 359.4 280.9 Q 412 381 464 482.7" class="land-path" marker-end="url(#arrow-amber)"/>
-                  <path d="M 208.6 262.7 Q 149 262.7 90 262.7" class="land-path" marker-end="url(#arrow-amber)"/>
+                  <path d="M 306.1 188.2 Q 385 335 464 482.7" class="land-path" marker-end="url(#arrow-amber)" />
+                  <path d="M 289.7 257.4 Q 377 370 464 482.7" class="land-path" marker-end="url(#arrow-amber)" />
+                  <path d="M 448.3 214.3 Q 456 348 464 482.7" class="land-path" marker-end="url(#arrow-amber)" />
+                  <path d="M 359.4 280.9 Q 412 381 464 482.7" class="land-path" marker-end="url(#arrow-amber)" />
+                  <path d="M 208.6 262.7 Q 149 262.7 90 262.7" class="land-path" marker-end="url(#arrow-amber)" />
                 </g>
 
                 <!-- NODOS GEOGRÁFICOS -->
 
                 <!-- Bolivia -->
                 <g class="map-node node-bolivia" data-node="bolivia" transform="translate(314.4,41.9)">
-                  <circle cx="0" cy="0" r="6" class="node-core"/>
-                  <circle cx="0" cy="0" r="12" class="node-pulse"/>
-                  <text x="0" y="-14" class="node-label node-center" filter="url(#label-shadow)">Sta. Cruz (Bolivia)</text>
+                  <circle cx="0" cy="0" r="6" class="node-core" />
+                  <circle cx="0" cy="0" r="12" class="node-pulse" />
+                  <text x="0" y="-14" class="node-label node-center" filter="url(#label-shadow)">Sta. Cruz
+                    (Bolivia)</text>
                 </g>
 
                 <!-- Salta -->
                 <g class="map-node node-noa" data-node="salta" transform="translate(306.1,188.2)">
-                  <circle cx="0" cy="0" r="4.5" class="node-core"/>
-                  <circle cx="0" cy="0" r="9" class="node-pulse"/>
+                  <circle cx="0" cy="0" r="4.5" class="node-core" />
+                  <circle cx="0" cy="0" r="9" class="node-pulse" />
                   <text x="0" y="-12" class="node-label node-center" filter="url(#label-shadow)">Salta</text>
                 </g>
 
                 <!-- Tucumán -->
                 <g class="map-node node-noa" data-node="tucuman" transform="translate(289.7,257.4)">
-                  <circle cx="0" cy="0" r="4.5" class="node-core"/>
-                  <circle cx="0" cy="0" r="9" class="node-pulse"/>
+                  <circle cx="0" cy="0" r="4.5" class="node-core" />
+                  <circle cx="0" cy="0" r="9" class="node-pulse" />
                   <text x="-10" y="4" class="node-label node-right" filter="url(#label-shadow)">Tucumán</text>
                 </g>
 
                 <!-- Chaco -->
                 <g class="map-node node-noa" data-node="chaco" transform="translate(448.3,214.3)">
-                  <circle cx="0" cy="0" r="4.5" class="node-core"/>
-                  <circle cx="0" cy="0" r="9" class="node-pulse"/>
+                  <circle cx="0" cy="0" r="4.5" class="node-core" />
+                  <circle cx="0" cy="0" r="9" class="node-pulse" />
                   <text x="10" y="4" class="node-label" filter="url(#label-shadow)">Chaco</text>
                 </g>
 
                 <!-- Catamarca -->
                 <g class="map-node node-noa" data-node="catamarca" transform="translate(208.6,262.7)">
-                  <circle cx="0" cy="0" r="4.5" class="node-core"/>
-                  <circle cx="0" cy="0" r="9" class="node-pulse"/>
+                  <circle cx="0" cy="0" r="4.5" class="node-core" />
+                  <circle cx="0" cy="0" r="9" class="node-pulse" />
                   <text x="0" y="16" class="node-label node-center" filter="url(#label-shadow)">Catamarca</text>
                 </g>
 
                 <!-- Santiago del Estero -->
                 <g class="map-node node-noa" data-node="santiago" transform="translate(359.4,280.9)">
-                  <circle cx="0" cy="0" r="4.5" class="node-core"/>
-                  <circle cx="0" cy="0" r="9" class="node-pulse"/>
-                  <text x="0" y="16" class="node-label node-center" filter="url(#label-shadow)">Santiago del Estero</text>
+                  <circle cx="0" cy="0" r="4.5" class="node-core" />
+                  <circle cx="0" cy="0" r="9" class="node-pulse" />
+                  <text x="0" y="16" class="node-label node-center" filter="url(#label-shadow)">Santiago del
+                    Estero</text>
                 </g>
 
                 <!-- Puerto de Paraná -->
                 <g class="map-node node-ports" data-node="ports" transform="translate(464,482.7)">
-                  <circle cx="0" cy="0" r="5.5" class="node-core node-core--cyan"/>
-                  <circle cx="0" cy="0" r="11" class="node-pulse node-pulse--cyan"/>
-                  <text x="12" y="4" class="node-label node-label--cyan node-label--bold" filter="url(#label-shadow)">Puerto de Paraná</text>
+                  <circle cx="0" cy="0" r="5.5" class="node-core node-core--cyan" />
+                  <circle cx="0" cy="0" r="11" class="node-pulse node-pulse--cyan" />
+                  <text x="12" y="4" class="node-label node-label--cyan node-label--bold"
+                    filter="url(#label-shadow)">Puerto de Paraná</text>
                 </g>
 
                 <!-- Vía Pacífico -->
                 <g class="map-node node-pacific" data-node="pacific" transform="translate(90,262.7)">
-                  <circle cx="0" cy="0" r="4.5" class="node-core node-core--cyan"/>
-                  <circle cx="0" cy="0" r="9" class="node-pulse node-pulse--cyan"/>
-                  <text x="-8" y="-6" class="node-label node-right node-label--cyan" filter="url(#label-shadow)">Vía Pacífico</text>
+                  <circle cx="0" cy="0" r="4.5" class="node-core node-core--cyan" />
+                  <circle cx="0" cy="0" r="9" class="node-pulse node-pulse--cyan" />
+                  <text x="-8" y="-6" class="node-label node-right node-label--cyan" filter="url(#label-shadow)">Vía
+                    Pacífico</text>
                 </g>
 
               </svg>
