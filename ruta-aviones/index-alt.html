@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles-alt.css">
 </head>
 
 <body>
@@ -72,29 +72,30 @@
                 Seleccioná una fase de la ruta para ver los detalles del recorrido estratégico.
               </div>
 
-              <!-- Mapa SVG táctico -->
+              <!-- Mapa SVG -->
               <svg viewBox="0 0 747 667" class="radar-map" id="argentina-map"
                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mapa de rutas del narcotráfico aéreo en el NOA">
                 <defs>
-                  <!-- Cuadrícula táctica -->
+                  <!-- Cuadrícula sutil -->
                   <pattern id="radar-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.025)" stroke-width="0.8"/>
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0,112,215,0.07)" stroke-width="0.8"/>
                   </pattern>
                   <!-- Resplandor central -->
                   <radialGradient id="radar-glow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="#ff9f1c" stop-opacity="0.1"/>
-                    <stop offset="100%" stop-color="#070a0e" stop-opacity="0"/>
+                    <stop offset="0%" stop-color="#0070D7" stop-opacity="0.06"/>
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
                   </radialGradient>
-                  <!-- Sombra para etiquetas de texto -->
+                  <!-- Sombra para etiquetas -->
                   <filter id="label-shadow" x="-25%" y="-25%" width="150%" height="150%">
-                    <feDropShadow dx="0" dy="0" stdDeviation="2.5" flood-color="#070a0e" flood-opacity="1"/>
+                    <feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="#ffffff" flood-opacity="1"/>
                   </filter>
-                  <!-- Flechas para rutas terrestres -->
+                  <!-- Flechas: color primario -->
                   <marker id="arrow-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#ff9f1c"/>
+                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#D68500"/>
                   </marker>
+                  <!-- Flechas: color secundario -->
                   <marker id="arrow-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#00f5d4"/>
+                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0070D7"/>
                   </marker>
                 </defs>
 
