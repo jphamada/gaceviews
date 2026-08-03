@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LA GACETA - Resumen de Datos Multiplataforma</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            500: '#6366f1', // Indigo primary
+                            600: '#4f46e5',
+                            800: '#1e293b',
+                            900: '#0f172a'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .dashboard-card {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .tab-transition {
+            transition: all 0.25s ease-in-out;
+        }
+
+        /* Custom Chart tooltips styles */
+        .chart-container {
+            position: relative;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-slate-50 text-slate-800 antialiased min-h-screen transition-colors duration-300 dark:bg-slate-900 dark:text-slate-100 flex flex-col">
+
+    <!-- HEADER PRINCIPAL -->
+    <header class="bg-brand-900 text-white shadow-xl sticky top-0 z-50 border-b border-slate-800/80">
+        <div
+            class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <span class="bg-emerald-500 animate-pulse w-3 h-3 rounded-full flex items-center justify-center"
+                    title="Monitoreo Activo"></span>
+                <div>
+                    <h1 class="text-xl font-black tracking-tight flex items-center gap-2">
+                        LA GACETA <span
+                            class="text-xs bg-slate-850 text-indigo-300 font-mono px-2 py-0.5 rounded border border-slate-700/80">MULTIPLATAFORMA</span>
+                    </h1>
+                    <p class="text-xs text-slate-400">Informe Mensual Consolidado · <span
+                            class="font-bold text-indigo-400">Julio 2026</span></p>
+                </div>
+            </div>
+
+            <!-- Navegación entre reportes -->
+            <nav class="flex flex-wrap gap-2 sm:gap-4 items-center">
+                <a href="resultados-multiplataforma.html"
+                    class="px-3 py-1.5 bg-indigo-600 text-white text-xs font-bold rounded-lg shadow transition-all duration-200">Consolidado</a>
+                <a href="informe-calidad.html"
+                    class="px-3 py-1.5 bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 text-xs font-semibold rounded-lg transition-all duration-200">Calidad</a>
+                <a href="rendimiento-equipos.html"
+                    class="px-3 py-1.5 bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 text-xs font-semibold rounded-lg transition-all duration-200">Rendimiento
+                    Equipos</a>
+                <a href="policiales.html"
+                    class="px-3 py-1.5 bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 text-xs font-semibold rounded-lg transition-all duration-200">Policiales</a>
+                <a href="mundial-2026.html"
+                    class="px-3 py-1.5 bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 text-xs font-semibold rounded-lg transition-all duration-200">Mundial
+                    2026</a>
+            </nav>
+
+            <!-- Botón Modo Oscuro -->
+            <button onclick="toggleDarkMode()"
+                class="p-2.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl text-slate-300 focus:outline-none transition-colors duration-200"
+                aria-label="Cambiar tema">
+                <svg id="sun-icon" class="w-4 h-4 hidden" fill="none" stroke="currentColor" stroke-width="2"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
+                </svg>
+                <svg id="moon-icon" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- CUERPO PRINCIPAL -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-8 sm:px-6 lg:px-8 space-y-8">
+
+        <!-- PRESENTACIÓN -->
+        <section
+            class="bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-3xl border border-slate-200/80 dark:border-slate-700/80 shadow-sm">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                <div>
+                    <h2
+                        class="text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+                        📊 Dashboard de Rendimiento Multiplataforma
+                    </h2>
+                    <p class="text-slate-500 dark:text-slate-400 font-medium mt-1">
+                        Consolidado integral de audiencias, suscripciones, redes sociales, calidad y contenidos de LA
+                        GACETA.
+                    </p>
+                </div>
+                <div
+                    class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-3.5 py-2 rounded-xl font-bold uppercase tracking-wider">
+                    Datos de Julio 2026
+                </div>
+            </div>
+        </section>
+
+        <!-- PANEL DE RESUMEN PRINCIPAL (Métricas de las distintas plataformas) -->
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5">
+
+            <!-- Tarjeta 1: Digital Marfeel -->
+            <div onclick="switchTab('digital')"
+                class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200/60 dark:border-slate-700/50 shadow-sm flex flex-col justify-between cursor-pointer dashboard-card hover:border-indigo-500/50 dark:hover:border-indigo-500/50">
+                <div class="flex justify-between items-start">
+                    <span
+                        class="text-[10px] font-black text-indigo-500 dark:text-indigo-400 uppercase tracking-widest">Sitio
+                        web</span>
+                    <div class="p-2 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-500 rounded-lg">
+                        <i data-lucide="globe" class="w-4 h-4"></i>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <h3 class="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">3.044.430</h3>
+                    <p class="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Usuarios Únicos
+                        (Marfeel)</p>
+                </div>
+                <div
+                    class="mt-3 pt-3 border-t border-slate-100 dark:border-slate-700/40 flex items-center text-xs font-semibold text-rose-500">
+                    <i data-lucide="trending-down" class="w-3.5 h-3.5 mr-1 flex-shrink-0"></i>
+                    -7,69% vs. mes anterior
+                </div>
+            </div>
+
+            <!-- Tarjeta 2: Redes Sociales -->
+            <div onclick="switchTab('social')"
+                class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200/60 dark:border-slate-700/50 shadow-sm flex flex-col justify-between cursor-pointer dashboard-card hover:border-sky-500/50 dark:hover:border-sky-500/50">
+                <div class="flex justify-between items-start">
+                    <span class="text-[10px] font-black text-sky-500 dark:text-sky-400 uppercase tracking-widest">Redes
+                        Sociales</span>
+                    <div class="p-2 bg-sky-50 dark:bg-sky-950/40 text-sky-500 rounded-lg">
+                        <i data-lucide="users" class="w-4 h-4"></i>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <h3 class="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">5.798.000</h3>
+                    <p class="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Alcance Comscore (Jun)
+                    </p>
+                </div>
+                <div
+                    class="mt-3 pt-3 border-t border-slate-100 dark:border-slate-700/40 flex items-center text-xs font-semibold text-emerald-500">
+                    <i data-lucide="trending-up" class="w-3.5 h-3.5 mr-1 flex-shrink-0"></i>
+                    +29,02% vs. Mayo
+                </div>
+            </div>
+
+            <!-- Tarjeta 3: Suscripciones -->
+            <div onclick="switchTab('subscriptions')"
+                class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200/60 dark:border-slate-700/50 shadow-sm flex flex-col justify-between cursor-pointer dashboard-card hover:border-amber-500/50 dark:hover:border-amber-500/50">
+                <div class="flex justify-between items-start">
+                    <span
+                        class="text-[10px] font-black text-amber-500 dark:text-amber-400 uppercase tracking-widest">Suscripciones</span>
+                    <div class="p-2 bg-amber-50 dark:bg-amber-950/40 text-amber-500 rounded-lg">
+                        <i data-lucide="credit-card" class="w-4 h-4"></i>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <h3 class="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">40.431</h3>
+                    <p class="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Suscripciones
+                        (27 en Jul)</p>
+                </div>
+                <div
+                    class="mt-3 pt-3 border-t border-slate-100 dark:border-slate-700/40 flex items-center text-xs font-semibold text-emerald-500">
+                    <i data-lucide="trending-up" class="w-3.5 h-3.5 mr-1 flex-shrink-0"></i>
+                    +50,00% vs. mes anterior
+                </div>
+            </div>
+
+            <!-- Tarjeta 4: YouTube -->
+            <div onclick="switchTab('youtube')"
+                class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200/60 dark:border-slate-700/50 shadow-sm flex flex-col justify-between cursor-pointer dashboard-card hover:border-rose-500/50 dark:hover:border-rose-500/50">
+                <div class="flex justify-between items-start">
+                    <span
+                        class="text-[10px] font-black text-rose-500 dark:text-rose-400 uppercase tracking-widest">YouTube</span>
+                    <div class="p-2 bg-rose-50 dark:bg-rose-950/40 text-rose-500 rounded-lg">
+                        <i data-lucide="youtube" class="w-4 h-4"></i>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <h3 class="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">3.544.768</h3>
+                    <p class="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Reproducciones Totales
+                    </p>
+                </div>
+                <div
+                    class="mt-3 pt-3 border-t border-slate-100 dark:border-slate-700/40 flex items-center text-xs font-semibold text-emerald-500">
+                    <i data-lucide="trending-up" class="w-3.5 h-3.5 mr-1 flex-shrink-0"></i>
+                    +40,00% (Récord mensual)
+                </div>
+            </div>
+
+            <!-- Tarjeta 5: Calidad -->
+            <div onclick="switchTab('quality')"
+                class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200/60 dark:border-slate-700/50 shadow-sm flex flex-col justify-between cursor-pointer dashboard-card hover:border-emerald-500/50 dark:hover:border-emerald-500/50">
+                <div class="flex justify-between items-start">
+                    <span
+                        class="text-[10px] font-black text-emerald-500 dark:text-emerald-400 uppercase tracking-widest">Calidad</span>
+                    <div class="p-2 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-500 rounded-lg">
+                        <i data-lucide="award" class="w-4 h-4"></i>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <h3 class="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">Crecimiento</h3>
+                    <p class="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Métricas Cualitativas
+                    </p>
+                </div>
+                <div
+                    class="mt-3 pt-3 border-t border-slate-100 dark:border-slate-700/40 flex items-center text-xs font-semibold text-emerald-500">
+                    <i data-lucide="trending-up" class="w-3.5 h-3.5 mr-1 flex-shrink-0"></i>
+                    +2,35% promedio general
+                </div>
+            </div>
+
+        </section>
+
+        <!-- NAVEGACIÓN DE TABS -->
+        <section class="border-b border-slate-200 dark:border-slate-700/80">
+            <div class="flex flex-wrap -mb-px">
+                <button onclick="switchTab('digital')" id="tab-btn-digital"
+                    class="tab-btn mr-2 py-4 px-4 text-sm font-bold border-b-2 border-transparent transition-all duration-200 flex items-center gap-2 text-indigo-600 dark:text-indigo-400 border-indigo-600 dark:border-indigo-400">
+                    <i data-lucide="globe" class="w-4 h-4"></i> Sitio web
+                </button>
+                <button onclick="switchTab('quality')" id="tab-btn-quality"
+                    class="tab-btn mr-2 py-4 px-4 text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-250 hover:border-slate-350 dark:hover:border-slate-600 border-b-2 border-transparent transition-all duration-200 flex items-center gap-2">
+                    <i data-lucide="award" class="w-4 h-4"></i> Calidad
+                </button>
+                <button onclick="switchTab('subscriptions')" id="tab-btn-subscriptions"
+                    class="tab-btn mr-2 py-4 px-4 text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-250 hover:border-slate-350 dark:hover:border-slate-600 border-b-2 border-transparent transition-all duration-200 flex items-center gap-2">
+                    <i data-lucide="credit-card" class="w-4 h-4"></i> Suscripciones
+                </button>
+                <button onclick="switchTab('youtube')" id="tab-btn-youtube"
+                    class="tab-btn mr-2 py-4 px-4 text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-250 hover:border-slate-350 dark:hover:border-slate-600 border-b-2 border-transparent transition-all duration-200 flex items-center gap-2">
+                    <i data-lucide="youtube" class="w-4 h-4"></i> YouTube
+                </button>
+                <button onclick="switchTab('social')" id="tab-btn-social"
+                    class="tab-btn mr-2 py-4 px-4 text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-250 hover:border-slate-350 dark:hover:border-slate-600 border-b-2 border-transparent transition-all duration-200 flex items-center gap-2">
+                    <i data-lucide="users" class="w-4 h-4"></i> Redes Sociales
+                </button>
+                <button onclick="switchTab('others')" id="tab-btn-others"
+                    class="tab-btn py-4 px-4 text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-250 hover:border-slate-350 dark:hover:border-slate-600 border-b-2 border-transparent transition-all duration-200 flex items-center gap-2">
+                    <i data-lucide="star" class="w-4 h-4"></i> Columnas e Iniciativas
+                </button>
+            </div>
+        </section>
+
+        <!-- SECCIONES DE TABS (CONTENIDO) -->
+        <section id="tab-content" class="space-y-6">
+
+            <!-- PESTAÑA: PRENSA DIGITAL -->
+            <div id="tab-pane-digital" class="tab-pane space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                    <!-- Resumen Marfeel -->
+                    <div
+                        class="lg:col-span-1 bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-200/80 dark:border-slate-700/80 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="p-2.5 bg-indigo-100 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 rounded-2xl">
+                                    <i data-lucide="globe" class="w-6 h-6"></i>
+                                </div>
+                                <h4 class="text-base font-extrabold text-slate-900 dark:text-white">Métricas de Marfeel
+                                </h4>
+                            </div>
+                            <div class="mt-6 space-y-4">
+                                <div>
+                                    <span class="text-xs text-slate-400 dark:text-slate-500 font-medium">Usuarios Únicos
+                                        Totales</span>
+                                    <h5 class="text-3xl font-black text-slate-900 dark:text-white mt-1">3.044.430</h5>
+                                </div>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                    El tráfico digital auditado por Marfeel muestra un descenso del
+                                    <strong>-7,69%</strong> en usuarios únicos con respecto al mes de junio. Esto sigue
+                                    la tendencia estacional del mes de julio, donde el consumo informativo tiende a
+                                    contraerse después del cierre del semestre.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-700/40">
+                            <a href="informe-calidad.html"
+                                class="inline-flex items-center gap-2 text-xs font-bold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300">
+                                Ir al Informe de Calidad Marfeel <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Panel de Control Analytics -->
+                    <div
+                        class="lg:col-span-2 bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-200/80 dark:border-slate-700/80 shadow-sm space-y-6">
+                        <div>
+                            <h4 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                                <i data-lucide="sliders" class="w-5 h-5 text-indigo-500"></i>
+                                Panel de Control General (Google Analytics)
+                            </h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Comparativa de volumen de tráfico
+                                y participación entre Julio y Junio 2026.</p>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr
+                                        class="border-b border-slate-100 dark:border-slate-700/60 text-xs font-extrabold text-slate-400 uppercase">
+                                        <th class="py-3 px-2">Métrica</th>
+                                        <th class="py-3 px-2 text-right">Julio 2026</th>
+                                        <th class="py-3 px-2 text-right">Junio 2026</th>
+                                        <th class="py-3 px-2 text-right">Variación %</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100 dark:divide-slate-700/40 text-sm">
+                                    <tr>
+                                        <td class="py-3.5 px-2 font-bold text-slate-900 dark:text-white">Usuarios únicos
+                                        </td>
+                                        <td class="py-3.5 px-2 text-right font-semibold">3.350.756</td>
+                                        <td class="py-3.5 px-2 text-right text-slate-500 dark:text-slate-400">3.769.913
+                                        </td>
+                                        <td class="py-3.5 px-2 text-right font-bold text-rose-500">-11%</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3.5 px-2 font-bold text-slate-900 dark:text-white">Páginas vistas
+                                        </td>
+                                        <td class="py-3.5 px-2 text-right font-semibold">9.884.335</td>
+                                        <td class="py-3.5 px-2 text-right text-slate-500 dark:text-slate-400">10.542.690
+                                        </td>
+                                        <td class="py-3.5 px-2 text-right font-bold text-rose-500">-6%</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3.5 px-2 font-bold text-slate-900 dark:text-white">Notas
+                                            publicadas</td>
+                                        <td class="py-3.5 px-2 text-right font-semibold">4.195</td>
+                                        <td class="py-3.5 px-2 text-right text-slate-500 dark:text-slate-400">4.217</td>
+                                        <td class="py-3.5 px-2 text-right font-bold text-rose-500">-1%</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3.5 px-2 font-bold text-slate-900 dark:text-white">Comentarios
+                                            obtenidos</td>
+                                        <td class="py-3.5 px-2 text-right font-semibold">8.285</td>
+                                        <td class="py-3.5 px-2 text-right text-slate-500 dark:text-slate-400">8.436</td>
+                                        <td class="py-3.5 px-2 text-right font-bold text-rose-500">-2%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fuentes de Tráfico -->
+                <div
+                    class="bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-3xl border border-slate-200/80 dark:border-slate-700/80 shadow-sm space-y-6">
+                    <div>
+                        <h4 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                            <i data-lucide="compass" class="w-5 h-5 text-indigo-500"></i>
+                            Fuentes de Tráfico y Canales de Adquisición
+                        </h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Evolución de canales en Julio en
+                            comparación con Junio 25.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr
+                                        class="border-b border-slate-100 dark:border-slate-700/60 text-xs font-extrabold text-slate-400 uppercase">
+                                        <th class="py-3 px-2">Canal</th>
+                                        <th class="py-3 px-2 text-right">Julio</th>
+                                        <th class="py-3 px-2 text-right">Junio</th>
+                                        <th class="py-3 px-2 text-right">Var. %</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100 dark:divide-slate-700/40 text-sm">
+                                    <tr>
+                                        <td
+                                            class="py-3 px-2 font-bold flex items-center gap-2 text-slate-900 dark:text-white">
+                                            <span class="w-2.5 h-2.5 rounded-full bg-indigo-500"></span> Search
+                                            (Buscadores)
+                                        </td>
+                                        <td class="py-3 px-2 text-right font-semibold">1.503.918</td>
+                                        <td class="py-3 px-2 text-right text-slate-500 dark:text-slate-400">1.694.422
+                                        </td>
+                                        <td class="py-3 px-2 text-right font-bold text-rose-500">-11,24%</td>
+                                    </tr>
+                                    <tr>
+                                        <td
+                                            class="py-3 px-2 font-bold flex items-center gap-2 text-slate-900 dark:text-white">
+                                            <span class="w-2.5 h-2.5 rounded-full bg-violet-500"></span> Paid (Tráfico
+                                            Pago)
+                                        </td>
+                                        <td class="py-3 px-2 text-right font-semibold">1.005.876</td>
+                                        <td class="py-3 px-2 text-right text-slate-500 dark:text-slate-400">1.024.852
+                                        </td>
+                                        <td class="py-3 px-2 text-right font-bold text-rose-500">-1,85%</td>
+                                    </tr>
+                                    <tr>
+                                        <td
+                                            class="py-3 px-2 font-bold flex items-center gap-2 text-slate-900 dark:text-white">
+                                            <span class="w-2.5 h-2.5 rounded-full bg-sky-500"></span> Social (Redes)
+                                        </td>
+                                        <td class="py-3 px-2 text-right font-semibold">464.645</td>
+                                        <td class="py-3 px-2 text-right text-slate-500 dark:text-slate-400">514.986</td>
+                                        <td class="py-3 px-2 text-right font-bold text-rose-500">-9,78%</td>
+                                    </tr>
+                                    <tr>
+                                        <td
+                                            class="py-3 px-2 font-bold flex items-center gap-2 text-slate-900 dark:text-white">
+                                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Internal
+                                            (Navegación Interna)
+                                        </td>
+                                        <td class="py-3 px-2 text-right font-semibold">302.730</td>
+                                        <td class="py-3 px-2 text-right text-slate-500 dark:text-slate-400">286.751</td>
+                                        <td class="py-3 px-2 text-right font-bold text-emerald-500">+5,57%</td>
+                                    </tr>
+                                    <tr>
+                                        <td
+                                            class="py-3 px-2 font-bold flex items-center gap-2 text-slate-900 dark:text-white">
+                                            <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Direct (Tráfico
+                                            Directo)
+                                        </td>
+                                        <td class="py-3 px-2 text-right font-semibold">183.713</td>
+                                        <td class="py-3 px-2 text-right text-slate-500 dark:text-slate-400">157.679</td>
+                                        <td class="py-3 px-2 text-right font-bold text-emerald-500">+16,51%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="h-64 chart-container">
+                            <canvas id="trafficSourcesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PESTAÑA: CALIDAD -->
+            <div id="tab-pane-quality" class="tab-pane space-y-6 hidden">
+                <div
+                    class="bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-3xl border border-slate-200/80 dark:border-slate-700/80 shadow-sm space-y-6">
+                    <div>
+                        <h4 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                            <i data-lucide="award" class="w-5 h-5 text-emerald-500"></i>
+                            Análisis Cualitativo de Lectura (Marfeel)
+                        </h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                            Resumen de las métricas clave orientadas a medir la lealtad y retención en las notas
+                            periodísticas.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                        <!-- Tarjeta RFV -->
+                        <div
+                            class="bg-slate-50 dark:bg-slate-900/40 p-5 rounded-2xl border border-slate-200/60 dark:border-slate-700/40 space-y-3">
+                            <div class="flex justify-between items-center">
+                                <h5
+                                    class="font-extrabold text-sm text-slate-900 dark:text-white uppercase tracking-wider">
+                                    1. Reacción del Lector (Promedio RFV)</h5>
+                                <span
+                                    class="bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 text-xs px-2.5 py-0.5 rounded-full font-bold">+1,20%</span>
+                            </div>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                El RFV es nuestro principal índice de lealtad. Mide el nivel de compromiso calculando la
+                                <strong>Recencia</strong> (cuándo fue la última visita), la <strong>Frecuencia</strong>
+                                (con qué regularidad regresa el usuario) y el <strong>Volumen</strong> (cuántas páginas
+                                consume).
+                            </p>
+                            <p class="text-xs text-indigo-600 dark:text-indigo-400 font-semibold">
+                                * Un puntaje más alto indica una audiencia más fiel y conectada con la marca.
+                            </p>
+                        </div>
+
+                        <!-- Tarjeta Tiempo de Permanencia -->
+                        <div
+                            class="bg-slate-50 dark:bg-slate-900/40 p-5 rounded-2xl border border-slate-200/60 dark:border-slate-700/40 space-y-3">
+                            <div class="flex justify-between items-center">
+                                <h5
+                                    class="font-extrabold text-sm text-slate-900 dark:text-white uppercase tracking-wider">
+                                    2. Tiempo de Permanencia por Lector</h5>
+                                <span
+                                    class="bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 text-xs px-2.5 py-0.5 rounded-full font-bold">+3,35%</span>
+                            </div>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                Mide cuánto tiempo en promedio pasan los lectores consumiendo el contenido de las notas.
+                                Refleja el interés real y la relevancia, indicando que la audiencia efectivamente
+                                procesó y consumió la información de las notas en lugar de abandonarlas de inmediato.
+                            </p>
+                            <p class="text-xs text-indigo-600 dark:text-indigo-400 font-semibold">
+                                * Incremento directo de engagement y calidad de lectura de los artículos.
+                            </p>
+                        </div>
+
+                        <!-- Tarjeta Páginas Leídas -->
+                        <div
+                            class="bg-slate-50 dark:bg-slate-900/40 p-5 rounded-2xl border border-slate-200/60 dark:border-slate-700/40 space-y-3">
+                            <div class="flex justify-between items-center">
+                                <h5
+                                    class="font-extrabold text-sm text-slate-900 dark:text-white uppercase tracking-wider">
+                                    3. Páginas Leídas por Lector</h5>
+                                <span
+                                    class="bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 text-xs px-2.5 py-0.5 rounded-full font-bold">+3,56%</span>
+                            </div>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                Mide el promedio de artículos que consume un lector en una sesión. Es un indicador clave
+                                de la salud de navegación del sitio web, ya que evalúa nuestra capacidad para fomentar
+                                la circulación interna y la fidelidad del lector.
+                            </p>
+                            <p class="text-xs text-indigo-600 dark:text-indigo-400 font-semibold">
+                                * Refleja una mejoría sustancial en la retención del usuario tras la lectura inicial.
+                            </p>
+                        </div>
+
+                        <!-- Tarjeta Profundidad Scroll -->
+                        <div
+                            class="bg-slate-50 dark:bg-slate-900/40 p-5 rounded-2xl border border-slate-200/60 dark:border-slate-700/40 space-y-3">
+                            <div class="flex justify-between items-center">
+                                <h5
+                                    class="font-extrabold text-sm text-slate-900 dark:text-white uppercase tracking-wider">
+                                    4. Profundidad de Lectura (Scroll)</h5>
+                                <span
+                                    class="bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 text-xs px-2.5 py-0.5 rounded-full font-bold">+1,27%</span>
+                            </div>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                Mide qué tan abajo llegan los lectores en promedio dentro de una página. Permite
+                                identificar la retención del contenido y descartar posibles fallas de diseño o fugas que
+                                hagan que la audiencia pierda interés antes del final de la nota.
+                            </p>
+                            <p class="text-xs text-indigo-600 dark:text-indigo-400 font-semibold">
+                                * Asegura la efectividad del scroll y el consumo del cuerpo principal de la nota.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- PESTAÑA: SUSCRIPCIONES -->
+            <div id="tab-pane-subscriptions" class="tab-pane space-y-6 hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                    <!-- Resumen y Variación -->
+                    <div
+                        class="lg:col-span-1 bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-200/80 dark:border-slate-700/80 shadow-sm flex flex-col justify-between">
+                        <div class="space-y-6">
+                            <div>
+                                <h4
+                                    class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                                    <i data-lucide="credit-card" class="w-5 h-5 text-amber-500"></i>
+                                    Suscripciones Digitales
+                                </h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Estructura del mes de Julio y
+                                    evolución del semestre.</p>
+                            </div>
+
+                            <div
+                                class="p-4 bg-slate-50 dark:bg-slate-900/40 rounded-2xl border border-slate-150 dark:border-slate-700/50">
+                                <span
+                                    class="text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-widest font-black block">Total
+                                    Nuevas Suscripciones</span>
+                                <span class="text-4xl font-black text-slate-900 dark:text-white mt-1 block">27</span>
+                                <span class="inline-flex items-center text-xs text-emerald-500 font-bold mt-2">
+                                    <i data-lucide="trending-up" class="w-3.5 h-3.5 mr-1"></i> +50% vs. mes anterior
+                                    (18)
+                                </span>
+                            </div>
+
+                            <div class="space-y-3">
+                                <h5 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase">Desglose de
+                                    Suscripciones (Julio 2026)</h5>
+                                <div class="space-y-2">
+                                    <div class="flex justify-between items-center text-sm">
+                                        <span class="font-medium text-slate-700 dark:text-slate-300">Premium
+                                            Directo</span>
+                                        <span class="font-bold text-slate-900 dark:text-white">23 <span
+                                                class="text-xs text-slate-400 font-normal">(85,2%)</span></span>
+                                    </div>
+                                    <div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                                        <div class="bg-amber-500 h-full rounded-full" style="width: 85.2%"></div>
+                                    </div>
+
+                                    <div class="flex justify-between items-center text-sm mt-3">
+                                        <span class="font-medium text-slate-700 dark:text-slate-300">Medido
+                                            (Metered)</span>
+                                        <span class="font-bold text-slate-900 dark:text-white">4 <span
+                                                class="text-xs text-slate-400 font-normal">(14,8%)</span></span>
+                                    </div>
+                                    <div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                                        <div class="bg-amber-400 h-full rounded-full" style="width: 14.8%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gráfico Histórico -->
+                    <div
+                        class="lg:col-span-2 bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-200/80 dark:border-slate-700/80 shadow-sm space-y-6">
+                        <div>
+                            <h4 class="text-base font-extrabold text-slate-900 dark:text-white">Evolución Temporal de
+                                Nuevas Suscripciones (Feb - Jul 2026)</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Volumen consolidado mensual de
+                                adquisiciones registradas en la plataforma.</p>
+                        </div>
+                        <div class="h-64 chart-container">
+                            <canvas id="subscriptionsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PESTAÑA: YOUTUBE -->
+            <div id="tab-pane-youtube" class="tab-pane space-y-6 hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                    <!-- Resumen del Canal -->
+                    <div
+                        class="lg:col-span-1 bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-200/80 dark:border-slate-700/80 shadow-sm flex flex-col justify-between">
+                        <div class="space-y-6">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="p-2.5 bg-rose-100 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 rounded-2xl">
+                                    <i data-lucide="youtube" class="w-6 h-6"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-base font-extrabold text-slate-900 dark:text-white">Canal de YouTube
+                                    </h4>
+                                    <span class="text-[10px] text-rose-500 font-bold uppercase tracking-wider">Julio
+                                        Récord Histórico</span>
+                                </div>
+                            </div>
+
+                            <div class="space-y-4">
+                                <div
+                                    class="p-4 bg-slate-50 dark:bg-slate-900/40 rounded-2xl border border-slate-150 dark:border-slate-700/50">
+                                    <span class="text-xs text-slate-400 dark:text-slate-500 font-medium">Vistas Totales
+                                        en Julio</span>
+                                    <h5 class="text-3xl font-black text-slate-900 dark:text-white mt-1">3.544.768</h5>
+                                    <span class="inline-flex items-center text-xs text-emerald-500 font-bold mt-2">
+                                        <i data-lucide="trending-up" class="w-3.5 h-3.5 mr-1"></i> +40% respecto al mes
+                                        anterior
+                                    </span>
+                                </div>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                    Julio marcó un hito histórico para la cuenta oficial con más de <strong>3,5
+                                        millones</strong> de visualizaciones en la plataforma.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-700/40">
+                            <a href="mundial-2026.html"
+                                class="inline-flex items-center gap-2 text-xs font-bold text-rose-600 hover:text-rose-700 dark:text-rose-400 dark:hover:text-rose-300">
+                                Ver Reporte del Mundial 2026 <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Gráfico e Impulsores -->
+                    <div
+                        class="lg:col-span-2 bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-200/80 dark:border-slate-700/80 shadow-sm space-y-6">
+                        <div>
+                            <h4 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                                <i data-lucide="flame" class="w-5 h-5 text-rose-500 animate-pulse"></i>
+                                Impulsores de Tráfico y Vídeos Destacados
+                            </h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Principales fuentes que generaron
+                                el volumen del mes.</p>
+                        </div>
+
+                        <div
+                            class="p-5 bg-gradient-to-br from-rose-500/5 to-amber-500/5 dark:from-rose-500/10 dark:to-amber-500/10 rounded-2xl border border-rose-100 dark:border-rose-900/30 space-y-4">
+                            <div class="flex items-start gap-3">
+                                <div class="p-2 bg-rose-500 text-white rounded-xl shadow-md">
+                                    <i data-lucide="trophy" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-extrabold text-slate-900 dark:text-white text-sm">Cobertura
+                                        Especial: Mundial 2026</h5>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+                                        El Mundial 2026 fue el principal impulsor de visualizaciones de la cuenta. La
+                                        producción de **contenido exclusivo** y la adopción masiva del formato **Short**
+                                        (videos cortos) generaron una explosión en las vistas orgánicas.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="pl-11 space-y-2">
+                                <div class="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-350">
+                                    <i data-lucide="check" class="w-4 h-4 text-emerald-500"></i>
+                                    Formatos Shorts adaptados para consumo móvil y rápido.
+                                </div>
+                                <div class="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-350">
+                                    <i data-lucide="check" class="w-4 h-4 text-emerald-500"></i>
+                                    Videos embebidos dinámicamente en la home de lagaceta.com.ar.
+                                </div>
+                                <div class="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-350">
+                                    <i data-lucide="check" class="w-4 h-4 text-emerald-500"></i>
+                                    Sincronización de clips en redes sociales asociadas.
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="p-4 bg-slate-50 dark:bg-slate-900/40 rounded-xl border border-slate-100 dark:border-slate-700/40 text-xs text-slate-500 dark:text-slate-400">
+                            * El pico máximo de reproducciones diarias se registró el <strong>8 de Julio</strong>
+                            superando las <strong>375.000 visualizaciones</strong>, con una segunda oleada de
+                            <strong>300.000 visualizaciones</strong> el <strong>17 de Julio</strong>.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PESTAÑA: REDES SOCIALES -->
+            <div id="tab-pane-social" class="tab-pane space-y-6 hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                    <!-- Resumen Comscore -->
+                    <div
+                        class="lg:col-span-1 bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-200/80 dark:border-slate-700/80 shadow-sm flex flex-col justify-between">
+                        <div class="space-y-6">
+                            <div>
+                                <h4
+                                    class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                                    <i data-lucide="share-2" class="w-5 h-5 text-sky-500"></i>
+                                    Alcance de Redes Sociales
+                                </h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Métricas auditadas por
+                                    Comscore para redes sociales.</p>
+                            </div>
+
+                            <div
+                                class="p-4 bg-slate-50 dark:bg-slate-900/40 rounded-2xl border border-slate-150 dark:border-slate-700/50">
+                                <span
+                                    class="text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-widest font-black block">Alcance
+                                    Consolidado (Junio)</span>
+                                <span
+                                    class="text-4xl font-black text-slate-900 dark:text-white mt-1 block">5.798.000</span>
+                                <span class="inline-flex items-center text-xs text-emerald-500 font-bold mt-2">
+                                    <i data-lucide="trending-up" class="w-3.5 h-3.5 mr-1"></i> +29,02% vs. Mayo
+                                    (4.494.000)
+                                </span>
+                            </div>
+
+                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                El alcance social consolidado incluye la distribución en Facebook, Instagram, Twitter y
+                                las visualizaciones de YouTube. Nota: Las métricas de Comscore se publican con un mes de
+                                desfase. Por ende, en Julio se reportan los números consolidados oficiales de **Junio
+                                2026**, mostrando un salto extraordinario motorizado por el inicio de coberturas
+                                especiales.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Gráfico Histórico Redes -->
+                    <div
+                        class="lg:col-span-2 bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-200/80 dark:border-slate-700/80 shadow-sm space-y-6">
+                        <div>
+                            <h4 class="text-base font-extrabold text-slate-900 dark:text-white">Alcance Mensual Redes
+                                Sociales - Comscore 2026</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Evolución mensual en millones de
+                                usuarios alcanzados.</p>
+                        </div>
+                        <div class="h-64 chart-container">
+                            <canvas id="socialReachChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PESTAÑA: OTROS DESTACADOS -->
+            <div id="tab-pane-others" class="tab-pane space-y-6 hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+                    <!-- Ranking de Columnistas -->
+                    <div
+                        class="bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-200/80 dark:border-slate-700/80 shadow-sm space-y-6">
+                        <div>
+                            <h4 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                                <i data-lucide="pen-tool" class="w-5 h-5 text-indigo-500"></i>
+                                Ranking de Columnas de Opinión
+                            </h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Top 10 autores del mes calculando
+                                el promedio entre Páginas Vistas y Notas publicadas.</p>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse text-xs">
+                                <thead>
+                                    <tr
+                                        class="border-b border-slate-100 dark:border-slate-700/60 font-extrabold text-slate-400 uppercase">
+                                        <th class="py-2.5 px-1">Autor</th>
+                                        <th class="py-2.5 px-1 text-right">Pág. Vistas</th>
+                                        <th class="py-2.5 px-1 text-right">Notas</th>
+                                        <th class="py-2.5 px-1 text-right">Promedio</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100 dark:divide-slate-700/40">
+                                    <tr>
+                                        <td class="py-2.5 px-1 font-bold text-slate-900 dark:text-white">María Inés
+                                            Salvatierra</td>
+                                        <td class="py-2.5 px-1 text-right">10.615</td>
+                                        <td class="py-2.5 px-1 text-right">3</td>
+                                        <td
+                                            class="py-2.5 px-1 text-right font-bold text-indigo-600 dark:text-indigo-400">
+                                            3.538</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2.5 px-1 font-bold text-slate-900 dark:text-white">José Nazaro
+                                        </td>
+                                        <td class="py-2.5 px-1 text-right">11.354</td>
+                                        <td class="py-2.5 px-1 text-right">4</td>
+                                        <td
+                                            class="py-2.5 px-1 text-right font-bold text-indigo-600 dark:text-indigo-400">
+                                            2.839</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2.5 px-1 font-bold text-slate-900 dark:text-white">Gabriela
+                                            Baigorrí</td>
+                                        <td class="py-2.5 px-1 text-right">7.196</td>
+                                        <td class="py-2.5 px-1 text-right">4</td>
+                                        <td
+                                            class="py-2.5 px-1 text-right font-bold text-indigo-600 dark:text-indigo-400">
+                                            1.799</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2.5 px-1 font-bold text-slate-900 dark:text-white">Indalecio F.
+                                            Sanchez</td>
+                                        <td class="py-2.5 px-1 text-right">6.891</td>
+                                        <td class="py-2.5 px-1 text-right">4</td>
+                                        <td
+                                            class="py-2.5 px-1 text-right font-bold text-indigo-600 dark:text-indigo-400">
+                                            1.723</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2.5 px-1 font-bold text-slate-900 dark:text-white">Guillermo Monti
+                                        </td>
+                                        <td class="py-2.5 px-1 text-right">5.435</td>
+                                        <td class="py-2.5 px-1 text-right">4</td>
+                                        <td
+                                            class="py-2.5 px-1 text-right font-bold text-indigo-600 dark:text-indigo-400">
+                                            1.359</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2.5 px-1 font-bold text-slate-900 dark:text-white">Federico D. van
+                                            Mameren</td>
+                                        <td class="py-2.5 px-1 text-right">4.848</td>
+                                        <td class="py-2.5 px-1 text-right">4</td>
+                                        <td
+                                            class="py-2.5 px-1 text-right font-bold text-indigo-600 dark:text-indigo-400">
+                                            1.212</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2.5 px-1 font-bold text-slate-900 dark:text-white">Ale Casas Cau
+                                        </td>
+                                        <td class="py-2.5 px-1 text-right">5.804</td>
+                                        <td class="py-2.5 px-1 text-right">5</td>
+                                        <td
+                                            class="py-2.5 px-1 text-right font-bold text-indigo-600 dark:text-indigo-400">
+                                            1.161</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2.5 px-1 font-bold text-slate-900 dark:text-white">Daniel Dessein
+                                        </td>
+                                        <td class="py-2.5 px-1 text-right">3.075</td>
+                                        <td class="py-2.5 px-1 text-right">3</td>
+                                        <td
+                                            class="py-2.5 px-1 text-right font-bold text-indigo-600 dark:text-indigo-400">
+                                            1.025</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2.5 px-1 font-bold text-slate-900 dark:text-white">Marcelo
+                                            Aguaysol</td>
+                                        <td class="py-2.5 px-1 text-right">4.481</td>
+                                        <td class="py-2.5 px-1 text-right">5</td>
+                                        <td
+                                            class="py-2.5 px-1 text-right font-bold text-indigo-600 dark:text-indigo-400">
+                                            896</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2.5 px-1 font-bold text-slate-900 dark:text-white">Roberto Delgado
+                                        </td>
+                                        <td class="py-2.5 px-1 text-right">3.578</td>
+                                        <td class="py-2.5 px-1 text-right">4</td>
+                                        <td
+                                            class="py-2.5 px-1 text-right font-bold text-indigo-600 dark:text-indigo-400">
+                                            895</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Proyectos con Google -->
+                    <div
+                        class="bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-200/80 dark:border-slate-700/80 shadow-sm space-y-6">
+                        <div>
+                            <h4 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                                <i data-lucide="lightbulb" class="w-5 h-5 text-amber-500"></i>
+                                Proyectos Especiales y Alianzas (Google)
+                            </h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Dos iniciativas estratégicas
+                                activadas en el mes de Julio.</p>
+                        </div>
+
+                        <div class="space-y-4">
+                            <!-- Proyecto 1 -->
+                            <div
+                                class="p-4 bg-slate-50 dark:bg-slate-900/40 rounded-2xl border border-slate-200/60 dark:border-slate-700/40">
+                                <h5
+                                    class="text-sm font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
+                                    AI News Business Program
+                                </h5>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                                    Programa enfocado a ayudar a los medios de comunicación a incorporar soluciones de
+                                    inteligencia artificial en sus dinámicas internas y de redacción. Duración estimada
+                                    de 3 meses, ejecutado por especialistas de <strong>Marktube</strong>.
+                                </p>
+                            </div>
+
+                            <!-- Proyecto 2 -->
+                            <div
+                                class="p-4 bg-slate-50 dark:bg-slate-900/40 rounded-2xl border border-slate-200/60 dark:border-slate-700/40">
+                                <h5
+                                    class="text-sm font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+                                    Google News 1st Party Data Lab
+                                </h5>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                                    Iniciativa orientada a estructurar e implementar una infraestructura de datos
+                                    primarios (first-party) propia. El fin es reducir la dependencia de datos e
+                                    identificadores de terceros, fortaleciendo la privacidad y el valor comercial de
+                                    nuestra audiencia.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-900 text-slate-400 text-xs py-6 border-t border-slate-800/80 mt-12">
+        <div
+            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div>
+                <p>&copy; 2026 LA GACETA S.A. · Área de Audiencias y Análisis Digital.</p>
+            </div>
+            <div class="flex items-center gap-2 font-mono" id="server-status">
+                <span class="w-2.5 h-2.5 rounded-full bg-slate-500"></span> Monitoreo Local Activo
+            </div>
+        </div>
+    </footer>
+
+    <!-- LOGICA JAVASCRIPT -->
+    <script>
+        // Pestañas (Tabs) Activas
+        let activeTab = 'digital';
+        const tabList = ['digital', 'quality', 'subscriptions', 'youtube', 'social', 'others'];
+
+        function switchTab(tabId) {
+            if (!tabList.includes(tabId)) return;
+            activeTab = tabId;
+
+            // Ocultar todos los paneles
+            tabList.forEach(t => {
+                const pane = document.getElementById(`tab-pane-${t}`);
+                if (pane) pane.classList.add('hidden');
+
+                const btn = document.getElementById(`tab-btn-${t}`);
+                if (btn) {
+                    btn.className = "tab-btn mr-2 py-4 px-4 text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-250 hover:border-slate-350 dark:hover:border-slate-600 border-b-2 border-transparent transition-all duration-200 flex items-center gap-2";
+                }
+            });
+
+            // Mostrar panel seleccionado
+            const activePane = document.getElementById(`tab-pane-${tabId}`);
+            if (activePane) activePane.classList.remove('hidden');
+
+            const activeBtn = document.getElementById(`tab-btn-${tabId}`);
+            if (activeBtn) {
+                activeBtn.className = "tab-btn mr-2 py-4 px-4 text-sm font-bold border-b-2 border-indigo-600 dark:border-indigo-400 text-indigo-600 dark:text-indigo-400 transition-all duration-200 flex items-center gap-2";
+            }
+        }
+
+        // Toggles y persistencia para el Modo Oscuro
+        function toggleDarkMode() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+            updateThemeIcons();
+            updateChartColors();
+        }
+
+        function initTheme() {
+            const savedTheme = localStorage.getItem('darkMode');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (savedTheme === 'enabled' || (!savedTheme && prefersDark)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+            updateThemeIcons();
+        }
+
+        function updateThemeIcons() {
+            const isDark = document.documentElement.classList.contains('dark');
+            const sunIcon = document.getElementById('sun-icon');
+            const moonIcon = document.getElementById('moon-icon');
+            if (isDark) {
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+            } else {
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+            }
+        }
+
+        // --- RENDERIZADO DE GRÁFICOS ---
+        let subChart, reachChart, trafficChart;
+
+        function initCharts() {
+            const isDark = document.documentElement.classList.contains('dark');
+            const textColor = isDark ? '#94a3b8' : '#64748b';
+            const gridColor = isDark ? 'rgba(51, 65, 85, 0.5)' : 'rgba(226, 232, 240, 0.8)';
+
+            // 1. Gráfico de Suscripciones (Líneas)
+            const ctxSub = document.getElementById('subscriptionsChart').getContext('2d');
+            subChart = new Chart(ctxSub, {
+                type: 'line',
+                data: {
+                    labels: ['Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'],
+                    datasets: [{
+                        label: 'Nuevas Suscripciones',
+                        data: [44, 69, 56, 131, 18, 27],
+                        borderColor: '#f59e0b',
+                        backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.35,
+                        pointBackgroundColor: '#f59e0b',
+                        pointBorderColor: '#fff',
+                        pointHoverRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            grid: { color: gridColor },
+                            ticks: { color: textColor, font: { family: 'Inter' } },
+                            min: 0
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: textColor, font: { family: 'Inter' } }
+                        }
+                    }
+                }
+            });
+
+            // 2. Gráfico de Alcance Redes (Barras)
+            const ctxReach = document.getElementById('socialReachChart').getContext('2d');
+            reachChart = new Chart(ctxReach, {
+                type: 'bar',
+                data: {
+                    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
+                    datasets: [{
+                        label: 'Alcance total (Comscore)',
+                        data: [4766000, 2922000, 2805000, 3106000, 4494000, 5798000],
+                        backgroundColor: '#0ea5e9',
+                        borderRadius: 8,
+                        barThickness: 24
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            grid: { color: gridColor },
+                            ticks: {
+                                color: textColor,
+                                font: { family: 'Inter' },
+                                callback: function (value) {
+                                    return (value / 1000000).toFixed(1) + 'M';
+                                }
+                            }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: textColor, font: { family: 'Inter' } }
+                        }
+                    }
+                }
+            });
+
+            // 3. Gráfico de Fuentes de Tráfico (Barra Comparativa Horizontal)
+            const ctxTraffic = document.getElementById('trafficSourcesChart').getContext('2d');
+            trafficChart = new Chart(ctxTraffic, {
+                type: 'bar',
+                data: {
+                    labels: ['Search', 'Paid', 'Social', 'Internal', 'Direct'],
+                    datasets: [
+                        {
+                            label: 'Julio',
+                            data: [1503918, 1005876, 464645, 302730, 183713],
+                            backgroundColor: '#6366f1',
+                            borderRadius: 6
+                        },
+                        {
+                            label: 'Junio',
+                            data: [1694422, 1024852, 514986, 286751, 157679],
+                            backgroundColor: '#94a3b8',
+                            borderRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: textColor, font: { family: 'Inter', size: 10 } }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            grid: { color: gridColor },
+                            ticks: {
+                                color: textColor,
+                                font: { family: 'Inter' },
+                                callback: function (value) {
+                                    return (value / 1000).toFixed(0) + 'k';
+                                }
+                            }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: textColor, font: { family: 'Inter' } }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateChartColors() {
+            const isDark = document.documentElement.classList.contains('dark');
+            const textColor = isDark ? '#94a3b8' : '#64748b';
+            const gridColor = isDark ? 'rgba(51, 65, 85, 0.5)' : 'rgba(226, 232, 240, 0.8)';
+
+            [subChart, reachChart, trafficChart].forEach(chart => {
+                if (!chart) return;
+
+                chart.options.scales.y.grid.color = gridColor;
+                chart.options.scales.y.ticks.color = textColor;
+                chart.options.scales.x.ticks.color = textColor;
+
+                if (chart.options.plugins.legend && chart.options.plugins.legend.labels) {
+                    chart.options.plugins.legend.labels.color = textColor;
+                }
+
+                chart.update();
+            });
+        }
+
+        // Carga Inicial
+        document.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+            lucide.createIcons();
+            initCharts();
+        });
+    </script>
+</body>
+
+</html>
