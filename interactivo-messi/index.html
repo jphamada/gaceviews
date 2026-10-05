@@ -1,1 +1,1509 @@
+<!DOCTYPE html>
+<html lang="es">
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Los hitos de Lionel Messi en la Selección Argentina | Especial Interactivo</title>
+  <meta name="description"
+    content="Recorrido interactivo por los 12 momentos históricos de Lionel Messi con la camiseta de la Selección Argentina: desde su debut en 2005 hasta su despedida histórica.">
+
+  <!-- Tipografía Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       VARIABLES Y TEMA DE DISEÑO (DESIGN TOKENS)
+       ========================================================================== */
+    :root {
+      --color-gold: #F6B40E;
+      --color-gold-hover: #e09f05;
+      --color-gold-subtle: rgba(246, 180, 14, 0.15);
+      --color-gold-glow: rgba(246, 180, 14, 0.35);
+
+      --color-albiceleste: #75AADB;
+      --color-albiceleste-dark: #0284C7;
+      --color-albiceleste-soft: #F0F9FF;
+
+      --color-dark: #0F172A;
+      --color-slate-800: #1E293B;
+      --color-slate-700: #334155;
+      --color-slate-600: #475569;
+      /* Gris pizarra periodístico para descripción */
+      --color-slate-500: #64748B;
+      --color-slate-400: #94A3B8;
+      --color-slate-300: #CBD5E1;
+      --color-slate-200: #E2E8F0;
+      --color-slate-100: #F1F5F9;
+      --color-slate-50: #F8FAFC;
+      --color-white: #FFFFFF;
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+      --radius-pill: 9999px;
+
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.08);
+      --shadow-md: 0 4px 14px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 12px 30px rgba(15, 23, 42, 0.1);
+      --shadow-gold: 0 4px 18px rgba(246, 180, 14, 0.4);
+
+      --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+      --transition-fast: 0.18s ease;
+      --transition-normal: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Reset y base */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: transparent;
+      color: var(--color-dark);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      padding: 12px;
+    }
+
+    /* Contenedor principal para iframe o página web */
+    .interactive-wrapper {
+      max-width: 960px;
+      margin: 0 auto;
+      background: var(--color-white);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--color-slate-200);
+      box-shadow: var(--shadow-lg);
+      padding: 24px 28px 28px;
+      position: relative;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 6px;
+      }
+
+      .interactive-wrapper {
+        padding: 16px 14px 20px;
+        border-radius: var(--radius-lg);
+      }
+    }
+
+    /* ==========================================================================
+       1. HEADER SUPERIOR
+       ========================================================================== */
+    .widget-header {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 22px;
+      border-bottom: 1px solid var(--color-slate-100);
+      padding-bottom: 16px;
+    }
+
+    .header-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    /* Pill badge oscuro a la izquierda */
+    .pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background-color: var(--color-dark);
+      color: var(--color-white);
+      font-family: var(--font-display);
+      font-size: 0.73rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .pill-badge::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: var(--color-gold);
+      box-shadow: 0 0 8px var(--color-gold);
+    }
+
+    /* Indicador dinámico de avance a la derecha con botón compartir */
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .counter-badge {
+      display: inline-flex;
+      align-items: center;
+      background-color: var(--color-slate-100);
+      color: var(--color-slate-700);
+      font-family: var(--font-display);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      padding: 6px 13px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--color-slate-200);
+      white-space: nowrap;
+    }
+
+    .counter-badge strong {
+      color: var(--color-dark);
+      margin-right: 2px;
+    }
+
+    .btn-share {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--color-white);
+      border: 1px solid var(--color-slate-200);
+      color: var(--color-slate-600);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      position: relative;
+    }
+
+    .btn-share:hover {
+      background-color: var(--color-slate-50);
+      color: var(--color-dark);
+      border-color: var(--color-slate-300);
+      transform: translateY(-1px);
+    }
+
+    .btn-share:focus-visible {
+      outline: 2px solid var(--color-gold);
+      outline-offset: 2px;
+    }
+
+    /* Título principal */
+    .widget-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.35rem, 3.2vw, 1.95rem);
+      font-weight: 800;
+      color: var(--color-dark);
+      line-height: 1.22;
+      letter-spacing: -0.02em;
+    }
+
+    /* ==========================================================================
+       2. TARJETA PRINCIPAL DE CONTENIDO
+       ========================================================================== */
+    .main-card-container {
+      position: relative;
+      margin-bottom: 24px;
+    }
+
+    /* Flechas circulares flotantes a los lados */
+    .nav-arrow-btn {
+      position: absolute;
+      top: 38%;
+      transform: translateY(-50%);
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--color-slate-200);
+      color: var(--color-slate-800);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.16);
+      z-index: 10;
+      transition: all var(--transition-normal);
+    }
+
+    .nav-arrow-btn:hover:not(:disabled) {
+      background: var(--color-white);
+      color: var(--color-dark);
+      border-color: var(--color-gold);
+      box-shadow: var(--shadow-gold);
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    .nav-arrow-btn:active:not(:disabled) {
+      transform: translateY(-50%) scale(0.96);
+    }
+
+    .nav-arrow-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .nav-arrow-btn:focus-visible {
+      outline: 2px solid var(--color-gold);
+      outline-offset: 3px;
+    }
+
+    .nav-arrow-prev {
+      left: -18px;
+    }
+
+    .nav-arrow-next {
+      right: -18px;
+    }
+
+    @media (max-width: 768px) {
+      .nav-arrow-prev {
+        left: 10px;
+      }
+
+      .nav-arrow-next {
+        right: 10px;
+      }
+    }
+
+    /* Tarjeta que contiene imagen y textos */
+    .milestone-card {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-slate-200);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: opacity 0.24s ease, transform 0.24s ease;
+      will-change: opacity, transform;
+    }
+
+    /* Animaciones suaves de cambio de tarjeta */
+    .milestone-card.card-fading {
+      opacity: 0;
+      transform: scale(0.985);
+    }
+
+    /* Contenedor visual de imagen (16:9 con bordes redondeados) */
+    .media-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background-color: var(--color-dark);
+      overflow: hidden;
+    }
+
+    .media-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .milestone-card:hover .media-img {
+      transform: scale(1.02);
+    }
+
+    /* Degradé sutil inferior para legibilidad en la foto */
+    .media-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom,
+          rgba(15, 23, 42, 0.4) 0%,
+          rgba(15, 23, 42, 0.05) 40%,
+          rgba(15, 23, 42, 0.65) 100%);
+      pointer-events: none;
+    }
+
+    /* Badge superior izquierdo: Categoría / Torneo */
+    .badge-category {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(8px);
+      color: var(--color-dark);
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      z-index: 2;
+      max-width: 85%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* Badge inferior derecho: Resumen clave / Highlight */
+    .badge-highlight {
+      position: absolute;
+      bottom: 14px;
+      right: 14px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(10px);
+      color: var(--color-white);
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 7px 14px;
+      border-radius: var(--radius-pill);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      z-index: 2;
+      max-width: 90%;
+    }
+
+    .badge-highlight svg {
+      color: var(--color-gold);
+      flex-shrink: 0;
+    }
+
+    /* Badge de crédito / fuente de la fotografía */
+    .photo-credit-badge {
+      position: absolute;
+      bottom: 14px;
+      left: 14px;
+      background: rgba(15, 23, 42, 0.78);
+      backdrop-filter: blur(8px);
+      color: rgba(255, 255, 255, 0.9);
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 5px 11px;
+      border-radius: var(--radius-pill);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      z-index: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .photo-credit-badge svg {
+      color: var(--color-slate-300);
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 640px) {
+      .badge-category {
+        top: 10px;
+        left: 10px;
+        font-size: 0.64rem;
+        padding: 4px 10px;
+      }
+
+      .photo-credit-badge {
+        bottom: 10px;
+        left: 10px;
+        font-size: 0.62rem;
+        padding: 4px 8px;
+      }
+
+      .badge-highlight {
+        bottom: 10px;
+        right: 10px;
+        font-size: 0.68rem;
+        padding: 5px 10px;
+      }
+    }
+
+    /* Contenido editorial de la tarjeta */
+    .card-body {
+      padding: 22px 24px 20px;
+    }
+
+    @media (max-width: 640px) {
+      .card-body {
+        padding: 16px 16px 18px;
+      }
+    }
+
+    /* Metadatos: Fecha y Estadio/Ciudad */
+    .metadata-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background-color: var(--color-slate-100);
+      color: var(--color-slate-700);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--color-slate-200);
+    }
+
+    .meta-pill svg {
+      color: var(--color-albiceleste-dark);
+      flex-shrink: 0;
+    }
+
+    /* Texto periodístico */
+    .milestone-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+      font-weight: 800;
+      color: var(--color-dark);
+      line-height: 1.28;
+      letter-spacing: -0.015em;
+      margin-bottom: 12px;
+    }
+
+    .milestone-desc {
+      font-size: clamp(0.92rem, 1.4vw, 1.02rem);
+      color: var(--color-slate-600);
+      /* Color solicitado: #475569 */
+      line-height: 1.68;
+    }
+
+    /* Navegación rápida inferior en móvil */
+    .mobile-quick-nav {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--color-slate-100);
+    }
+
+    @media (max-width: 640px) {
+      .mobile-quick-nav {
+        display: flex;
+      }
+    }
+
+    .btn-mobile-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--color-slate-50);
+      color: var(--color-dark);
+      border: 1px solid var(--color-slate-200);
+      padding: 9px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      flex: 1;
+      justify-content: center;
+    }
+
+    .btn-mobile-nav:active:not(:disabled) {
+      background: var(--color-slate-200);
+    }
+
+    .btn-mobile-nav:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* ==========================================================================
+       3. BARRA DE CRONOLOGÍA (TIMELINE BAR)
+       ========================================================================== */
+    .timeline-container {
+      background: var(--color-slate-50);
+      border: 1px solid var(--color-slate-200);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px 20px;
+      margin-bottom: 22px;
+    }
+
+    .timeline-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .timeline-heading-left {
+      font-family: var(--font-display);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-slate-700);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .timeline-heading-left::before {
+      content: "";
+      width: 6px;
+      height: 12px;
+      background-color: var(--color-gold);
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    .timeline-heading-right {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--color-slate-400);
+    }
+
+    /* Contenedor scrolleable horizontal */
+    .timeline-scroll-area {
+      position: relative;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 14px 4px 10px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-slate-300) transparent;
+    }
+
+    .timeline-scroll-area::-webkit-scrollbar {
+      height: 5px;
+    }
+
+    .timeline-scroll-area::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .timeline-scroll-area::-webkit-scrollbar-thumb {
+      background-color: var(--color-slate-300);
+      border-radius: 4px;
+    }
+
+    /* Riel continuo y nodos */
+    .timeline-track {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      min-width: 760px;
+      /* Asegura espacio horizontal sin colapsar */
+      padding: 0 16px;
+    }
+
+    /* Línea base del eje horizontal */
+    .timeline-base-line {
+      position: absolute;
+      top: 18px;
+      left: 32px;
+      right: 32px;
+      height: 4px;
+      background-color: var(--color-slate-200);
+      border-radius: var(--radius-pill);
+      z-index: 1;
+    }
+
+    /* Barra de progreso conectada (dorada) */
+    .timeline-progress-fill {
+      position: absolute;
+      top: 18px;
+      left: 32px;
+      height: 4px;
+      background: linear-gradient(90deg, #e5a305, var(--color-gold));
+      border-radius: var(--radius-pill);
+      z-index: 2;
+      transition: width var(--transition-normal);
+      width: 0%;
+      box-shadow: 0 0 8px rgba(246, 180, 14, 0.4);
+    }
+
+    /* Cada nodo del hito */
+    .timeline-node {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      color: inherit;
+      outline: none;
+      transition: transform var(--transition-fast);
+      width: 48px;
+    }
+
+    .timeline-node:focus-visible .node-circle {
+      outline: 2px solid var(--color-gold);
+      outline-offset: 3px;
+    }
+
+    .timeline-node:hover .node-circle {
+      transform: scale(1.12);
+      border-color: var(--color-gold);
+    }
+
+    .timeline-node:hover .node-year {
+      color: var(--color-dark);
+      font-weight: 700;
+    }
+
+    /* Círculo indicador del nodo */
+    .node-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--color-white);
+      border: 3px solid var(--color-slate-300);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-slate-600);
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 700;
+      transition: all var(--transition-normal);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .node-circle .star-icon {
+      display: none;
+      width: 17px;
+      height: 17px;
+      fill: var(--color-white);
+    }
+
+    .node-year {
+      margin-top: 8px;
+      font-family: var(--font-display);
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--color-slate-500);
+      transition: color var(--transition-fast);
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    /* Subetiqueta opcional para hitos del mismo año (2026) */
+    .node-subtag {
+      font-size: 0.62rem;
+      color: var(--color-slate-400);
+      display: block;
+      margin-top: -2px;
+    }
+
+    /* Estado ACTIVO del nodo */
+    .timeline-node.active .node-circle {
+      background-color: var(--color-gold);
+      /* Fondo dorado #F6B40E */
+      border-color: var(--color-white);
+      color: var(--color-white);
+      box-shadow: 0 0 0 3px var(--color-gold), var(--shadow-gold);
+      transform: scale(1.18);
+    }
+
+    .timeline-node.active .node-number-text {
+      display: none;
+    }
+
+    .timeline-node.active .node-circle .star-icon {
+      display: block;
+    }
+
+    .timeline-node.active .node-year {
+      color: var(--color-dark);
+      font-weight: 800;
+      transform: translateY(1px);
+    }
+
+    .timeline-node.active .node-subtag {
+      color: var(--color-gold-hover);
+      font-weight: 700;
+    }
+
+    /* ==========================================================================
+       4. FOOTER CON LOGO LA GACETA
+       ========================================================================== */
+    .widget-footer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-top: 20px;
+      margin-top: 8px;
+      border-top: 1px solid var(--color-slate-100);
+    }
+
+    .footer-logo {
+      height: 26px;
+      width: auto;
+      max-width: 200px;
+      object-fit: contain;
+      display: block;
+      opacity: 0.9;
+      transition: opacity var(--transition-fast);
+    }
+
+    .footer-logo:hover {
+      opacity: 1;
+    }
+
+    /* ==========================================================================
+       TOAST FEEDBACK (Compartir enlace)
+       ========================================================================== */
+    .share-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(30px);
+      background-color: var(--color-dark);
+      color: var(--color-white);
+      padding: 10px 18px;
+      border-radius: var(--radius-pill);
+      font-size: 0.82rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: var(--shadow-lg);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1000;
+    }
+
+    .share-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .share-toast svg {
+      color: var(--color-gold);
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="interactive-wrapper" id="messiInteractiveApp"
+    aria-label="Especial interactivo: Hitos de Lionel Messi en la Selección Argentina">
+
+    <!-- 1. HEADER SUPERIOR -->
+    <header class="widget-header">
+      <div class="header-top-row">
+        <!-- Pill badge oscuro a la izquierda -->
+        <span class="pill-badge" aria-label="Sección">Especial Interactivo</span>
+
+        <!-- Indicador dinámico de avance e ícono de compartir -->
+        <div class="header-controls">
+          <div class="counter-badge" id="milestoneCounter" aria-live="polite">
+            Hito <strong id="currentMilestoneNum">1</strong> / 12
+          </div>
+          <button class="btn-share" id="btnShare" type="button" title="Compartir este hito"
+            aria-label="Compartir este hito">
+            <!-- Icono Compartir (SVG inline) -->
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="18" cy="5" r="3"></circle>
+              <circle cx="6" cy="12" r="3"></circle>
+              <circle cx="18" cy="19" r="3"></circle>
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Título principal -->
+      <h1 class="widget-title">Los hitos de Lionel Messi en la Selección Argentina</h1>
+    </header>
+
+    <!-- 2. BARRA DE CRONOLOGÍA (TIMELINE BAR - AHORA ARRIBA DE LA IMAGEN) -->
+    <nav class="timeline-container" aria-label="Cronología interactiva de hitos">
+      <div class="timeline-header">
+        <span class="timeline-heading-left">Cronología de hitos</span>
+        <span class="timeline-heading-right">Navega o haz clic en cualquier año</span>
+      </div>
+
+      <div class="timeline-scroll-area" id="timelineScrollArea">
+        <div class="timeline-track" id="timelineTrack">
+          <!-- Línea gris de fondo -->
+          <div class="timeline-base-line" aria-hidden="true"></div>
+          <!-- Barra de progreso dorada conectada -->
+          <div class="timeline-progress-fill" id="timelineProgressFill" aria-hidden="true"></div>
+
+          <!-- Nodos inyectados dinámicamente mediante JS -->
+        </div>
+      </div>
+    </nav>
+
+    <!-- 3. TARJETA PRINCIPAL DE CONTENIDO -->
+    <section class="main-card-container" aria-label="Detalle del hito seleccionado">
+      <!-- Flechas circulares flotantes ("<" y ">") -->
+      <button class="nav-arrow-btn nav-arrow-prev" id="btnPrev" type="button" title="Hito anterior"
+        aria-label="Hito anterior">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+
+      <button class="nav-arrow-btn nav-arrow-next" id="btnNext" type="button" title="Siguiente hito"
+        aria-label="Siguiente hito">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+
+      <!-- Tarjeta reactiva -->
+      <article class="milestone-card" id="milestoneCard">
+
+        <!-- Contenedor visual de imagen (16:9 con bordes redondeados) -->
+        <div class="media-container" id="mediaContainer">
+          <img id="cardImage" src="01.png" alt="Fotografía del hito de Lionel Messi" class="media-img" loading="eager">
+          <div class="media-overlay"></div>
+
+          <!-- Badge superior izquierdo: Categoría / Torneo -->
+          <div class="badge-category" id="badgeCategory">AMISTOSO INTERNACIONAL</div>
+
+          <!-- Fuente / Crédito de la fotografía (inferior izquierdo) -->
+          <div class="photo-credit-badge" id="photoCredit" title="Fuente de la imagen">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+              <circle cx="12" cy="13" r="4"></circle>
+            </svg>
+            <span id="photoCreditText">Foto: Getty</span>
+          </div>
+
+          <!-- Badge inferior derecho: Resumen clave / Highlight -->
+          <div class="badge-highlight" id="badgeHighlight">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <polygon
+                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+              </polygon>
+            </svg>
+            <span id="badgeHighlightText">Debut de pocos segundos</span>
+          </div>
+        </div>
+
+        <!-- Texto y Metadatos -->
+        <div class="card-body">
+          <!-- Metadatos: Fecha y Ubicación -->
+          <div class="metadata-row">
+            <div class="meta-pill" title="Fecha del evento">
+              <!-- Ícono Calendario -->
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+              <span id="metaDate">17 de Agosto de 2005</span>
+            </div>
+
+            <div class="meta-pill" title="Estadio o ciudad">
+              <!-- Ícono Ubicación / Pin -->
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <span id="metaVenue">Ferenc Puskás, Budapest</span>
+            </div>
+          </div>
+
+          <!-- Título y Descripción periodística -->
+          <h2 class="milestone-title" id="cardTitle">Un debut de pocos segundos</h2>
+          <p class="milestone-desc" id="cardDesc">
+            Con 18 años, entró ante Hungría, en Budapest, y fue expulsado casi enseguida por un manotazo. Salió llorando
+            hacia el vestuario. Nadie imaginaba que aquel chico terminaría siendo el futbolista con más partidos y más
+            goles en la historia de la Selección.
+          </p>
+
+          <!-- En versión móvil: Navegación rápida inferior -->
+          <div class="mobile-quick-nav">
+            <button class="btn-mobile-nav" id="btnQuickPrev" type="button" aria-label="Ir al hito anterior">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+              Anterior
+            </button>
+            <button class="btn-mobile-nav" id="btnQuickNext" type="button" aria-label="Ir al hito siguiente">
+              Siguiente
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+      </article>
+    </section>
+
+    <!-- 4. PIE DE PÁGINA CON LOGO LA GACETA -->
+    <footer class="widget-footer">
+      <img src="logo-lg.png" alt="La Gaceta" class="footer-logo" loading="lazy">
+    </footer>
+
+  </main>
+
+  <!-- Notificación Toast para Compartir -->
+  <div class="share-toast" id="shareToast" role="status" aria-live="polite">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+      stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+    <span>¡Enlace del hito copiado al portapapeles!</span>
+  </div>
+
+  <!-- JAVASCRIPT VANILLA -->
+  <script>
+    /**
+     * ============================================================================
+     * DATASET EXACTO DE HITOS HISTÓRICOS DE LIONEL MESSI
+     * ============================================================================
+     */
+    const milestones = [
+      {
+        id: 1,
+        year: "2005",
+        date: "17 de Agosto de 2005",
+        venue: "Ferenc Puskás, Budapest",
+        category: "AMISTOSO INTERNACIONAL",
+        highlight: "Debut de pocos segundos",
+        title: "Un debut de pocos segundos",
+        desc: "Con 18 años, entró ante Hungría, en Budapest, y fue expulsado casi enseguida por un manotazo. Salió llorando hacia el vestuario. Nadie imaginaba que aquel chico terminaría siendo el futbolista con más partidos y más goles en la historia de la Selección.",
+        img: "01.png",
+        credit: "Foto: Getty"
+      },
+      {
+        id: 2,
+        year: "2014",
+        date: "13 de Julio de 2014",
+        venue: "Estadio Maracaná, Río de Janeiro",
+        category: "COPA DEL MUNDO FIFA • BRASIL 2014",
+        highlight: "Balón de Oro del Mundial",
+        title: "La Copa que pasó de largo",
+        desc: "En el Maracaná, la Selección cayó 1 a 0 ante Alemania en la final del Mundial, con un gol de Mario Götze en el alargue. Leo fue elegido el mejor jugador del torneo, pero la imagen que quedó fue otra: él, pasando al lado del trofeo sin poder tocarlo.",
+        img: "02.png",
+        credit: "Foto: AFP"
+      },
+      {
+        id: 3,
+        year: "2016",
+        date: "26 de Junio de 2016",
+        venue: "MetLife Stadium, Nueva Jersey",
+        category: "COPA AMÉRICA CENTENARIO 2016",
+        highlight: "Renuncia y regreso",
+        title: "La renuncia y la vuelta",
+        desc: "Perdió su cuarta final, otra vez ante Chile, en Nueva Jersey. Erró su penal en la definición y, minutos después, anunció que dejaba la Selección. El país entero le pidió que se quedara, con carteles y una marcha al Obelisco. En agosto comunicó que volvía. Fue, quizás, la decisión más importante de su carrera.",
+        img: "03.png",
+        credit: "Foto: AFP"
+      },
+      {
+        id: 4,
+        year: "2017",
+        date: "10 de Octubre de 2017",
+        venue: "Estadio Atahualpa, Quito",
+        category: "ELIMINATORIAS SUDAMERICANAS",
+        highlight: "Hat-trick en la altura",
+        title: "La noche de Quito",
+        desc: "La Selección llegó a la última fecha de las Eliminatorias con riesgo de quedarse afuera del Mundial de Rusia. En la altura, Ecuador se puso en ventaja en el primer minuto. “Leo” respondió con tres goles y clasificó al equipo casi por su cuenta.",
+        img: "04.png",
+        credit: "Foto: AFP"
+      },
+      {
+        id: 5,
+        year: "2021",
+        date: "10 de Julio de 2021",
+        venue: "Maracaná, Río de Janeiro",
+        category: "COPA AMÉRICA BRASIL 2021",
+        highlight: "Campeón en el Maracaná",
+        title: "El fin de la sequía",
+        desc: "Con un gol de Ángel Di María, la Albiceleste le ganó 1 a 0 a Brasil en el Maracaná y se quedó con la Copa América. Terminaban 28 años sin títulos en la Selección mayor. “Leo” cayó de rodillas y sus compañeros corrieron a abrazarlo y a lanzarlo por el aire.",
+        img: "05.png",
+        credit: "Foto: AFP"
+      },
+      {
+        id: 6,
+        year: "2022",
+        date: "18 de Diciembre de 2022",
+        venue: "Estadio Lusail, Doha",
+        category: "COPA DEL MUNDO FIFA • QATAR 2022",
+        highlight: "2 Goles en la Final • Campeón del Mundo",
+        title: "La gloria eterna",
+        desc: "En Lusail, convirtió dos goles en una final inolvidable ante Francia, que terminó 3 a 3. La Selección ganó por penales y el capitán levantó la Copa del Mundo, con la túnica negra sobre la camiseta. Fue elegido el mejor jugador del torneo por segunda vez.",
+        img: "06.png",
+        credit: "Foto: AFP"
+      },
+      {
+        id: 7,
+        year: "2024",
+        date: "14 de Julio de 2024",
+        venue: "Hard Rock Stadium, Miami",
+        category: "COPA AMÉRICA USA 2024",
+        highlight: "Bicampeón de América",
+        title: "Lágrimas en Miami",
+        desc: "En la final de la Copa América ante Colombia, salió lesionado del tobillo y lloró desconsolado en el banco. Sus compañeros respondieron por él: Lautaro Martínez convirtió en el alargue y la Argentina sumó otro título. Fue la muestra de que el grupo también jugaba para su capitán.",
+        img: "07.png",
+        credit: "Foto: AFP"
+      },
+      {
+        id: 8,
+        year: "2026",
+        date: "22 de Junio de 2026",
+        venue: "Copa del Mundo FIFA 2026",
+        category: "COPA DEL MUNDO FIFA 2026",
+        highlight: "Récord histórico de goles",
+        title: "Récord histórico",
+        desc: "En su sexto Mundial, con 39 años, le convirtió a Austria y superó a Miroslav Klose como máximo goleador de los Mundiales. Días antes, ante Argelia, había llegado a los 200 partidos con la Selección con un triplete. Terminó el torneo con ocho goles y cuatro asistencias.",
+        img: "08.png",
+        credit: "Foto: AFP"
+      },
+      {
+        id: 9,
+        year: "2026",
+        date: "15 de Julio de 2026",
+        venue: "Mercedes-Benz Stadium, Atlanta",
+        category: "SEMIFINAL • MUNDIAL 2026",
+        highlight: "Remontada histórica • 2 Asistencias",
+        title: "La remontada ante Inglaterra",
+        desc: "En la semifinal del Mundial, en Atlanta, Inglaterra ganaba 1 a 0 a cinco minutos del final. Apareció el capitán: con un córner le sirvió el empate a Enzo Fernández y, en tiempo de descuento, con un centro de derecha, asistió a Lautaro Martínez para el 2-1. Argentina volvía a una final.",
+        img: "09.png",
+        credit: "Foto: AFP"
+      },
+      {
+        id: 10,
+        year: "2026",
+        date: "19 de Julio de 2026",
+        venue: "MetLife Stadium, Nueva Jersey",
+        category: "FINAL • MUNDIAL 2026",
+        highlight: "Último partido oficial",
+        title: "La última final",
+        desc: "España ganó 1 a 0 en el MetLife, el mismo estadio donde 10 años antes había renunciado. Fue su último partido oficial con la Selección. Esta vez nadie le reprochó nada: se fue aplaudido, con la sensación de que ya había saldado todas sus cuentas.",
+        img: "10.png",
+        credit: "Foto: AFP"
+      },
+      {
+        id: 11,
+        year: "2026",
+        date: "31 de Agosto de 2026",
+        venue: "Buenos Aires, Argentina",
+        category: "COMUNICADO OFICIAL",
+        highlight: "Carta de despedida",
+        title: "La carta del adiós",
+        desc: "Anunció su retiro con una carta escrita el 21 de julio, dos días después de la final, y reafirmada tras la muerte de su papá, Jorge. 'Me vacié, ya no tengo más para dar', explicó. En el mismo texto escribió: 'Amo, amé y amaré siempre estar en la Selección'. También dejó una promesa: desde ahora, alentará como uno más.",
+        img: "11.png",
+        credit: "Foto: AFP"
+      },
+      {
+        id: 12,
+        year: "2026",
+        date: "6 de Octubre de 2026",
+        venue: "Monumental, Buenos Aires",
+        category: "PARTIDO HOMENAJE",
+        highlight: "Última función con la Albiceleste",
+        title: "La despedida en casa",
+        desc: "Contra Benín, en el Monumental y con los campeones de Qatar a su lado, se pondrá por última vez la celeste y blanca. Será la noche en la que el país le devuelva un poco de todo lo que le dio.",
+        img: "12.png",
+        credit: "Foto: AFP"
+      }
+    ];
+
+    /**
+     * ============================================================================
+     * ESTADO Y REFERENCIAS AL DOM
+     * ============================================================================
+     */
+    let currentIndex = 0;
+    const totalMilestones = milestones.length;
+
+    // Elementos de la tarjeta y encabezado
+    const currentMilestoneNumEl = document.getElementById("currentMilestoneNum");
+    const milestoneCardEl = document.getElementById("milestoneCard");
+    const cardImageEl = document.getElementById("cardImage");
+    const badgeCategoryEl = document.getElementById("badgeCategory");
+    const badgeHighlightTextEl = document.getElementById("badgeHighlightText");
+    const photoCreditTextEl = document.getElementById("photoCreditText");
+    const metaDateEl = document.getElementById("metaDate");
+    const metaVenueEl = document.getElementById("metaVenue");
+    const cardTitleEl = document.getElementById("cardTitle");
+    const cardDescEl = document.getElementById("cardDesc");
+
+    // Botones de navegación
+    const btnPrev = document.getElementById("btnPrev");
+    const btnNext = document.getElementById("btnNext");
+    const btnQuickPrev = document.getElementById("btnQuickPrev");
+    const btnQuickNext = document.getElementById("btnQuickNext");
+    const btnShare = document.getElementById("btnShare");
+    const shareToast = document.getElementById("shareToast");
+
+    // Timeline
+    const timelineTrack = document.getElementById("timelineTrack");
+    const timelineProgressFill = document.getElementById("timelineProgressFill");
+    const timelineScrollArea = document.getElementById("timelineScrollArea");
+
+    /**
+     * ============================================================================
+     * INICIALIZACIÓN DE LA LÍNEA DE TIEMPO (TIMELINE)
+     * ============================================================================
+     */
+    function initTimeline() {
+      // Contar ocurrencias de años para mostrar sub-índices si hay repetidos (como 2026)
+      const yearCount = {};
+      milestones.forEach(m => {
+        yearCount[m.year] = (yearCount[m.year] || 0) + 1;
+      });
+
+      const yearCurrentIndex = {};
+
+      milestones.forEach((item, index) => {
+        yearCurrentIndex[item.year] = (yearCurrentIndex[item.year] || 0) + 1;
+
+        const nodeBtn = document.createElement("button");
+        nodeBtn.type = "button";
+        nodeBtn.className = "timeline-node" + (index === 0 ? " active" : "");
+        nodeBtn.id = `timeline-node-${index}`;
+        nodeBtn.setAttribute("role", "tab");
+        nodeBtn.setAttribute("aria-selected", index === 0 ? "true" : "false");
+        nodeBtn.setAttribute("aria-label", `Hito ${item.id}: ${item.year} - ${item.title}`);
+
+        // Si el año se repite (2026), podemos agregar un mini identificador sutil
+        const subtagText = yearCount[item.year] > 1 ? `#${yearCurrentIndex[item.year]}` : "";
+
+        nodeBtn.innerHTML = `
+          <div class="node-circle">
+            <span class="node-number-text">${item.id}</span>
+            <svg class="star-icon" viewBox="0 0 24 24">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+          </div>
+          <span class="node-year">${item.year}</span>
+          ${subtagText ? `<span class="node-subtag">${subtagText}</span>` : ""}
+        `;
+
+        nodeBtn.addEventListener("click", () => {
+          goToMilestone(index);
+        });
+
+        timelineTrack.appendChild(nodeBtn);
+      });
+
+      updateTimelineProgress();
+    }
+
+    /**
+     * ============================================================================
+     * ACTUALIZACIÓN DEL TIMELINE Y BARRA DE PROGRESO
+     * ============================================================================
+     */
+    function updateTimelineProgress() {
+      const nodes = timelineTrack.querySelectorAll(".timeline-node");
+      if (!nodes.length) return;
+
+      nodes.forEach((node, idx) => {
+        const isActive = idx === currentIndex;
+        node.classList.toggle("active", isActive);
+        node.setAttribute("aria-selected", isActive ? "true" : "false");
+      });
+
+      // Cálculo de porcentaje para la barra de progreso dorada conectada
+      const activeNode = nodes[currentIndex];
+      const firstNode = nodes[0];
+      const lastNode = nodes[nodes.length - 1];
+
+      if (activeNode && firstNode && lastNode) {
+        const trackRect = timelineTrack.getBoundingClientRect();
+        const activeRect = activeNode.getBoundingClientRect();
+        const firstRect = firstNode.getBoundingClientRect();
+
+        // Ancho desde el centro del primer nodo hasta el centro del nodo activo
+        const firstCenter = (firstRect.left + firstRect.right) / 2;
+        const activeCenter = (activeRect.left + activeRect.right) / 2;
+        const progressPx = Math.max(0, activeCenter - firstCenter);
+
+        timelineProgressFill.style.width = `${progressPx}px`;
+
+        // Asegurar que el nodo activo sea visible en móvil (scroll suave automático)
+        const scrollLeftDesired = activeNode.offsetLeft - (timelineScrollArea.clientWidth / 2) + (activeNode.clientWidth / 2);
+        timelineScrollArea.scrollTo({
+          left: scrollLeftDesired,
+          behavior: 'smooth'
+        });
+      }
+    }
+
+    /**
+     * ============================================================================
+     * RENDERIZADO REACTIVO DEL HITO ACTUAL
+     * ============================================================================
+     */
+    let isTransitioning = false;
+
+    function renderMilestone(index, withAnimation = true) {
+      const data = milestones[index];
+      if (!data) return;
+
+      const updateDataDOM = () => {
+        currentMilestoneNumEl.textContent = data.id;
+        badgeCategoryEl.textContent = data.category;
+        badgeHighlightTextEl.textContent = data.highlight;
+        if (photoCreditTextEl) {
+          photoCreditTextEl.textContent = data.credit || "Foto: AFP";
+        }
+        metaDateEl.textContent = data.date;
+        metaVenueEl.textContent = data.venue;
+        cardTitleEl.textContent = data.title;
+        cardDescEl.textContent = data.desc;
+
+        if (data.img) {
+          cardImageEl.src = data.img;
+          cardImageEl.alt = `${data.title} - Lionel Messi (${data.year})`;
+        }
+
+        // Estado de botones de navegación (ciclo o disabled)
+        btnPrev.disabled = index === 0;
+        btnNext.disabled = index === totalMilestones - 1;
+        btnQuickPrev.disabled = index === 0;
+        btnQuickNext.disabled = index === totalMilestones - 1;
+
+        updateTimelineProgress();
+      };
+
+      if (!withAnimation) {
+        updateDataDOM();
+        return;
+      }
+
+      if (isTransitioning) return;
+      isTransitioning = true;
+
+      // Animación suave de salida (fade-out)
+      milestoneCardEl.classList.add("card-fading");
+
+      setTimeout(() => {
+        updateDataDOM();
+        // Animación suave de entrada (fade-in)
+        milestoneCardEl.classList.remove("card-fading");
+        setTimeout(() => {
+          isTransitioning = false;
+        }, 220);
+      }, 160);
+    }
+
+    function goToMilestone(targetIndex) {
+      if (targetIndex < 0 || targetIndex >= totalMilestones) return;
+      if (targetIndex === currentIndex) return;
+      currentIndex = targetIndex;
+      renderMilestone(currentIndex);
+      updateUrlHash(currentIndex);
+    }
+
+    function nextMilestone() {
+      if (currentIndex < totalMilestones - 1) {
+        goToMilestone(currentIndex + 1);
+      }
+    }
+
+    function prevMilestone() {
+      if (currentIndex > 0) {
+        goToMilestone(currentIndex - 1);
+      }
+    }
+
+    /**
+     * ============================================================================
+     * COMPARTIR Y DEEP LINKING (HASH #hito-X)
+     * ============================================================================
+     */
+    function updateUrlHash(index) {
+      const milestoneId = milestones[index].id;
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState(null, null, `#hito-${milestoneId}`);
+      }
+    }
+
+    function getInitialMilestoneFromUrl() {
+      const hash = window.location.hash;
+      if (hash && hash.startsWith("#hito-")) {
+        const idNum = parseInt(hash.replace("#hito-", ""), 10);
+        const foundIdx = milestones.findIndex(m => m.id === idNum);
+        if (foundIdx !== -1) return foundIdx;
+      }
+      return 0;
+    }
+
+    let toastTimer = null;
+    function showToast(message) {
+      if (toastTimer) clearTimeout(toastTimer);
+      if (message) {
+        shareToast.querySelector("span").textContent = message;
+      }
+      shareToast.classList.add("show");
+      toastTimer = setTimeout(() => {
+        shareToast.classList.remove("show");
+      }, 3000);
+    }
+
+    async function handleShare() {
+      const currentData = milestones[currentIndex];
+      const shareUrl = window.location.href.split('#')[0] + `#hito-${currentData.id}`;
+      const shareData = {
+        title: `Hito de Messi: ${currentData.title} (${currentData.year})`,
+        text: `Mirá este momento histórico de Lionel Messi en la Selección: "${currentData.title}" (${currentData.year}).`,
+        url: shareUrl
+      };
+
+      if (navigator.share) {
+        try {
+          await navigator.share(shareData);
+          return;
+        } catch (err) {
+          if (err.name !== 'AbortError') {
+            copyToClipboard(shareUrl);
+          }
+        }
+      } else {
+        copyToClipboard(shareUrl);
+      }
+    }
+
+    function copyToClipboard(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          showToast("¡Enlace copiado al portapapeles!");
+        }).catch(() => {
+          fallbackCopyText(text);
+        });
+      } else {
+        fallbackCopyText(text);
+      }
+    }
+
+    function fallbackCopyText(text) {
+      const input = document.createElement("input");
+      input.value = text;
+      document.body.appendChild(input);
+      input.select();
+      try {
+        document.execCommand("copy");
+        showToast("¡Enlace copiado al portapapeles!");
+      } catch (e) {
+        showToast("Copia este enlace: " + text);
+      }
+      document.body.removeChild(input);
+    }
+
+    /**
+     * ============================================================================
+     * EVENT LISTENERS (CLICK, TECLADO, SWIPE TOUCH, RESIZE)
+     * ============================================================================
+     */
+    // Botones flechas flotantes
+    btnPrev.addEventListener("click", prevMilestone);
+    btnNext.addEventListener("click", nextMilestone);
+
+    // Botones rápidos para móvil
+    btnQuickPrev.addEventListener("click", prevMilestone);
+    btnQuickNext.addEventListener("click", nextMilestone);
+
+    // Botón compartir
+    btnShare.addEventListener("click", handleShare);
+
+    // Navegación con teclado (Flecha izquierda y derecha)
+    window.addEventListener("keydown", (e) => {
+      // Ignorar si el usuario está tipeando en un input
+      if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        prevMilestone();
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        nextMilestone();
+      }
+    });
+
+    // Soporte táctil Swipe en la tarjeta
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+
+    milestoneCardEl.addEventListener("touchstart", (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    milestoneCardEl.addEventListener("touchend", (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      touchEndY = e.changedTouches[0].screenY;
+      handleGesture();
+    }, { passive: true });
+
+    function handleGesture() {
+      const diffX = touchEndX - touchStartX;
+      const diffY = touchEndY - touchStartY;
+      // Verificar si el gesto fue predominantemente horizontal
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+        if (diffX < 0) {
+          // Deslizar izquierda -> Siguiente
+          nextMilestone();
+        } else {
+          // Deslizar derecha -> Anterior
+          prevMilestone();
+        }
+      }
+    }
+
+    // Recalcular posición del timeline al redimensionar ventana
+    let resizeDebounce = null;
+    window.addEventListener("resize", () => {
+      if (resizeDebounce) clearTimeout(resizeDebounce);
+      resizeDebounce = setTimeout(updateTimelineProgress, 80);
+    });
+
+    /**
+     * ============================================================================
+     * BOOTSTRAP DE LA APLICACIÓN
+     * ============================================================================
+     */
+    window.addEventListener("DOMContentLoaded", () => {
+      initTimeline();
+      currentIndex = getInitialMilestoneFromUrl();
+      renderMilestone(currentIndex, false);
+      // Actualizar cálculo de línea dorada una vez renderizado el layout
+      setTimeout(updateTimelineProgress, 60);
+    });
+  </script>
+</body>
+
+</html>
