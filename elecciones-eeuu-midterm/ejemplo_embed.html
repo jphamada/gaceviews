@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejemplo de Embebido - Elecciones EE.UU.</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #f8fafc;
+      color: #334155;
+      padding: 30px 20px;
+      line-height: 1.6;
+    }
+    .article-container {
+      max-width: 740px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 36px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    }
+    h1 {
+      color: #0f172a;
+      font-size: 28px;
+      margin-bottom: 12px;
+      line-height: 1.25;
+    }
+    .intro {
+      font-size: 16px;
+      color: #64748b;
+      margin-bottom: 24px;
+    }
+    .nav-toggle {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .nav-toggle button {
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #f1f5f9;
+      cursor: pointer;
+      color: #334155;
+      transition: all 0.2s ease;
+    }
+    .nav-toggle button.active {
+      background: #145ea8;
+      color: #ffffff;
+      border-color: #145ea8;
+    }
+    .embed-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 20px 0 28px 0;
+      background: #ffffff;
+    }
+    iframe {
+      width: 100%;
+      height: 680px;
+      border: none;
+      display: block;
+    }
+    .code-block {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 16px;
+      border-radius: 8px;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 13px;
+      overflow-x: auto;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="article-container">
+    <h1>Elecciones de Medio Término en Estados Unidos: El Congreso en disputa</h1>
+    <p class="intro">Tableros interactivos para la Cámara de Representantes y el Senado de los Estados Unidos:</p>
+
+    <div class="nav-toggle">
+      <button id="btnCamara" class="active" onclick="switchGraphic('camara.html', this)">Cámara de Representantes</button>
+      <button id="btnSenado" onclick="switchGraphic('senado.html', this)">Senado</button>
+    </div>
+
+    <!-- Gráfico embebido -->
+    <div class="embed-card">
+      <iframe id="embedFrame" src="camara.html" title="Tablero Interactivo" loading="lazy"></iframe>
+    </div>
+
+    <h3>Código para embeber en una nota o CMS:</h3>
+    <pre class="code-block" id="embedCode">&lt;iframe 
+  src="camara.html" 
+  width="100%" 
+  height="680" 
+  frameborder="0" 
+  scrolling="no" 
+  title="Cámara de Representantes - Elecciones EE.UU."&gt;
+&lt;/iframe&gt;</pre>
+  </div>
+
+  <script>
+    function switchGraphic(file, btn) {
+      document.getElementById('embedFrame').src = file;
+      document.querySelectorAll('.nav-toggle button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const title = file === 'camara.html' ? 'Cámara de Representantes - Elecciones EE.UU.' : 'Senado en Cifras - Elecciones EE.UU.';
+      document.getElementById('embedCode').textContent = `<iframe \n  src="${file}" \n  width="100%" \n  height="680" \n  frameborder="0" \n  scrolling="no" \n  title="${title}">\n</iframe>`;
+    }
+  </script>
+</body>
+</html>

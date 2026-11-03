@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cámara de Representantes - Elecciones EE.UU.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Roboto:wght@400;500;700;900&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --color-dem: #145ea8;
+      --color-dem-hover: #0f4b87;
+      --color-rep: #ba2825;
+      --color-rep-hover: #9c1f1c;
+      --color-vacant: #cbd5e1;
+      --color-text-main: #111827;
+      --color-text-muted: #555e6d;
+      --color-border: #e5e7eb;
+      --color-bg: #ffffff;
+      --font-base: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      --font-title: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      --font-numbers: 'Merriweather', Georgia, serif;
+      --transition-speed: 0.28s;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-base);
+      background-color: transparent;
+      color: var(--color-text-main);
+      display: flex;
+      justify-content: center;
+      padding: 12px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .widget-container {
+      width: 100%;
+      max-width: 660px;
+      background: var(--color-bg);
+      padding: 24px 28px 20px 28px;
+      border-radius: 6px;
+      position: relative;
+    }
+
+    /* Tabs Bar */
+    .tabs-wrapper {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 16px;
+      border-bottom: 1px solid #f1f5f9;
+      padding-bottom: 10px;
+    }
+
+    .tabs-group {
+      display: inline-flex;
+      background: #f1f5f9;
+      padding: 3px;
+      border-radius: 8px;
+      gap: 3px;
+    }
+
+    .tab-btn {
+      border: none;
+      background: transparent;
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #64748b;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      color: #1e293b;
+    }
+
+    .tab-btn.active {
+      background: #ffffff;
+      color: #0f172a;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Header Section */
+    .header-section {
+      margin-bottom: 18px;
+    }
+
+    .title-main {
+      font-family: var(--font-title);
+      font-size: 23px;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      color: var(--color-text-main);
+      margin-bottom: 5px;
+    }
+
+    .subtitle-main {
+      font-size: 14.5px;
+      color: #2b333e;
+      font-weight: 400;
+      line-height: 1.4;
+    }
+
+    .divider {
+      height: 1px;
+      background-color: var(--color-border);
+      margin: 18px 0;
+    }
+
+    /* Metrics Row */
+    .metrics-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 26px;
+    }
+
+    .metric-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .metric-number {
+      font-family: var(--font-numbers);
+      font-size: 33px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: baseline;
+      gap: 5px;
+    }
+
+    .metric-number .dem-val {
+      color: var(--color-dem);
+      cursor: pointer;
+      transition: opacity var(--transition-speed);
+    }
+
+    .metric-number .rep-val {
+      color: var(--color-rep);
+      cursor: pointer;
+      transition: opacity var(--transition-speed);
+    }
+
+    .metric-number .dot-separator {
+      color: #222;
+      font-weight: 700;
+    }
+
+    .metric-label {
+      font-size: 13px;
+      color: var(--color-text-muted);
+      line-height: 1.35;
+      font-weight: 400;
+    }
+
+    /* Narrative Section */
+    .section-power {
+      margin-bottom: 14px;
+    }
+
+    .title-power {
+      font-family: var(--font-title);
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      color: var(--color-text-main);
+      margin-bottom: 4px;
+    }
+
+    .subtitle-power {
+      font-size: 14px;
+      color: #2c333e;
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+
+    .camara-block {
+      margin-top: 10px;
+    }
+
+    .camara-tag {
+      font-family: var(--font-title);
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--color-text-main);
+      margin-bottom: 2px;
+    }
+
+    .camara-desc {
+      font-size: 13.5px;
+      color: var(--color-text-muted);
+      line-height: 1.4;
+    }
+
+    /* SVG Hemicycle & Bar */
+    .chart-wrapper {
+      position: relative;
+      width: 100%;
+      margin: 10px 0 16px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hemicycle-svg {
+      width: 100%;
+      max-width: 580px;
+      height: auto;
+      overflow: visible;
+      user-select: none;
+    }
+
+    /* Dots Styling & Animation */
+    .seat-dot {
+      transition: fill 0.35s ease, opacity var(--transition-speed) ease, transform 0.18s ease;
+      transform-box: fill-box;
+      transform-origin: center center;
+      cursor: pointer;
+    }
+
+    .seat-dot:hover {
+      transform: scale(1.4);
+    }
+
+    .seat-dem {
+      fill: var(--color-dem);
+    }
+
+    .seat-rep {
+      fill: var(--color-rep);
+    }
+
+    .seat-vacant {
+      fill: var(--color-vacant);
+    }
+
+    /* Hover transparency effect */
+    .widget-container.hover-dem .seat-rep,
+    .widget-container.hover-dem .bar-rep,
+    .widget-container.hover-dem .rep-val,
+    .widget-container.hover-dem .label-rep {
+      opacity: 0.18 !important;
+    }
+
+    .widget-container.hover-rep .seat-dem,
+    .widget-container.hover-rep .bar-dem,
+    .widget-container.hover-rep .dem-val,
+    .widget-container.hover-rep .label-dem {
+      opacity: 0.18 !important;
+    }
+
+    .widget-container.hover-vacant .seat-dem,
+    .widget-container.hover-vacant .seat-rep,
+    .widget-container.hover-vacant .bar-dem,
+    .widget-container.hover-vacant .bar-rep {
+      opacity: 0.25 !important;
+    }
+
+    /* Bar Styling */
+    .bar-rect {
+      cursor: pointer;
+      transition: opacity var(--transition-speed) ease, width 0.5s ease-out, x 0.5s ease-out;
+    }
+
+    .bar-dem {
+      fill: var(--color-dem);
+    }
+
+    .bar-rep {
+      fill: var(--color-rep);
+    }
+
+    .bar-vacant {
+      fill: var(--color-vacant);
+    }
+
+    /* Majority line */
+    .majority-marker {
+      stroke: #ffffff;
+      stroke-width: 2.5;
+    }
+
+    /* Bar Labels */
+    .bar-label {
+      font-family: var(--font-numbers);
+      font-weight: 700;
+      transition: opacity var(--transition-speed) ease;
+      cursor: pointer;
+    }
+
+    .label-dem {
+      fill: var(--color-dem);
+    }
+
+    .label-rep {
+      fill: var(--color-rep);
+    }
+
+    .party-letter {
+      font-family: var(--font-title);
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    /* Tooltip */
+    .tooltip {
+      position: absolute;
+      background: rgba(17, 24, 39, 0.95);
+      color: #ffffff;
+      padding: 6px 11px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      pointer-events: none;
+      opacity: 0;
+      transform: translate(-50%, -100%) scale(0.95);
+      transition: opacity 0.15s ease, transform 0.15s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 100;
+      white-space: nowrap;
+    }
+
+    .tooltip.visible {
+      opacity: 1;
+      transform: translate(-50%, -120%) scale(1);
+    }
+
+    /* Footer Section */
+    .footer-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 14px;
+      padding-top: 10px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-left {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .update-time {
+      font-size: 12px;
+      font-style: italic;
+      color: #374151;
+    }
+
+    .source-info {
+      font-size: 11.5px;
+      color: #6b7280;
+    }
+
+    .source-info a {
+      color: inherit;
+      text-decoration: underline;
+    }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-logo {
+      height: 18px;
+      width: auto;
+      max-width: 140px;
+      object-fit: contain;
+      display: block;
+      opacity: 0.95;
+      transition: opacity 0.2s ease;
+    }
+
+    .footer-logo:hover {
+      opacity: 1;
+    }
+
+    /* Entrance Animation Keyframes */
+    @keyframes dotPop {
+      0% {
+        opacity: 0;
+        transform: scale(0.15);
+      }
+
+      70% {
+        transform: scale(1.15);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .anim-in {
+      animation: dotPop 0.45s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 480px) {
+      .widget-container {
+        padding: 16px 16px 14px 16px;
+      }
+
+      .title-main {
+        font-size: 19px;
+      }
+
+      .metric-number {
+        font-size: 26px;
+      }
+
+      .footer-section {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .footer-right {
+        align-self: flex-end;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="widget-container" id="widgetContainer">
+    <!-- Tabs Switcher -->
+    <div class="tabs-wrapper">
+      <div class="tabs-group" role="tablist">
+        <button class="tab-btn active" id="tabActual" role="tab" aria-selected="true">Composición actual</button>
+        <button class="tab-btn" id="tabPrevia" role="tab" aria-selected="false">Antes de las elecciones</button>
+      </div>
+    </div>
+
+    <!-- Header Section -->
+    <header class="header-section">
+      <h1 class="title-main" id="titleMain">Cámara de Representantes</h1>
+      <p class="subtitle-main" id="subtitleMain"></p>
+    </header>
+
+    <div class="divider"></div>
+
+    <!-- Metrics Summary -->
+    <div class="metrics-row">
+      <div class="metric-col">
+        <div class="metric-number">
+          <span id="seatsInPlay">435</span>
+        </div>
+        <div class="metric-label" id="seatsInPlayLabel">escaños en juego</div>
+      </div>
+      <div class="metric-col">
+        <div class="metric-number">
+          <span class="dem-val" id="demCountHeader" data-party="dem">214</span>
+          <span class="dot-separator">·</span>
+          <span class="rep-val" id="repCountHeader" data-party="rep">219</span>
+        </div>
+        <div class="metric-label" id="partiesSubheader">demócratas · republicanos (2 vacantes)</div>
+      </div>
+    </div>
+
+    <!-- Narrative Section -->
+    <div class="section-power" id="sectionPower">
+      <h2 class="title-power" id="titlePower"></h2>
+      <p class="subtitle-power" id="subtitlePower"></p>
+
+      <div class="camara-block" id="camaraBlock">
+        <div class="camara-tag" id="camaraTag"></div>
+        <div class="camara-desc" id="camaraDesc"></div>
+      </div>
+    </div>
+
+    <!-- SVG Parliamentary Hemicycle -->
+    <div class="chart-wrapper">
+      <svg class="hemicycle-svg" id="hemicycleSvg" viewBox="-280 -265 560 360" role="img"
+        aria-label="Distribución de escaños en el hemiciclo"></svg>
+      <div class="tooltip" id="tooltip"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-section">
+      <div class="footer-left">
+        <div class="update-time" id="updateTime">Datos actualizados: 3 de noviembre de 2026.</div>
+        <div class="source-info" id="sourceInfo"></div>
+      </div>
+      <div class="footer-right">
+        <img src="logo-lg.png" alt="LA GACETA" class="footer-logo" id="footerLogo" onerror="this.style.display='none'">
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Embedded Fallback Data
+    const DEFAULT_DATA = {
+      actual: {
+        tab_label: "Composición actual",
+        titulo: "Cámara de Representantes",
+        subtitulo: "Así quedó la Cámara de Representantes",
+        escanos_totales: 435,
+        escanos_juego: 435,
+        escanos_juego_texto: "escaños en juego",
+        mayoria: 218,
+        democratas: 214,
+        republicanos: 219,
+        vacantes: 2,
+        partidos_texto: "demócratas · republicanos (2 vacantes)",
+        tablero_titulo: "",
+        tablero_subtitulo: "",
+        camara_titulo: "",
+        camara_subtitulo: "",
+        fecha_actualizacion: "3 de noviembre de 2026",
+        hora_actualizacion: "",
+        fuente: ""
+      },
+      previa: {
+        tab_label: "Antes de las elecciones",
+        titulo: "Cámara de Representantes",
+        subtitulo: "Así era la composición antes de las elecciones",
+        escanos_totales: 435,
+        escanos_juego: 435,
+        escanos_juego_texto: "composición antes de las elecciones",
+        mayoria: 218,
+        democratas: 212,
+        republicanos: 221,
+        vacantes: 2,
+        partidos_texto: "demócratas · republicanos (2 vacantes)",
+        tablero_titulo: "",
+        tablero_subtitulo: "",
+        camara_titulo: "",
+        camara_subtitulo: "",
+        fecha_actualizacion: "3 de noviembre de 2026",
+        hora_actualizacion: "08:00 hs",
+        fuente: ""
+      }
+    };
+
+    let dataset = DEFAULT_DATA;
+    let currentMode = "actual"; // 'actual' | 'previa'
+    let dotElements = [];
+    let barElements = {};
+    let isInitialLoad = true;
+
+    // Hemicycle geometry configuration
+    const ROWS = 11;
+    const R_INNER = 110;
+    const R_OUTER = 245;
+    const TOTAL_SEATS = 435;
+    const DOT_RADIUS = 4.3;
+
+    function generateHemicycleLayout(totalSeats = TOTAL_SEATS, rows = ROWS, rInner = R_INNER, rOuter = R_OUTER) {
+      const dr = (rOuter - rInner) / (rows - 1);
+      const radii = [];
+      for (let i = 0; i < rows; i++) radii.push(rInner + i * dr);
+      const sumR = radii.reduce((a, b) => a + b, 0);
+
+      let counts = radii.map(r => Math.round(totalSeats * (r / sumR)));
+      let diff = totalSeats - counts.reduce((a, b) => a + b, 0);
+      while (diff !== 0) {
+        for (let i = rows - 1; i >= 0 && diff !== 0; i--) {
+          if (diff > 0) { counts[i]++; diff--; }
+          else if (diff < 0 && counts[i] > 1) { counts[i]--; diff++; }
+        }
+      }
+
+      const dots = [];
+      for (let rIdx = 0; rIdx < rows; rIdx++) {
+        const r = radii[rIdx];
+        const count = counts[rIdx];
+        for (let j = 0; j < count; j++) {
+          const angle = Math.PI - (j / (count - 1)) * Math.PI;
+          const x = +(r * Math.cos(angle)).toFixed(2);
+          const y = +(-r * Math.sin(angle)).toFixed(2);
+          dots.push({ x, y, r, angle, rIdx, seatIdx: j });
+        }
+      }
+
+      dots.sort((a, b) => b.angle - a.angle || a.r - b.r);
+      return dots;
+    }
+
+    const dotCoordinates = generateHemicycleLayout();
+
+    const widgetContainer = document.getElementById('widgetContainer');
+    const tabActualBtn = document.getElementById('tabActual');
+    const tabPreviaBtn = document.getElementById('tabPrevia');
+    const hemicycleSvg = document.getElementById('hemicycleSvg');
+    const tooltip = document.getElementById('tooltip');
+
+    function animateValue(element, start, end, duration = 650) {
+      if (!element) return;
+      if (start === end) {
+        element.textContent = end;
+        return;
+      }
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        const easeProgress = 1 - Math.pow(1 - progress, 3);
+        const currentVal = Math.floor(easeProgress * (end - start) + start);
+        element.textContent = currentVal;
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        } else {
+          element.textContent = end;
+        }
+      };
+      window.requestAnimationFrame(step);
+    }
+
+    function setHighlight(party) {
+      widgetContainer.classList.remove('hover-dem', 'hover-rep', 'hover-vacant');
+      if (party === 'dem') widgetContainer.classList.add('hover-dem');
+      else if (party === 'rep') widgetContainer.classList.add('hover-rep');
+      else if (party === 'vacant') widgetContainer.classList.add('hover-vacant');
+    }
+
+    function clearHighlight() {
+      widgetContainer.classList.remove('hover-dem', 'hover-rep', 'hover-vacant');
+    }
+
+    function showTooltip(evt, text) {
+      const rect = widgetContainer.getBoundingClientRect();
+      const x = evt.clientX - rect.left;
+      const y = evt.clientY - rect.top;
+      tooltip.textContent = text;
+      tooltip.style.left = `${x}px`;
+      tooltip.style.top = `${y}px`;
+      tooltip.classList.add('visible');
+    }
+
+    function hideTooltip() {
+      tooltip.classList.remove('visible');
+    }
+
+    function initSvgElements() {
+      hemicycleSvg.innerHTML = '';
+
+      const dotsGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      dotsGroup.setAttribute('id', 'dotsGroup');
+      hemicycleSvg.appendChild(dotsGroup);
+
+      dotElements = [];
+      dotCoordinates.forEach((dot, index) => {
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('cx', dot.x);
+        circle.setAttribute('cy', dot.y);
+        circle.setAttribute('r', DOT_RADIUS);
+        circle.setAttribute('class', 'seat-dot');
+        circle.setAttribute('data-index', index);
+
+        if (isInitialLoad) {
+          circle.classList.add('anim-in');
+          const delay = (index * 2.2).toFixed(1);
+          circle.style.animationDelay = `${delay}ms`;
+        }
+
+        circle.addEventListener('mouseenter', (e) => {
+          const party = circle.getAttribute('data-party');
+          setHighlight(party);
+          const partyName = party === 'dem' ? 'Demócratas' : party === 'rep' ? 'Republicanos' : 'Vacante';
+          showTooltip(e, `${partyName}`);
+        });
+
+        circle.addEventListener('mousemove', (e) => {
+          const party = circle.getAttribute('data-party');
+          const partyName = party === 'dem' ? 'Demócratas' : party === 'rep' ? 'Republicanos' : 'Vacante';
+          showTooltip(e, `${partyName}`);
+        });
+
+        circle.addEventListener('mouseleave', () => {
+          clearHighlight();
+          hideTooltip();
+        });
+
+        dotsGroup.appendChild(circle);
+        dotElements.push(circle);
+      });
+
+      const barGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      barGroup.setAttribute('id', 'barGroup');
+      hemicycleSvg.appendChild(barGroup);
+
+      const barY = 22;
+      const barHeight = 8;
+      const barTotalWidth = 490;
+      const barStartX = -245;
+
+      const barDem = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      barDem.setAttribute('class', 'bar-rect bar-dem');
+      barDem.setAttribute('y', barY);
+      barDem.setAttribute('height', barHeight);
+      barDem.setAttribute('data-party', 'dem');
+      barGroup.appendChild(barDem);
+
+      const barRep = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      barRep.setAttribute('class', 'bar-rect bar-rep');
+      barRep.setAttribute('y', barY);
+      barRep.setAttribute('height', barHeight);
+      barRep.setAttribute('data-party', 'rep');
+      barGroup.appendChild(barRep);
+
+      const majorityLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      majorityLine.setAttribute('x1', 0);
+      majorityLine.setAttribute('y1', barY - 3);
+      majorityLine.setAttribute('x2', 0);
+      majorityLine.setAttribute('y2', barY + barHeight + 3);
+      majorityLine.setAttribute('class', 'majority-marker');
+      barGroup.appendChild(majorityLine);
+
+      const labelY = barY + 36;
+
+      const labelDem = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      labelDem.setAttribute('x', barStartX);
+      labelDem.setAttribute('y', labelY);
+      labelDem.setAttribute('class', 'bar-label label-dem');
+      labelDem.setAttribute('font-size', '28');
+      labelDem.setAttribute('data-party', 'dem');
+      barGroup.appendChild(labelDem);
+
+      const labelRep = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      labelRep.setAttribute('x', barStartX + barTotalWidth);
+      labelRep.setAttribute('y', labelY);
+      labelRep.setAttribute('text-anchor', 'end');
+      labelRep.setAttribute('class', 'bar-label label-rep');
+      labelRep.setAttribute('font-size', '28');
+      labelRep.setAttribute('data-party', 'rep');
+      barGroup.appendChild(labelRep);
+
+      [barDem, labelDem].forEach(el => {
+        el.addEventListener('mouseenter', (e) => {
+          setHighlight('dem');
+          const d = dataset[currentMode];
+          showTooltip(e, `Demócratas: ${d.democratas} escaños`);
+        });
+        el.addEventListener('mousemove', (e) => {
+          const d = dataset[currentMode];
+          showTooltip(e, `Demócratas: ${d.democratas} escaños`);
+        });
+        el.addEventListener('mouseleave', () => {
+          clearHighlight();
+          hideTooltip();
+        });
+      });
+
+      [barRep, labelRep].forEach(el => {
+        el.addEventListener('mouseenter', (e) => {
+          setHighlight('rep');
+          const d = dataset[currentMode];
+          showTooltip(e, `Republicanos: ${d.republicanos} escaños`);
+        });
+        el.addEventListener('mousemove', (e) => {
+          const d = dataset[currentMode];
+          showTooltip(e, `Republicanos: ${d.republicanos} escaños`);
+        });
+        el.addEventListener('mouseleave', () => {
+          clearHighlight();
+          hideTooltip();
+        });
+      });
+
+      barElements = {
+        barDem,
+        barRep,
+        labelDem,
+        labelRep,
+        barStartX,
+        barTotalWidth,
+        barY,
+        barHeight
+      };
+    }
+
+    function updateView(mode) {
+      const data = dataset[mode] || dataset.actual;
+
+      document.getElementById('titleMain').textContent = data.titulo || "Cámara de Representantes";
+
+      const subMain = document.getElementById('subtitleMain');
+      if (data.subtitulo) {
+        subMain.textContent = data.subtitulo;
+        subMain.style.display = 'block';
+      } else {
+        subMain.style.display = 'none';
+      }
+
+      document.getElementById('seatsInPlayLabel').textContent = data.escanos_juego_texto || "escaños en juego";
+
+      const prevSeats = parseInt(document.getElementById('seatsInPlay').textContent, 10) || 0;
+      animateValue(document.getElementById('seatsInPlay'), isInitialLoad ? 0 : prevSeats, data.escanos_juego || 435);
+
+      const prevDem = parseInt(document.getElementById('demCountHeader').textContent, 10) || 0;
+      animateValue(document.getElementById('demCountHeader'), isInitialLoad ? 0 : prevDem, data.democratas);
+
+      const prevRep = parseInt(document.getElementById('repCountHeader').textContent, 10) || 0;
+      animateValue(document.getElementById('repCountHeader'), isInitialLoad ? 0 : prevRep, data.republicanos);
+
+      if (data.partidos_texto) {
+        document.getElementById('partiesSubheader').textContent = data.partidos_texto;
+      } else {
+        const vacText = data.vacantes ? ` (${data.vacantes} vacantes)` : '';
+        document.getElementById('partiesSubheader').textContent = `demócratas · republicanos${vacText}`;
+      }
+
+      const secPower = document.getElementById('sectionPower');
+      if (data.tablero_titulo || data.tablero_subtitulo || data.camara_titulo || data.camara_subtitulo) {
+        secPower.style.display = 'block';
+        document.getElementById('titlePower').textContent = data.tablero_titulo || "";
+        document.getElementById('subtitlePower').textContent = data.tablero_subtitulo || "";
+        document.getElementById('camaraTag').textContent = data.camara_titulo || "";
+        document.getElementById('camaraDesc').textContent = data.camara_subtitulo || "";
+      } else {
+        secPower.style.display = 'none';
+      }
+
+      let dateString = data.fecha_actualizacion || "3 de noviembre de 2026";
+      if (data.hora_actualizacion) {
+        dateString += `, ${data.hora_actualizacion}`;
+      }
+      document.getElementById('updateTime').textContent = `Datos actualizados: ${dateString}.`;
+
+      const srcEl = document.getElementById('sourceInfo');
+      if (data.fuente) {
+        srcEl.innerHTML = `Fuente: <span>${data.fuente}</span>`;
+        srcEl.style.display = 'block';
+      } else {
+        srcEl.style.display = 'none';
+      }
+
+      const demCount = data.democratas || 0;
+      const vacCount = data.vacantes || 0;
+      const repCount = data.republicanos || 0;
+
+      dotElements.forEach((dot, idx) => {
+        let party = 'rep';
+        if (idx < demCount) {
+          party = 'dem';
+        } else if (idx < demCount + vacCount) {
+          party = 'vacant';
+        } else {
+          party = 'rep';
+        }
+
+        dot.setAttribute('data-party', party);
+        dot.classList.remove('seat-dem', 'seat-rep', 'seat-vacant');
+        dot.classList.add(`seat-${party}`);
+      });
+
+      const totalSeats = data.escanos_totales || TOTAL_SEATS;
+      const demRatio = demCount / totalSeats;
+      const repRatio = repCount / totalSeats;
+      const totalSpan = barElements.barTotalWidth;
+      const gap = 2;
+
+      const demWidth = Math.max(0, demRatio * totalSpan - gap / 2);
+      const repWidth = Math.max(0, repRatio * totalSpan - gap / 2);
+      const repX = barElements.barStartX + totalSpan - repWidth;
+
+      barElements.barDem.setAttribute('x', barElements.barStartX);
+      barElements.barDem.setAttribute('width', demWidth);
+
+      barElements.barRep.setAttribute('x', repX);
+      barElements.barRep.setAttribute('width', repWidth);
+
+      barElements.labelDem.innerHTML = `${demCount} <tspan class="party-letter" dx="3">D</tspan>`;
+      barElements.labelRep.innerHTML = `${repCount} <tspan class="party-letter" dx="3">R</tspan>`;
+
+      if (mode === 'actual') {
+        tabActualBtn.classList.add('active');
+        tabActualBtn.setAttribute('aria-selected', 'true');
+        tabPreviaBtn.classList.remove('active');
+        tabPreviaBtn.setAttribute('aria-selected', 'false');
+      } else {
+        tabPreviaBtn.classList.add('active');
+        tabPreviaBtn.setAttribute('aria-selected', 'true');
+        tabActualBtn.classList.remove('active');
+        tabActualBtn.setAttribute('aria-selected', 'false');
+      }
+    }
+
+    function setupHeaderHoverEvents() {
+      const demHeader = document.getElementById('demCountHeader');
+      const repHeader = document.getElementById('repCountHeader');
+
+      demHeader.addEventListener('mouseenter', () => setHighlight('dem'));
+      demHeader.addEventListener('mouseleave', clearHighlight);
+
+      repHeader.addEventListener('mouseenter', () => setHighlight('rep'));
+      repHeader.addEventListener('mouseleave', clearHighlight);
+    }
+
+    tabActualBtn.addEventListener('click', () => {
+      if (currentMode === 'actual') return;
+      currentMode = 'actual';
+      isInitialLoad = false;
+      updateView(currentMode);
+    });
+
+    tabPreviaBtn.addEventListener('click', () => {
+      if (currentMode === 'previa') return;
+      currentMode = 'previa';
+      isInitialLoad = false;
+      updateView(currentMode);
+    });
+
+    async function loadDataAndRender() {
+      try {
+        const response = await fetch('datos.json', { cache: 'no-cache' });
+        if (response.ok) {
+          const json = await response.json();
+          const rawData = json.camara ? json.camara : json;
+          dataset = { ...DEFAULT_DATA, ...rawData };
+          if (dataset.actual && dataset.actual.tab_label) {
+            tabActualBtn.textContent = dataset.actual.tab_label;
+          }
+          if (dataset.previa && dataset.previa.tab_label) {
+            tabPreviaBtn.textContent = dataset.previa.tab_label;
+          }
+        }
+      } catch (err) {
+        console.warn('Cargando con datos locales predeterminados:', err.message);
+      }
+
+      initSvgElements();
+      updateView(currentMode);
+      setupHeaderHoverEvents();
+      isInitialLoad = false;
+    }
+
+    document.addEventListener('DOMContentLoaded', loadDataAndRender);
+  </script>
+</body>
+
+</html>
