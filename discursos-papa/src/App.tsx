@@ -82,7 +82,6 @@ export const App: React.FC = () => {
   const allCities = useMemo(() => {
     const set = new Set<string>();
     discursos.forEach((d) => {
-      // Extract city from e.g. "San Miguel de Tucumán", "Buenos Aires", etc.
       const parts = d.lugar.split(',');
       const city = parts[parts.length - 1]?.trim() || d.lugar;
       set.add(city);
@@ -158,12 +157,12 @@ export const App: React.FC = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-surface flex flex-col items-center justify-center p-8 text-center font-sans">
-        <div className="w-12 h-12 border-2 border-primary border-t-transparent animate-spin mb-4"></div>
-        <h2 className="font-serif text-2xl font-bold text-[#1F1D1A] mb-1">
+        <div className="w-10 h-10 border-2 border-primary border-t-transparent rounded-full animate-spin mb-4"></div>
+        <h2 className="font-display text-xl font-bold text-[#141b2b] mb-1">
           Cargando Archivo Histórico...
         </h2>
-        <p className="text-sm text-on-surface-variant font-serif italic">
-          Cotejando transcripciones del Corpus de León XIV
+        <p className="text-xs text-neutral-caption font-sans">
+          Cotejando corpus de León XIV
         </p>
       </div>
     );
@@ -172,17 +171,17 @@ export const App: React.FC = () => {
   if (error) {
     return (
       <div className="min-h-screen bg-surface flex flex-col items-center justify-center p-8 text-center font-sans">
-        <div className="max-w-md p-6 bg-surface-lowest border border-error">
-          <AlertCircle size={32} className="text-error mx-auto mb-3" />
-          <h2 className="font-serif text-xl font-bold text-[#1F1D1A] mb-2">
+        <div className="max-w-md p-6 bg-white border border-error rounded shadow-subtle">
+          <AlertCircle size={30} className="text-error mx-auto mb-3" />
+          <h2 className="font-display text-lg font-bold text-[#141b2b] mb-2">
             Error al acceder a los documentos
           </h2>
-          <p className="text-xs text-on-surface mb-4">{error}</p>
+          <p className="text-xs text-neutral-secondary mb-4">{error}</p>
           <button
             onClick={() => window.location.reload()}
-            className="px-4 py-2 bg-primary text-white text-xs uppercase font-bold tracking-label-md flex items-center justify-center gap-2 mx-auto"
+            className="px-4 py-2 bg-primary hover:bg-[#004d97] text-white text-xs uppercase font-bold tracking-label-caps rounded flex items-center justify-center gap-2 mx-auto transition-colors"
           >
-            <RefreshCw size={14} />
+            <RefreshCw size={13} />
             Reintentar
           </button>
         </div>
@@ -236,25 +235,25 @@ export const App: React.FC = () => {
             />
 
             <div className="max-w-7xl mx-auto px-4 md:px-8">
-              {/* Lead section banner for Broadsheet Journalism */}
-              <div className="mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-hairline pb-3">
-                <div className="flex items-center gap-2 text-xs uppercase font-bold tracking-label-sm text-primary">
-                  <BookOpen size={16} />
-                  <span>ÍNDICE</span>
+              {/* Section Header */}
+              <div className="mb-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-hairline pb-2.5">
+                <div className="flex items-center gap-2 text-xs uppercase font-bold tracking-label-caps text-primary">
+                  <BookOpen size={14} />
+                  <span>ÍNDICE DOCUMENTAL</span>
                 </div>
-                <div className="text-xs text-on-surface-variant font-serif italic">
-                  {discursos.length} discursos y homilías
+                <div className="text-xs text-neutral-caption font-sans">
+                  {discursos.length} discursos y homilías oficiales
                 </div>
               </div>
 
               {searchResults.length === 0 ? (
-                <div className="bg-surface-lowest border border-hairline p-12 text-center my-8">
-                  <Compass size={36} className="text-outline mx-auto mb-3" />
-                  <h3 className="font-serif text-xl font-bold text-[#1F1D1A] mb-2">
-                    No se hallaron coincidencias documentales
+                <div className="bg-white border border-hairline rounded p-12 text-center my-6 shadow-xs">
+                  <Compass size={32} className="text-slate-400 mx-auto mb-3" />
+                  <h3 className="font-display text-lg font-bold text-[#141b2b] mb-1.5">
+                    No se hallaron coincidencias
                   </h3>
-                  <p className="text-sm text-on-surface-variant max-w-md mx-auto mb-4 font-sans">
-                    No encontramos discursos ni párrafos que concuerden con los criterios de búsqueda seleccionados.
+                  <p className="text-xs text-neutral-secondary max-w-sm mx-auto mb-4 font-sans">
+                    No encontramos discursos ni párrafos que concuerden con los criterios seleccionados.
                   </p>
                   <button
                     onClick={() => {
@@ -262,14 +261,14 @@ export const App: React.FC = () => {
                       setSelectedCity('');
                       setSelectedTag('');
                     }}
-                    className="px-4 py-2 bg-primary text-white text-xs uppercase font-bold tracking-label-md"
+                    className="px-3.5 py-1.5 bg-primary hover:bg-[#004d97] text-white text-xs uppercase font-bold tracking-label-caps rounded transition-colors"
                   >
-                    Restablecer todos los filtros
+                    Restablecer filtros
                   </button>
                 </div>
               ) : (
-                /* 12-Column Grid of Discursos */
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                /* Grid of Discursos */
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
                   {searchResults.map((item) => (
                     <DiscursoCard
                       key={item.discurso.id}

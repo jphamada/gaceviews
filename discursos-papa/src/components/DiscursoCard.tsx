@@ -15,9 +15,8 @@ export const DiscursoCard: React.FC<Props> = ({
   matchingParagraphs = [],
   searchQuery = '',
   onSelect,
-  onTagClick,
 }) => {
-  // Format date to solemn Spanish editorial format (e.g. 11 de Abril de 1987)
+  // Format date to Spanish editorial format (e.g. 10 de Noviembre de 2026)
   const formatEditorialDate = (isoDate: string) => {
     try {
       const [year, month, day] = isoDate.split('-');
@@ -37,7 +36,7 @@ export const DiscursoCard: React.FC<Props> = ({
     const parts = text.split(regex);
     return parts.map((part, i) =>
       regex.test(part) ? (
-        <mark key={i} className="bg-primary-fixed text-on-primary-fixed px-0.5 font-bold">
+        <mark key={i} className="bg-primary-fixed text-on-primary-fixed px-0.5 font-bold rounded-sm">
           {part}
         </mark>
       ) : (
@@ -47,22 +46,22 @@ export const DiscursoCard: React.FC<Props> = ({
   };
 
   return (
-    <article className="bg-surface-lowest border border-hairline flex flex-col justify-between hover:border-primary transition-all duration-150 p-5 md:p-6 shadow-[0_2px_8px_rgba(31,29,26,0.03)]">
+    <article className="bg-white border border-hairline rounded flex flex-col justify-between hover:border-primary/60 hover:shadow-subtle transition-all duration-150 p-5 md:p-6">
       <div>
         {/* Top Metadata Line */}
-        <div className="flex flex-wrap items-center justify-between gap-2 pb-3 mb-3 border-b border-hairline/60 text-xs font-sans">
-          <div className="flex items-center gap-1.5 text-secondary font-bold uppercase tracking-label-sm">
-            <MapPin size={13} />
+        <div className="flex flex-wrap items-center justify-between gap-2 pb-3 mb-3 border-b border-hairline/80 text-xs font-sans">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#f1f5f9] text-[#334155] font-bold text-[11px] uppercase tracking-label-caps">
+            <MapPin size={11} className="text-primary" />
             <span>{discurso.lugar}</span>
           </div>
-          <div className="flex items-center gap-1.5 text-on-surface-variant font-medium">
+          <div className="flex items-center gap-1.5 text-neutral-caption font-medium">
             <Calendar size={13} className="text-primary" />
             <time dateTime={discurso.fecha}>{formatEditorialDate(discurso.fecha)}</time>
           </div>
         </div>
 
         {/* Title */}
-        <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#1F1D1A] leading-snug mb-2.5">
+        <h2 className="font-display text-xl sm:text-2xl font-bold text-[#141b2b] leading-snug mb-2.5">
           <button
             onClick={() => onSelect(discurso)}
             className="text-left hover:text-primary transition-colors focus:outline-none"
@@ -72,26 +71,26 @@ export const DiscursoCard: React.FC<Props> = ({
         </h2>
 
         {/* Audience */}
-        <div className="flex items-center gap-2 text-xs text-on-surface-variant mb-3">
-          <Users size={13} className="text-outline" />
-          <span className="italic font-serif">Audiencia: {discurso.audiencia}</span>
+        <div className="flex items-center gap-2 text-xs text-neutral-secondary mb-3">
+          <Users size={13} className="text-slate-400 shrink-0" />
+          <span className="font-sans line-clamp-1">Audiencia: {discurso.audiencia}</span>
         </div>
 
         {/* Summary */}
-        <p className="text-on-surface text-sm leading-relaxed mb-4 font-sans text-justify">
+        <p className="text-neutral-secondary text-sm leading-relaxed mb-4 font-sans text-justify">
           {highlightMatch(discurso.resumen, searchQuery)}
         </p>
 
         {/* Specific Search Hits preview if user searched */}
         {matchingParagraphs.length > 0 && searchQuery && (
-          <div className="mb-4 p-3 bg-surface-container border-l-2 border-primary text-xs font-sans">
-            <p className="font-bold text-primary mb-1 uppercase tracking-label-sm flex items-center gap-1">
+          <div className="mb-4 p-3 bg-[#f8fafc] rounded border-l-2 border-primary text-xs font-sans">
+            <p className="font-bold text-primary mb-1 uppercase tracking-label-caps flex items-center gap-1">
               <FileText size={12} />
               Coincidencia en el texto del discurso:
             </p>
             {matchingParagraphs.slice(0, 2).map((m) => (
               <div key={m.paragraphIndex} className="mt-1.5">
-                <p className="text-on-surface line-clamp-2">
+                <p className="text-neutral-core line-clamp-2">
                   <span className="font-semibold text-primary mr-1">§ Párrafo {m.paragraphIndex + 1}:</span>
                   "{highlightMatch(m.text, searchQuery)}"
                 </p>
@@ -106,27 +105,14 @@ export const DiscursoCard: React.FC<Props> = ({
           </div>
         )}
 
-        {/* Thematic Tags */}
-        <div className="flex flex-wrap gap-1.5 mb-4">
-          {discurso.palabrasClave.map((tag) => (
-            <button
-              key={tag}
-              onClick={() => onTagClick && onTagClick(tag)}
-              className="text-[11px] uppercase font-bold tracking-label-sm px-2 py-0.5 bg-[rgba(117,170,219,0.1)] text-[#175683] border border-secondary-celesta hover:bg-secondary-celesta/25 transition-colors"
-            >
-              {tag}
-            </button>
-          ))}
-        </div>
-
         {/* Key questions in this speech */}
         {discurso.preguntasFrecuentes.length > 0 && (
-          <div className="pt-3 border-t border-hairline/60 mb-4">
-            <span className="text-[11px] uppercase font-bold tracking-label-sm text-outline flex items-center gap-1 mb-2">
+          <div className="pt-3 border-t border-hairline/80 mb-4">
+            <span className="text-[11px] uppercase font-bold tracking-label-caps text-neutral-caption flex items-center gap-1 mb-2">
               <HelpCircle size={12} className="text-primary" />
               Preguntas clave que responde:
             </span>
-            <ul className="space-y-1.5 text-xs text-on-surface font-sans">
+            <ul className="space-y-1.5 text-xs text-neutral-core font-sans">
               {discurso.preguntasFrecuentes.map((faq, idx) => (
                 <li key={idx}>
                   <button
@@ -147,13 +133,11 @@ export const DiscursoCard: React.FC<Props> = ({
       <div className="pt-4 border-t border-hairline mt-2 flex flex-col sm:flex-row gap-2">
         <button
           onClick={() => onSelect(discurso)}
-          className="flex-1 py-2.5 px-4 bg-primary hover:bg-[#96723B] text-white text-xs uppercase font-bold tracking-label-md flex items-center justify-center gap-2 transition-colors cursor-pointer"
+          className="flex-1 py-2 px-4 bg-primary hover:bg-[#004d97] text-white text-xs uppercase font-bold tracking-label-caps rounded flex items-center justify-center gap-2 transition-colors cursor-pointer shadow-xs"
         >
           <span>Leer discurso completo</span>
           <ArrowRight size={14} />
         </button>
-
-
       </div>
     </article>
   );

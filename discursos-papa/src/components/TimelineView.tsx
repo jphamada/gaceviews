@@ -28,65 +28,67 @@ export const TimelineView: React.FC<Props> = ({ discursos, onSelectSpeech }) => 
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 md:px-8 py-6">
+    <div className="max-w-5xl mx-auto px-4 md:px-8 py-6">
       {/* Header */}
       <div className="border-b border-hairline pb-4 mb-8">
-        <div className="flex items-center gap-2 text-xs uppercase font-bold tracking-label-sm text-primary mb-1">
-          <Calendar size={15} />
+        <div className="flex items-center gap-2 text-xs uppercase font-bold tracking-label-caps text-primary mb-1">
+          <Calendar size={14} />
           <span>CRONOLOGÍA OFICIAL DE LA VISITA</span>
         </div>
-        <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1F1D1A]">
-          Itinerario Papal
+        <h2 className="font-display text-2xl sm:text-3xl font-bold text-[#141b2b]">
+          Itinerario y Recorrido de León XIV
         </h2>
-
+        <p className="font-sans text-neutral-secondary text-sm mt-1 max-w-2xl">
+          Siga la trayectoria cronológica del Papa León XIV a través de las jornadas oficiales de su visita apostólica a la República Argentina (Noviembre de 2026).
+        </p>
       </div>
 
-      {/* Timeline Steps */}
-      <div className="relative border-l-2 border-primary ml-4 md:ml-8 pl-6 md:pl-10 space-y-10">
+      {/* Timeline Steps with 2px solid #e2e8f0 and 10px circular nodes */}
+      <div className="relative border-l-2 border-[#e2e8f0] ml-3 md:ml-6 pl-5 md:pl-8 space-y-8">
         {sorted.map((speech, index) => {
           const dateInfo = formatDay(speech.fecha);
           return (
             <div key={speech.id} className="relative group">
-              {/* Timeline marker square per diseno.md (sharp zero radius) */}
-              <div className="absolute -left-[31px] md:-left-[47px] top-1.5 w-4 h-4 bg-primary border-2 border-white"></div>
+              {/* Timeline Dot Node: 10px circle with 2px white border and #0265c2 fill per diseno.md */}
+              <div className="absolute -left-[27px] md:-left-[39px] top-4 w-3.5 h-3.5 rounded-full bg-[#0265c2] border-2 border-white shadow-xs"></div>
 
               {/* Card Container */}
-              <div className="bg-surface-lowest border border-hairline p-5 md:p-6 hover:border-primary transition-all duration-150">
-                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-hairline/60 pb-2.5 mb-3">
+              <div className="bg-white border border-hairline rounded p-5 md:p-6 hover:border-primary/60 hover:shadow-subtle transition-all duration-150">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-hairline/80 pb-2.5 mb-3">
                   <div className="flex items-center gap-2">
-                    <span className="bg-primary text-white text-xs font-bold font-mono px-2 py-0.5">
-                      DÍA {index + 1}
+                    <span className="bg-[#eff6ff] text-primary border border-primary/20 text-xs font-bold font-sans px-2.5 py-0.5 rounded-full uppercase tracking-label-caps">
+                      Día {index + 1}
                     </span>
-                    <span className="font-sans font-bold text-sm text-[#1F1D1A]">
+                    <span className="font-sans font-bold text-sm text-[#141b2b]">
                       {dateInfo.day} de {dateInfo.month} de {dateInfo.year}
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-1.5 text-secondary text-xs uppercase tracking-label-sm font-bold">
-                    <MapPin size={13} />
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#f1f5f9] text-[#334155] text-[11px] font-bold uppercase tracking-label-caps">
+                    <MapPin size={11} className="text-primary" />
                     <span>{speech.lugar}</span>
                   </div>
                 </div>
 
-                <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#1F1D1A] mb-2">
+                <h3 className="font-display text-lg sm:text-xl font-bold text-[#141b2b] mb-1.5">
                   {speech.titulo}
                 </h3>
 
-                <div className="text-xs text-on-surface-variant italic font-serif mb-3 flex items-center gap-1.5">
-                  <Users size={13} className="text-primary not-italic" />
+                <div className="text-xs text-neutral-secondary font-sans mb-3 flex items-center gap-1.5">
+                  <Users size={13} className="text-primary shrink-0" />
                   <span>{speech.audiencia}</span>
                 </div>
 
-                <p className="text-sm text-on-surface leading-relaxed mb-4 text-justify">
+                <p className="text-sm text-neutral-secondary leading-relaxed mb-4 text-justify font-sans">
                   {speech.resumen}
                 </p>
 
-                <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-hairline/60">
+                <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-hairline/80">
                   <div className="flex flex-wrap gap-1.5">
-                    {speech.palabrasClave.map((tag) => (
+                    {speech.palabrasClave.slice(0, 4).map((tag) => (
                       <span
                         key={tag}
-                        className="text-[10px] uppercase font-bold tracking-label-sm px-2 py-0.5 bg-[rgba(117,170,219,0.1)] text-[#175683] border border-secondary-celesta"
+                        className="text-[10px] uppercase font-bold tracking-label-caps px-2 py-0.5 rounded-full bg-[#f1f5f9] text-[#334155] border border-slate-200"
                       >
                         {tag}
                       </span>
@@ -95,7 +97,7 @@ export const TimelineView: React.FC<Props> = ({ discursos, onSelectSpeech }) => 
 
                   <button
                     onClick={() => onSelectSpeech(speech)}
-                    className="py-2 px-4 bg-primary hover:bg-[#96723B] text-white text-xs uppercase font-bold tracking-label-md flex items-center gap-1.5 transition-colors"
+                    className="py-1.5 px-3.5 bg-primary hover:bg-[#004d97] text-white text-xs uppercase font-bold tracking-label-caps rounded flex items-center gap-1.5 transition-colors shadow-xs"
                   >
                     <span>Leer discurso</span>
                     <ArrowRight size={13} />
