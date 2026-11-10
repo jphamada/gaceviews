@@ -4,6 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Discursos del Papa León XIV en Argentina | Archivo Histórico LA GACETA</title>
+    <script>
+      // Redirección de respaldo para despliegues estáticos en producción
+      if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+        var p = window.location.pathname;
+        if (!p.includes('/dist/')) {
+          var target = p.replace(/\/?$/, '/dist/') + window.location.search + window.location.hash;
+          window.location.replace(target);
+        }
+      }
+    </script>
     <!-- Google Fonts: Libre Caslon Text & Manrope -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
