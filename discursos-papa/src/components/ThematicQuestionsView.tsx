@@ -47,14 +47,12 @@ export const ThematicQuestionsView: React.FC<Props> = ({ discursos, onSelectSpee
       <div className="border-b border-hairline pb-4 mb-6">
         <div className="flex items-center gap-2 text-xs uppercase font-bold tracking-label-caps text-primary mb-1">
           <HelpCircle size={14} />
-          <span>CONSULTA TEMÁTICA DEL CORPUS PONTIFICIO</span>
+          <span>CORPUS PONTIFICIO</span>
         </div>
         <h2 className="font-display text-2xl sm:text-3xl font-bold text-[#141b2b]">
-          Preguntas Clave &amp; Concordancias Doctrinales
+          Preguntas Clave
         </h2>
-        <p className="font-sans text-neutral-secondary text-sm mt-1 max-w-2xl">
-          Seleccione una interrogante para examinar la respuesta textual del Santo Padre con indicación del discurso y párrafo correspondiente.
-        </p>
+
 
         {/* Filter buttons */}
         <div className="flex flex-wrap gap-1.5 mt-4 pt-3 border-t border-hairline">
@@ -62,11 +60,10 @@ export const ThematicQuestionsView: React.FC<Props> = ({ discursos, onSelectSpee
             <button
               key={t.id}
               onClick={() => setSelectedTopic(t.id)}
-              className={`px-3 py-1 text-xs font-semibold rounded uppercase tracking-label-caps border transition-colors ${
-                selectedTopic === t.id
-                  ? 'bg-primary text-white border-primary shadow-xs'
-                  : 'bg-white text-neutral-secondary border-[#d1d5db] hover:border-primary/50 hover:bg-slate-50'
-              }`}
+              className={`px-3 py-1 text-xs font-semibold rounded uppercase tracking-label-caps border transition-colors ${selectedTopic === t.id
+                ? 'bg-primary text-white border-primary shadow-xs'
+                : 'bg-white text-neutral-secondary border-[#d1d5db] hover:border-primary/50 hover:bg-slate-50'
+                }`}
             >
               {t.label}
             </button>

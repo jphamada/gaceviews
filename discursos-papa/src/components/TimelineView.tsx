@@ -33,14 +33,12 @@ export const TimelineView: React.FC<Props> = ({ discursos, onSelectSpeech }) => 
       <div className="border-b border-hairline pb-4 mb-8">
         <div className="flex items-center gap-2 text-xs uppercase font-bold tracking-label-caps text-primary mb-1">
           <Calendar size={14} />
-          <span>CRONOLOGÍA OFICIAL DE LA VISITA</span>
+          <span>CRONOLOGÍA</span>
         </div>
         <h2 className="font-display text-2xl sm:text-3xl font-bold text-[#141b2b]">
-          Itinerario y Recorrido de León XIV
+          Itinerario de León XIV
         </h2>
-        <p className="font-sans text-neutral-secondary text-sm mt-1 max-w-2xl">
-          Siga la trayectoria cronológica del Papa León XIV a través de las jornadas oficiales de su visita apostólica a la República Argentina (Noviembre de 2026).
-        </p>
+
       </div>
 
       {/* Timeline Steps with 2px solid #e2e8f0 and 10px circular nodes */}
