@@ -153,13 +153,7 @@ export const DiscursoCard: React.FC<Props> = ({
           <ArrowRight size={14} />
         </button>
 
-        <button
-          onClick={() => onSelect(discurso, discurso.preguntasFrecuentes[0]?.parrafoRef ?? 0)}
-          className="py-2.5 px-3 bg-transparent border border-primary text-primary hover:bg-surface-container text-xs uppercase font-bold tracking-label-md transition-colors"
-          title="Ver análisis y puntos clave"
-        >
-          Ver puntos clave
-        </button>
+
       </div>
     </article>
   );
