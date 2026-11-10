@@ -21,6 +21,7 @@ export const ThematicQuestionsView: React.FC<Props> = ({ discursos, onSelectSpee
 
   const topics = [
     { id: 'todos', label: 'Todas las preguntas' },
+    { id: 'santidad', label: 'Santidad, Brochero & Mama Antula' },
     { id: 'democracia', label: 'Democracia & Bien Común' },
     { id: 'trabajo', label: 'Trabajo, IA & Sindicatos' },
     { id: 'caridad', label: 'Caridad & Don Orione' },
