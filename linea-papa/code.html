@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Gira Papal en Argentina - Itinerario Completo Día por Día</title>
+  <meta name="description" content="Cronograma oficial interactivo de visitas, misas y encuentros del Papa en Buenos Aires, Córdoba y Luján.">
+
+  <!-- Google Fonts: Work Sans & Public Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Work+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Material Symbols Outlined -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface": "#f9f9ff",
+            "surface-dim": "#d3daef",
+            "surface-bright": "#f9f9ff",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#f1f3ff",
+            "surface-container": "#e9edff",
+            "surface-container-high": "#e1e8fd",
+            "surface-container-highest": "#dce2f7",
+            "on-surface": "#141b2b",
+            "on-surface-variant": "#414752",
+            "inverse-surface": "#293040",
+            "inverse-on-surface": "#edf0ff",
+            "outline": "#727784",
+            "outline-variant": "#c1c6d4",
+            "surface-tint": "#005eb5",
+            "primary": "#004d97",
+            "on-primary": "#ffffff",
+            "primary-container": "#0265c2",
+            "on-primary-container": "#d9e5ff",
+            "inverse-primary": "#a8c8ff",
+            "secondary": "#b6191a",
+            "on-secondary": "#ffffff",
+            "secondary-container": "#d9352f",
+            "on-secondary-container": "#fffbff",
+            "tertiary": "#005851",
+            "on-tertiary": "#ffffff",
+            "tertiary-container": "#04726a",
+            "on-tertiary-container": "#9df3e9",
+            "error": "#ba1a1a",
+            "on-error": "#ffffff",
+            "error-container": "#ffdad6",
+            "on-error-container": "#93000a",
+            "primary-fixed": "#d6e3ff",
+            "primary-fixed-dim": "#a8c8ff",
+            "on-primary-fixed": "#001b3d",
+            "on-primary-fixed-variant": "#00468a",
+            "secondary-fixed": "#ffdad6",
+            "secondary-fixed-dim": "#ffb4ab",
+            "on-secondary-fixed": "#410002",
+            "on-secondary-fixed-variant": "#93000b",
+            "tertiary-fixed": "#9cf2e8",
+            "tertiary-fixed-dim": "#80d5cb",
+            "on-tertiary-fixed": "#00201d",
+            "on-tertiary-fixed-variant": "#00504a",
+            "background": "#f9f9ff",
+            "on-background": "#141b2b",
+            "surface-variant": "#dce2f7"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "sm": "0.125rem",
+            "md": "0.375rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "2xl": "1rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "margin": "1.5rem",
+            "gutter": "1rem",
+            "gutter-mobile": "0.75rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "space-xl": "2rem",
+            "margin-mobile": "1rem"
+          },
+          fontFamily: {
+            "headline": ["Work Sans", "sans-serif"],
+            "body": ["Public Sans", "sans-serif"],
+            "headline-xl": ["Work Sans", "sans-serif"],
+            "headline-lg": ["Work Sans", "sans-serif"],
+            "headline-md": ["Work Sans", "sans-serif"],
+            "body-lg": ["Public Sans", "sans-serif"],
+            "body-md": ["Public Sans", "sans-serif"],
+            "body-sm": ["Public Sans", "sans-serif"],
+            "label-caps": ["Public Sans", "sans-serif"],
+            "timestamp-italic": ["Public Sans", "sans-serif"]
+          },
+          fontSize: {
+            "headline-xl": ["36px", { lineHeight: "44px", fontWeight: "700" }],
+            "headline-xl-mobile": ["28px", { lineHeight: "34px", fontWeight: "700" }],
+            "headline-lg": ["24px", { lineHeight: "30px", fontWeight: "700" }],
+            "headline-md": ["20px", { lineHeight: "26px", fontWeight: "600" }],
+            "metric-display": ["32px", { lineHeight: "36px", fontWeight: "700" }],
+            "metric-display-mobile": ["26px", { lineHeight: "30px", fontWeight: "700" }],
+            "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+            "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+            "body-sm": ["12px", { lineHeight: "16px", fontWeight: "400" }],
+            "label-caps": ["11px", { lineHeight: "14px", letterSpacing: "0.06em", fontWeight: "700" }],
+            "timestamp-italic": ["12px", { lineHeight: "16px", fontWeight: "400" }]
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* Hide scrollbars while preserving touch/wheel horizontal scrolling */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Subtle smooth card hover lift */
+    .card-editorial {
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+    }
+    .card-editorial:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Snapping carousel item */
+    .carousel-item {
+      scroll-snap-align: start;
+    }
+
+    /* Pulse effect on active bullet */
+    @keyframes pulse-subtle {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.75; transform: scale(1.15); }
+    }
+    .live-dot {
+      animation: pulse-subtle 2s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body text-body-md antialiased min-h-screen selection:bg-primary-container selection:text-white">
+
+  <!-- Masthead Top Brand Hairline -->
+  <header class="w-full bg-surface-container-lowest border-b border-outline-variant/40 py-2.5 px-4 sticky top-0 z-40 backdrop-blur-md bg-white/95">
+    <div class="max-w-[680px] mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-2.5 h-2.5 bg-primary-container rounded-sm"></span>
+        <span class="font-headline text-[13px] font-bold tracking-wider uppercase text-on-surface">COBERTURA ESPECIAL • VISITA APOSTÓLICA</span>
+      </div>
+      <div class="flex items-center gap-2 text-on-surface-variant font-label-caps text-[11px]">
+        <span class="hidden sm:inline">ARGENTINA 2026</span>
+        <button id="view-mode-toggle" class="px-2 py-1 bg-surface-container-low hover:bg-surface-container rounded text-primary font-bold flex items-center gap-1 transition-colors" title="Cambiar vista">
+          <span class="material-symbols-outlined text-[15px]">view_agenda</span>
+          <span id="view-mode-label">Ver lista completa</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Infographic Container (Max 680px following DESIGN.md editorial specs) -->
+  <main class="w-full max-w-[680px] mx-auto px-4 py-6 flex flex-col">
+
+    <!-- Header Section (Matches screen.png) -->
+    <section class="flex flex-col gap-1.5 pt-1">
+      <h1 class="font-headline text-[26px] sm:text-[34px] leading-[1.18] font-bold text-on-surface tracking-tight">
+        Gira Papal: el itinerario completo día por día
+      </h1>
+      <p class="font-body text-body-md text-on-surface-variant leading-relaxed">
+        Cronograma oficial de visitas, misas y encuentros en Buenos Aires, Córdoba y Luján.
+      </p>
+
+      <!-- Fast Glance Metric Badges Bar -->
+      <div class="grid grid-cols-4 gap-2 py-3 my-1 border-y border-outline-variant/30 text-center">
+        <div class="flex flex-col">
+          <span class="font-headline text-headline-md sm:text-metric-display text-primary leading-tight font-bold">4</span>
+          <span class="font-label-caps text-[10px] sm:text-label-caps uppercase text-on-surface-variant">Días de Gira</span>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-headline text-headline-md sm:text-metric-display text-on-surface leading-tight font-bold">3</span>
+          <span class="font-label-caps text-[10px] sm:text-label-caps uppercase text-on-surface-variant">Ciudades</span>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-headline text-headline-md sm:text-metric-display text-secondary leading-tight font-bold">3</span>
+          <span class="font-label-caps text-[10px] sm:text-label-caps uppercase text-on-surface-variant">Grandes Misas</span>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-headline text-headline-md sm:text-metric-display text-tertiary-container leading-tight font-bold">22</span>
+          <span class="font-label-caps text-[10px] sm:text-label-caps uppercase text-on-surface-variant">Actividades</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Filter Controls (Segmented Control according to DESIGN.md) -->
+    <section class="mt-2 flex flex-col gap-2">
+      <!-- Day Segmented Filter Pills -->
+      <div class="flex items-center justify-between gap-1 overflow-x-auto no-scrollbar py-1">
+        <div class="inline-flex p-1 bg-surface-container-low rounded-DEFAULT border border-outline-variant/30 text-body-sm" role="tablist">
+          <button class="day-filter-btn px-3 py-1 rounded-DEFAULT bg-surface-container-lowest text-on-surface font-headline font-semibold shadow-xs transition-all whitespace-nowrap" data-day="all">
+            Todos
+          </button>
+          <button class="day-filter-btn px-3 py-1 rounded-DEFAULT text-on-surface-variant hover:text-on-surface font-medium transition-all whitespace-nowrap" data-day="8">
+            8 Nov
+          </button>
+          <button class="day-filter-btn px-3 py-1 rounded-DEFAULT text-on-surface-variant hover:text-on-surface font-medium transition-all whitespace-nowrap" data-day="9">
+            9 Nov
+          </button>
+          <button class="day-filter-btn px-3 py-1 rounded-DEFAULT text-on-surface-variant hover:text-on-surface font-medium transition-all whitespace-nowrap" data-day="10">
+            10 Nov
+          </button>
+          <button class="day-filter-btn px-3 py-1 rounded-DEFAULT text-on-surface-variant hover:text-on-surface font-medium transition-all whitespace-nowrap" data-day="11">
+            11 Nov
+          </button>
+        </div>
+
+        <!-- Filter Dropdown / Search Quick Pill -->
+        <div class="flex items-center gap-1.5">
+          <button id="filter-rec-btn" class="px-2.5 py-1 rounded-full border border-secondary/30 bg-secondary-fixed/50 hover:bg-secondary-fixed text-secondary font-label-caps text-[11px] flex items-center gap-1 transition-all" title="Ver solo misas y recomendadas">
+            <span class="material-symbols-outlined text-[13px]">star</span>
+            <span class="hidden sm:inline">Destacadas</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline Stepper Node Bar (Exact reproduction from screen.png) -->
+    <section class="mt-4 flex flex-col gap-1.5">
+      <div class="flex items-center justify-between px-0.5">
+        <span class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-wider font-bold">LÍNEA TEMPORAL</span>
+        <span class="font-label-caps text-label-caps font-bold text-primary" id="carousel-counter">Hito 1 de 22</span>
+      </div>
+
+      <!-- Node Track with Connecting Line and Progress Bar Fill -->
+      <div class="relative w-full py-2.5 select-none">
+        <!-- Connecting Line Base -->
+        <div class="absolute top-1/2 left-4 right-4 h-0.5 bg-surface-container-highest -translate-y-1/2 z-0"></div>
+        <!-- Active Progress Bar Fill -->
+        <div class="absolute top-1/2 left-4 h-0.5 bg-primary-container -translate-y-1/2 z-0 transition-all duration-300" id="timeline-progress-bar" style="width: 0%;"></div>
+
+        <!-- 4 Interactive Day Nodes -->
+        <div class="relative z-10 flex justify-between items-center px-1">
+          <button class="timeline-step flex flex-col items-center gap-1 group focus:outline-none cursor-pointer" data-day="8" onclick="goToDay('8')" type="button">
+            <span class="step-dot w-4 h-4 rounded-full bg-primary-container ring-4 ring-surface-container-low flex items-center justify-center transition-all shadow-xs"></span>
+            <span class="step-text font-label-caps text-label-caps text-primary font-bold">8 Nov</span>
+          </button>
+          <button class="timeline-step flex flex-col items-center gap-1 group focus:outline-none cursor-pointer" data-day="9" onclick="goToDay('9')" type="button">
+            <span class="step-dot w-3.5 h-3.5 rounded-full bg-surface-variant ring-2 ring-surface flex items-center justify-center transition-all"></span>
+            <span class="step-text font-label-caps text-label-caps text-on-surface-variant">9 Nov</span>
+          </button>
+          <button class="timeline-step flex flex-col items-center gap-1 group focus:outline-none cursor-pointer" data-day="10" onclick="goToDay('10')" type="button">
+            <span class="step-dot w-3.5 h-3.5 rounded-full bg-surface-variant ring-2 ring-surface flex items-center justify-center transition-all"></span>
+            <span class="step-text font-label-caps text-label-caps text-on-surface-variant">10 Nov</span>
+          </button>
+          <button class="timeline-step flex flex-col items-center gap-1 group focus:outline-none cursor-pointer" data-day="11" onclick="goToDay('11')" type="button">
+            <span class="step-dot w-3.5 h-3.5 rounded-full bg-surface-variant ring-2 ring-surface flex items-center justify-center transition-all"></span>
+            <span class="step-text font-label-caps text-label-caps text-on-surface-variant">11 Nov</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Carousel Section (Exact reproduction of screen.png) -->
+    <section id="carousel-view" class="mt-3 relative flex flex-col">
+      <!-- Carousel Subhead Controls (Active Day Context + Navigation Arrows) -->
+      <div class="flex items-center justify-between pb-2.5 pt-1">
+        <div class="flex items-center gap-2 max-w-[75%] sm:max-w-[80%]">
+          <span class="w-2.5 h-2.5 rounded-full bg-primary flex-shrink-0 live-dot"></span>
+          <span class="font-timestamp-italic text-[13px] text-on-surface font-medium truncate" id="active-context-label">
+            Viernes 8: Arribo y Actos Institucionales en Bs As
+          </span>
+        </div>
+        <div class="flex items-center gap-1.5 flex-shrink-0">
+          <button aria-label="Tarjeta anterior" class="w-8 h-8 rounded-full bg-surface-container-high hover:bg-surface-container-highest active:scale-95 flex items-center justify-center text-on-surface transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed" id="prev-card-btn">
+            <span class="material-symbols-outlined text-[18px]">chevron_left</span>
+          </button>
+          <button aria-label="Siguiente tarjeta" class="w-8 h-8 rounded-full bg-surface-container-high hover:bg-surface-container-highest active:scale-95 flex items-center justify-center text-on-surface transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed" id="next-card-btn">
+            <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Scrollable Track with snap and smooth scrolling -->
+      <div class="flex gap-4 overflow-x-auto pb-4 pt-1 snap-x snap-mandatory scroll-smooth no-scrollbar" id="carousel-track">
+        <!-- Cards dynamically populated via JS from girapapal.csv -->
+      </div>
+    </section>
+
+    <!-- Alternative View: Full Chronological List (Accessible via View Toggle) -->
+    <section id="list-view" class="mt-4 flex-col gap-6 hidden">
+      <div class="bg-surface-container-low p-3 rounded-DEFAULT border border-outline-variant/30 flex items-center justify-between">
+        <span class="font-headline text-[15px] font-bold text-on-surface">Itinerario Completo (22 actividades)</span>
+        <button onclick="toggleViewMode()" class="text-primary font-body-sm font-semibold hover:underline flex items-center gap-1">
+          <span class="material-symbols-outlined text-[16px]">view_carousel</span> Volver al Carrusel
+        </button>
+      </div>
+      <div id="timeline-list-container" class="flex flex-col gap-6">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
+    <!-- Editorial Footer Baseline (As specified in DESIGN.md) -->
+    <footer class="mt-8 pt-4 pb-8 border-t border-outline-variant/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-on-surface-variant">
+      <div class="flex flex-col gap-0.5">
+        <span class="font-timestamp-italic text-timestamp-italic text-on-surface-variant italic">
+          Actualizado: 5 de Noviembre de 2026 • Cronograma oficial de la Visita Apostólica
+        </span>
+        <span class="font-body-sm text-[11px] text-outline">
+          Horarios en hora oficial argentina (GMT-3). Programa sujeto a protocolos de seguridad de la Santa Sede.
+        </span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-1.5 h-1.5 rounded-full bg-secondary"></span>
+        <span class="font-headline text-[11px] font-bold uppercase tracking-wider text-on-surface">INFOGRAFÍA INTERACTIVA</span>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Detail Modal for Expanded View -->
+  <div id="detail-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs opacity-0 pointer-events-none transition-opacity duration-200">
+    <div class="bg-surface-container-lowest rounded-2xl max-w-lg w-full p-6 shadow-xl border border-outline-variant/40 flex flex-col gap-4 transform scale-95 transition-transform duration-200" id="detail-modal-box">
+      <div class="flex items-start justify-between">
+        <div id="modal-badge-container"></div>
+        <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-surface-container-high hover:bg-surface-container-highest flex items-center justify-center text-on-surface">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+      <h3 id="modal-title" class="font-headline text-headline-lg font-bold text-on-surface"></h3>
+      <div class="flex items-center gap-2 text-on-surface-variant font-body-sm">
+        <span class="material-symbols-outlined text-primary text-[18px]">schedule</span>
+        <span id="modal-time" class="font-semibold text-on-surface"></span>
+        <span class="text-outline">•</span>
+        <span class="material-symbols-outlined text-primary text-[18px]">location_on</span>
+        <span id="modal-location"></span>
+      </div>
+      <p id="modal-description" class="font-body text-body-md text-on-surface-variant leading-relaxed"></p>
+      <div class="pt-3 border-t border-outline-variant/30 flex justify-end gap-2">
+        <button onclick="closeModal()" class="px-4 py-2 bg-surface-container text-on-surface font-headline font-semibold text-body-sm rounded-DEFAULT hover:bg-surface-container-high transition-colors">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Script -->
+  <script>
+    // Data extracted directly from girapapal.csv
+    const PAPAL_EVENTS = [
+      {
+        id: 1,
+        dayNum: "8",
+        dayString: "8 de noviembre",
+        dayWeekday: "Viernes 8",
+        time: "16:30",
+        city: "BUENOS AIRES",
+        title: "Llegada al Aeropuerto Jorge Newbery",
+        place: "Aeroparque Jorge Newbery, CABA",
+        description: "Arribo protocolar a la Ciudad de Buenos Aires con recepción formal de autoridades eclesiásticas y del Gobierno Nacional.",
+        recommended: false,
+        highlighted: false,
+        icon: "flight_land",
+        theme: "aeropuerto",
+        category: "Arribo Oficial"
+      },
+      {
+        id: 2,
+        dayNum: "8",
+        dayString: "8 de noviembre",
+        dayWeekday: "Viernes 8",
+        time: "17:00",
+        city: "BUENOS AIRES",
+        title: "Visita al Monumento de San Martín",
+        place: "Plaza San Martín, Retiro",
+        description: "Homenaje floral al Libertador General Don José de San Martín y a los Ejércitos de la Independencia en su paso por el centro porteño.",
+        recommended: false,
+        highlighted: false,
+        icon: "flag",
+        theme: "monumento",
+        category: "Homenaje Cívico"
+      },
+      {
+        id: 3,
+        dayNum: "8",
+        dayString: "8 de noviembre",
+        dayWeekday: "Viernes 8",
+        time: "17:20",
+        city: "BUENOS AIRES",
+        title: "Ceremonia de Bienvenida en Casa Rosada",
+        place: "Casa Rosada, Plaza de Mayo",
+        description: "Recepción de Estado con honores militares y revista de tropas previa al encuentro con el Poder Ejecutivo Nacional.",
+        recommended: false,
+        highlighted: false,
+        icon: "account_balance",
+        theme: "gobierno",
+        category: "Ceremonia de Estado"
+      },
+      {
+        id: 4,
+        dayNum: "8",
+        dayString: "8 de noviembre",
+        dayWeekday: "Viernes 8",
+        time: "17:50",
+        city: "BUENOS AIRES",
+        title: "Visita al Presidente de la República",
+        place: "Despacho Presidencial, Balcarce 50",
+        description: "Audiencia y reunión privada con el Presidente de la Nación en el despacho presidencial de la Casa de Gobierno.",
+        recommended: false,
+        highlighted: false,
+        icon: "meeting_room",
+        theme: "reunion",
+        category: "Audiencia Presidencial"
+      },
+      {
+        id: 5,
+        dayNum: "8",
+        dayString: "8 de noviembre",
+        dayWeekday: "Viernes 8",
+        time: "18:30",
+        city: "BUENOS AIRES",
+        title: "Encuentro con Autoridades y Sociedad Civil",
+        place: "Palacio Libertad (ex CCK), Sarmiento 151",
+        description: "Discurso programático y encuentro con miembros del cuerpo diplomático, gobernadores, legisladores y referentes cívicos.",
+        recommended: false,
+        highlighted: false,
+        icon: "diversity_3",
+        theme: "congreso",
+        category: "Discurso Central"
+      },
+      {
+        id: 6,
+        dayNum: "9",
+        dayString: "9 de noviembre",
+        dayWeekday: "Sábado 9",
+        time: "09:15",
+        city: "BUENOS AIRES",
+        title: "Visita al Pequeño Cottolengo Don Orione",
+        place: "Pequeño Cottolengo Don Orione, Claypole",
+        description: "Visita pastoral al personal de servicio y a las personas con discapacidad en el emblemático centro de caridad y cuidado.",
+        recommended: false,
+        highlighted: false,
+        icon: "volunteer_activism",
+        theme: "caridad",
+        category: "Pastoral Social"
+      },
+      {
+        id: 7,
+        dayNum: "9",
+        dayString: "9 de noviembre",
+        dayWeekday: "Sábado 9",
+        time: "11:30",
+        city: "BUENOS AIRES",
+        title: "Santa Misa en Monumento de los Españoles",
+        place: "Av. del Libertador y Sarmiento, Palermo",
+        description: "Eucaristía multitudinaria al aire libre abierta al pueblo de Dios, con homilía central dirigida a la reconciliación del país.",
+        recommended: true,
+        highlighted: true,
+        icon: "church",
+        theme: "misa",
+        category: "Gran Misa Central"
+      },
+      {
+        id: 8,
+        dayNum: "9",
+        dayString: "9 de noviembre",
+        dayWeekday: "Sábado 9",
+        time: "16:10",
+        city: "BUENOS AIRES",
+        title: "Encuentro con el Mundo del Trabajo",
+        place: "Universidad Católica Argentina, Puerto Madero",
+        description: "Conferencia y diálogo pastoral con sindicatos, representantes gremiales, empresarios y dirigentes del sector productivo.",
+        recommended: false,
+        highlighted: false,
+        icon: "groups",
+        theme: "trabajo",
+        category: "Diálogo Social"
+      },
+      {
+        id: 9,
+        dayNum: "9",
+        dayString: "9 de noviembre",
+        dayWeekday: "Sábado 9",
+        time: "17:30",
+        city: "BUENOS AIRES",
+        title: "Diálogo con Comunidades Religiosas",
+        place: "Palacio San Martín, Arenales 761",
+        description: "Encuentro fraternal con líderes de las comunidades cristianas, judía, musulmana y de las tradiciones de fe en la Argentina.",
+        recommended: false,
+        highlighted: false,
+        icon: "handshake",
+        theme: "ecumenismo",
+        category: "Diálogo Interreligioso"
+      },
+      {
+        id: 10,
+        dayNum: "9",
+        dayString: "9 de noviembre",
+        dayWeekday: "Sábado 9",
+        time: "18:45",
+        city: "BUENOS AIRES",
+        title: "Celebración de Vísperas en la Catedral",
+        place: "Catedral Metropolitana de la Santísima Trinidad",
+        description: "Oración litúrgica comunitaria de las Vísperas con el Episcopado argentino y los equipos pastorales y sinodales.",
+        recommended: false,
+        highlighted: false,
+        icon: "wb_twilight",
+        theme: "catedral",
+        category: "Liturgia Episcopal"
+      },
+      {
+        id: 11,
+        dayNum: "9",
+        dayString: "9 de noviembre",
+        dayWeekday: "Sábado 9",
+        time: "19:45",
+        city: "BUENOS AIRES",
+        title: "Cena Fraterna con los Obispos",
+        place: "Arzobispado de Buenos Aires, Plaza de Mayo",
+        description: "Encuentro privado y cena de comunión fraterna con los miembros de la Conferencia Episcopal Argentina.",
+        recommended: false,
+        highlighted: false,
+        icon: "restaurant",
+        theme: "cena",
+        category: "Encuentro Eclesial"
+      },
+      {
+        id: 12,
+        dayNum: "10",
+        dayString: "10 de noviembre",
+        dayWeekday: "Domingo 10",
+        time: "07:30",
+        city: "BUENOS AIRES",
+        title: "Salida en Avión hacia Córdoba",
+        place: "Aeroparque Jorge Newbery, CABA",
+        description: "Partida en vuelo especial desde la Ciudad de Buenos Aires hacia el centro del país para la jornada pastoral federal.",
+        recommended: false,
+        highlighted: false,
+        icon: "flight_takeoff",
+        theme: "avion",
+        category: "Traslado Federal"
+      },
+      {
+        id: 13,
+        dayNum: "10",
+        dayString: "10 de noviembre",
+        dayWeekday: "Domingo 10",
+        time: "09:00",
+        city: "CÓRDOBA",
+        title: "Llegada al Aeropuerto de Córdoba",
+        place: "Aeropuerto Ambrosio Taravella, Córdoba",
+        description: "Arribo a la provincia de Córdoba y recepción oficial por autoridades provinciales, municipales y pastores de la región.",
+        recommended: false,
+        highlighted: false,
+        icon: "flight_land",
+        theme: "cordoba_arribo",
+        category: "Recepción Oficial"
+      },
+      {
+        id: 14,
+        dayNum: "10",
+        dayString: "10 de noviembre",
+        dayWeekday: "Domingo 10",
+        time: "10:00",
+        city: "CÓRDOBA",
+        title: "Santa Misa en el Predio FAdeA",
+        place: "Predio de la Fábrica Argentina de Aviones, Córdoba",
+        description: "Gran concelebración litúrgica federal con peregrinos llegados de todo el centro, cuyo y norte del territorio argentino.",
+        recommended: false,
+        highlighted: true,
+        icon: "church",
+        theme: "misa_cordoba",
+        category: "Concelebración Federal"
+      },
+      {
+        id: 15,
+        dayNum: "10",
+        dayString: "10 de noviembre",
+        dayWeekday: "Domingo 10",
+        time: "15:15",
+        city: "CÓRDOBA",
+        title: "Encuentro con Clero y Consagrados",
+        place: "Catedral Nuestra Señora de la Asunción, Córdoba",
+        description: "Audiencia de oración y diálogo pastoral con sacerdotes, religiosos, consagradas y seminaristas de diversas provincias.",
+        recommended: false,
+        highlighted: true,
+        icon: "groups_2",
+        theme: "clero",
+        category: "Vida Consagrada"
+      },
+      {
+        id: 16,
+        dayNum: "10",
+        dayString: "10 de noviembre",
+        dayWeekday: "Domingo 10",
+        time: "16:55",
+        city: "CÓRDOBA",
+        title: "Salida en Avión de Regreso a Bs As",
+        place: "Aeropuerto Ambrosio Taravella, Córdoba",
+        description: "Despedida en la aeroestación cordobesa y despegue de retorno a la Ciudad Autónoma de Buenos Aires.",
+        recommended: false,
+        highlighted: false,
+        icon: "flight_takeoff",
+        theme: "avion",
+        category: "Vuelo de Retorno"
+      },
+      {
+        id: 17,
+        dayNum: "10",
+        dayString: "10 de noviembre",
+        dayWeekday: "Domingo 10",
+        time: "18:10",
+        city: "BUENOS AIRES",
+        title: "Llegada al Aeroparque Jorge Newbery",
+        place: "Aeroparque Jorge Newbery, CABA",
+        description: "Arribo a Buenos Aires para prepararse para la multitudinaria vigilia nocturna con las juventudes argentinas.",
+        recommended: false,
+        highlighted: false,
+        icon: "flight_land",
+        theme: "aeropuerto",
+        category: "Arribo"
+      },
+      {
+        id: 18,
+        dayNum: "10",
+        dayString: "10 de noviembre",
+        dayWeekday: "Domingo 10",
+        time: "20:15",
+        city: "BUENOS AIRES",
+        title: "Encuentro con los Jóvenes",
+        place: "Monumento de los Españoles, Palermo",
+        description: "Vigilia de oración, música y testimonios convocando a miles de jóvenes de delegaciones diocesanas de todo el país.",
+        recommended: false,
+        highlighted: true,
+        icon: "celebration",
+        theme: "jovenes",
+        category: "Vigilia Juvenil"
+      },
+      {
+        id: 19,
+        dayNum: "11",
+        dayString: "11 de noviembre",
+        dayWeekday: "Lunes 11",
+        time: "08:00",
+        city: "BUENOS AIRES",
+        title: "Visita al Complejo Penitenciario",
+        place: "Complejo Penitenciario Federal, Buenos Aires",
+        description: "Visita pastoral y gesto de cercanía y esperanza con los internos privados de libertad y el personal penitenciario.",
+        recommended: false,
+        highlighted: false,
+        icon: "healing",
+        theme: "carcel",
+        category: "Pastoral Penitenciaria"
+      },
+      {
+        id: 20,
+        dayNum: "11",
+        dayString: "11 de noviembre",
+        dayWeekday: "Lunes 11",
+        time: "10:00",
+        city: "LUJÁN",
+        title: "Santa Misa en la Basílica de Luján",
+        place: "Plaza de la Basílica de Nuestra Señora de Luján",
+        description: "Consagración a la Patrona de la Argentina ante cientos de miles de peregrinos en el corazón mariano de la patria.",
+        recommended: true,
+        highlighted: true,
+        icon: "church",
+        theme: "lujan",
+        category: "Misa Patronal Nacional"
+      },
+      {
+        id: 21,
+        dayNum: "11",
+        dayString: "11 de noviembre",
+        dayWeekday: "Lunes 11",
+        time: "13:30",
+        city: "BUENOS AIRES",
+        title: "Ceremonia Oficial de Despedida",
+        place: "Aeropuerto Internacional Ministro Pistarini, Ezeiza",
+        description: "Acto protocolar de clausura de la gira apostólica con guardia de honor, himnos patrios y despedida de las autoridades.",
+        recommended: false,
+        highlighted: false,
+        icon: "military_tech",
+        theme: "despedida",
+        category: "Protocolo de Estado"
+      },
+      {
+        id: 22,
+        dayNum: "11",
+        dayString: "11 de noviembre",
+        dayWeekday: "Lunes 11",
+        time: "14:00",
+        city: "BUENOS AIRES",
+        title: "Salida del Vuelo Papal hacia Lima",
+        place: "Aeropuerto Internacional Ministro Pistarini, Ezeiza",
+        description: "Despegue oficial del avión papal hacia Lima, Perú, concluyendo su histórica visita pastoral a la República Argentina.",
+        recommended: false,
+        highlighted: false,
+        icon: "flight_takeoff",
+        theme: "despegue",
+        category: "Vuelo Internacional"
+      }
+    ];
+
+    // Day context subtitle mapping
+    const DAY_DESCRIPTIONS = {
+      '8': 'Viernes 8: Arribo y Actos Institucionales en Bs As',
+      '9': 'Sábado 9: Solidaridad, Diálogo y Misa en Palermo',
+      '10': 'Domingo 10: Viaje pastoral a Córdoba y vigilia joven',
+      '11': 'Lunes 11: Cárcel, Santuario de Luján y Despedida'
+    };
+
+    /**
+     * Generate an elegant editorial placeholder image with gray background
+     * Fulfilling the requirement: "coloca imagenes con fondo gris de ejemplo"
+     */
+    function createGrayPlaceholderSvg(event) {
+      // SVGs have neutral gray background (#e2e8f0 to #cbd5e1) with an iconic vector glyph
+      const w = 600;
+      const h = 340;
+      
+      // Determine vector icon graphic for the theme
+      let iconSvg = '';
+      if (event.theme.includes('avion') || event.theme.includes('aeropuerto') || event.theme.includes('despegue') || event.theme.includes('arribo')) {
+        // Airplane glyph
+        iconSvg = `<path d="M300 120 L310 145 L360 160 L360 172 L310 168 L308 200 L322 212 L322 222 L300 216 L278 222 L278 212 L292 200 L290 168 L240 172 L240 160 L290 145 Z" fill="#64748b"/>`;
+      } else if (event.theme.includes('misa') || event.theme.includes('lujan') || event.theme.includes('catedral')) {
+        // Church / Altar cross glyph
+        iconSvg = `<path d="M292 110 H308 V138 H336 V154 H308 V225 H292 V154 H264 V138 H292 Z" fill="#64748b"/>
+                   <path d="M245 225 L300 195 L355 225 Z" fill="#94a3b8" opacity="0.6"/>`;
+      } else if (event.theme.includes('gobierno') || event.theme.includes('monumento')) {
+        // Neoclassical columns / landmark
+        iconSvg = `<path d="M250 140 L300 115 L350 140 H250 Z" fill="#64748b"/>
+                   <rect x="256" y="146" width="10" height="60" fill="#64748b"/>
+                   <rect x="276" y="146" width="10" height="60" fill="#64748b"/>
+                   <rect x="296" y="146" width="10" height="60" fill="#64748b"/>
+                   <rect x="316" y="146" width="10" height="60" fill="#64748b"/>
+                   <rect x="334" y="146" width="10" height="60" fill="#64748b"/>
+                   <rect x="245" y="208" width="110" height="12" fill="#64748b"/>`;
+      } else if (event.theme.includes('jovenes') || event.theme.includes('trabajo') || event.theme.includes('congreso')) {
+        // Community / Gathering glyph
+        iconSvg = `<circle cx="300" cy="140" r="16" fill="#64748b"/>
+                   <circle cx="265" cy="150" r="12" fill="#94a3b8"/>
+                   <circle cx="335" cy="150" r="12" fill="#94a3b8"/>
+                   <path d="M275 210 C275 180 325 180 325 210 Z" fill="#64748b"/>
+                   <path d="M245 212 C245 190 285 190 285 212 Z" fill="#94a3b8"/>
+                   <path d="M315 212 C315 190 355 190 355 212 Z" fill="#94a3b8"/>`;
+      } else {
+        // Pastoral / Heart / Care glyph
+        iconSvg = `<path d="M300 215 L260 175 C242 155 242 125 265 110 C280 100 295 105 300 115 C305 105 320 100 335 110 C358 125 358 155 340 175 Z" fill="#64748b"/>`;
+      }
+
+      const svgContent = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="100%" height="100%">
+          <defs>
+            <linearGradient id="grayGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#edf2f7"/>
+              <stop offset="100%" stop-color="#cbd5e1"/>
+            </linearGradient>
+            <pattern id="dotPattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+              <circle cx="2" cy="2" r="1.2" fill="#94a3b8" opacity="0.3"/>
+            </pattern>
+          </defs>
+          <!-- Neutral Gray Background -->
+          <rect width="${w}" height="${h}" fill="url(#grayGrad)"/>
+          <rect width="${w}" height="${h}" fill="url(#dotPattern)"/>
+          
+          <!-- Subtle Center Emblem Circle with Gray Rim -->
+          <circle cx="300" cy="170" r="74" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2" opacity="0.95"/>
+          
+          <!-- Event Icon Graphics -->
+          <g>
+            ${iconSvg}
+          </g>
+
+          <!-- Editorial Watermark Bar at Bottom of Image -->
+          <rect x="0" y="306" width="${w}" height="34" fill="#334155" opacity="0.12"/>
+          <text x="30" y="327" font-family="'Work Sans', sans-serif" font-size="10" font-weight="700" letter-spacing="1.5px" fill="#475569" text-transform="uppercase">
+            ARCHIVO GRÁFICO • ${event.category.toUpperCase()}
+          </text>
+        </svg>
+      `;
+
+      return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgContent.trim())}`;
+    }
+
+    /**
+     * Render all cards into the carousel container
+     */
+    function renderCards(filterDay = 'all', onlyRecommended = false) {
+      const track = document.getElementById('carousel-track');
+      if (!track) return;
+      track.innerHTML = '';
+
+      let filteredEvents = PAPAL_EVENTS;
+      if (filterDay !== 'all') {
+        filteredEvents = filteredEvents.filter(ev => ev.dayNum === filterDay);
+      }
+      if (onlyRecommended) {
+        filteredEvents = filteredEvents.filter(ev => ev.recommended || ev.highlighted);
+      }
+
+      if (filteredEvents.length === 0) {
+        track.innerHTML = `
+          <div class="w-full py-12 text-center text-on-surface-variant">
+            <span class="material-symbols-outlined text-[36px] text-outline mb-2">event_busy</span>
+            <p class="font-body text-body-md">No hay actividades para el filtro seleccionado.</p>
+          </div>
+        `;
+        return;
+      }
+
+      filteredEvents.forEach(event => {
+        const article = document.createElement('article');
+        article.className = 'carousel-item flex-none w-[86%] sm:w-[380px] snap-start bg-surface-container-lowest rounded-2xl border border-outline-variant/40 shadow-xs overflow-hidden flex flex-col card-editorial cursor-pointer select-none';
+        article.setAttribute('data-day', event.dayNum);
+        article.setAttribute('data-id', event.id);
+        article.setAttribute('role', 'group');
+        article.setAttribute('aria-label', `${event.title} - ${event.dayString} a las ${event.time}`);
+
+        // Badge styling
+        let topBadgeHtml = '';
+        if (event.recommended) {
+          topBadgeHtml = `
+            <div class="absolute top-3 left-3 flex items-center gap-1.5 bg-secondary text-on-secondary px-2.5 py-1 rounded-DEFAULT font-label-caps text-label-caps font-bold shadow-xs">
+              <span class="material-symbols-outlined text-[14px]">star</span>
+              <span>ACTIVIDAD RECOMENDADA</span>
+            </div>
+          `;
+        } else {
+          // City pill with icon
+          let cityColor = 'text-primary';
+          if (event.city === 'CÓRDOBA') cityColor = 'text-tertiary-container';
+          topBadgeHtml = `
+            <div class="absolute top-3 left-3 flex items-center gap-1.5 bg-surface-container-lowest/95 backdrop-blur-md px-2.5 py-1 rounded-DEFAULT shadow-xs">
+              <span class="material-symbols-outlined ${cityColor} text-[15px]">${event.icon}</span>
+              <span class="font-label-caps text-label-caps ${cityColor} uppercase font-bold">${event.city}</span>
+            </div>
+          `;
+        }
+
+        const grayImgSrc = createGrayPlaceholderSvg(event);
+
+        article.innerHTML = `
+          <!-- Image Container with Gray Background Image Example -->
+          <div class="relative w-full h-48 bg-[#e2e8f0] overflow-hidden">
+            <img src="${grayImgSrc}" alt="${event.title}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy">
+            ${topBadgeHtml}
+            <!-- Time Pill (Bottom Right) -->
+            <div class="absolute bottom-3 right-3 bg-inverse-surface/90 text-inverse-on-surface px-2.5 py-1 rounded-DEFAULT font-label-caps text-label-caps font-bold tracking-wider shadow-xs">
+              ${event.dayNum} NOV • ${event.time} HS
+            </div>
+          </div>
+
+          <!-- Card Content Body -->
+          <div class="p-5 flex flex-col flex-grow justify-between gap-3">
+            <div class="flex flex-col gap-1.5">
+              <h3 class="font-headline text-[18px] sm:text-headline-md text-on-surface leading-snug font-bold">
+                ${event.title}
+              </h3>
+              <div class="flex items-center gap-1.5 text-on-surface-variant font-body-sm">
+                <span class="material-symbols-outlined text-[16px] ${event.recommended ? 'text-secondary' : 'text-primary'}">location_on</span>
+                <span class="line-clamp-1">${event.place || 'Lugar oficial a confirmar'}</span>
+              </div>
+              <p class="font-body text-body-md text-on-surface-variant mt-1.5 leading-relaxed">
+                ${event.description}
+              </p>
+            </div>
+
+            <div class="pt-2 border-t border-outline-variant/30 flex items-center justify-between text-on-surface-variant font-label-caps text-[11px]">
+              <span class="text-outline uppercase tracking-wider">${event.category}</span>
+              <button class="text-primary hover:text-primary-container font-bold flex items-center gap-0.5" onclick="openModal(${event.id}); event.stopPropagation();">
+                <span>Ver detalles</span>
+                <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+              </button>
+            </div>
+          </div>
+        `;
+
+        article.addEventListener('click', () => openModal(event.id));
+        track.appendChild(article);
+      });
+
+      updateTrackerState();
+    }
+
+    /**
+     * Render the full timeline list view
+     */
+    function renderListView() {
+      const listContainer = document.getElementById('timeline-list-container');
+      if (!listContainer) return;
+      listContainer.innerHTML = '';
+
+      const days = ['8', '9', '10', '11'];
+      days.forEach(day => {
+        const eventsOfDay = PAPAL_EVENTS.filter(e => e.dayNum === day);
+        if (eventsOfDay.length === 0) return;
+
+        const dayBlock = document.createElement('div');
+        dayBlock.className = 'flex flex-col gap-3 bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/40 shadow-xs';
+
+        let dayHeaderHtml = `
+          <div class="flex items-center justify-between pb-3 border-b border-outline-variant/30">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-primary-container"></span>
+              <h2 class="font-headline text-headline-md text-on-surface font-bold">${DAY_DESCRIPTIONS[day]}</h2>
+            </div>
+            <span class="font-label-caps text-label-caps text-primary uppercase font-bold">${eventsOfDay.length} hitos</span>
+          </div>
+          <div class="divide-y divide-outline-variant/20 flex flex-col">
+        `;
+
+        eventsOfDay.forEach(ev => {
+          dayHeaderHtml += `
+            <div class="py-3.5 flex flex-col sm:flex-row sm:items-start gap-3 hover:bg-surface-container-low/40 px-2 rounded-lg transition-colors cursor-pointer" onclick="openModal(${ev.id})">
+              <div class="flex items-center gap-2 sm:w-28 flex-shrink-0">
+                <span class="font-headline font-bold text-on-surface text-[15px]">${ev.time} hs</span>
+                ${ev.recommended ? '<span class="text-secondary material-symbols-outlined text-[16px]">star</span>' : ''}
+              </div>
+              <div class="flex flex-col flex-grow gap-0.5">
+                <h4 class="font-headline font-semibold text-on-surface text-[16px]">${ev.title}</h4>
+                <div class="flex items-center gap-1 text-on-surface-variant font-body-sm">
+                  <span class="material-symbols-outlined text-[15px] text-primary">location_on</span>
+                  <span>${ev.place}</span>
+                </div>
+                <p class="font-body text-body-sm text-on-surface-variant mt-1 leading-normal">${ev.description}</p>
+              </div>
+              <div class="flex sm:flex-col sm:items-end gap-2 flex-shrink-0">
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-label-caps font-bold ${ev.city === 'CÓRDOBA' ? 'bg-tertiary-fixed text-on-tertiary-fixed' : 'bg-primary-fixed text-on-primary-fixed'}">
+                  ${ev.city}
+                </span>
+              </div>
+            </div>
+          `;
+        });
+
+        dayHeaderHtml += `</div>`;
+        dayBlock.innerHTML = dayHeaderHtml;
+        listContainer.appendChild(dayBlock);
+      });
+    }
+
+    /**
+     * Tracker State Coordinator
+     * Updates: Stepper nodes, active progress line, counter ("Hito X de 22"), day description header
+     */
+    function updateTrackerState() {
+      const track = document.getElementById('carousel-track');
+      const counterLabel = document.getElementById('carousel-counter');
+      const contextLabel = document.getElementById('active-context-label');
+      const progressBar = document.getElementById('timeline-progress-bar');
+      const stepButtons = document.querySelectorAll('.timeline-step');
+      const prevBtn = document.getElementById('prev-card-btn');
+      const nextBtn = document.getElementById('next-card-btn');
+
+      if (!track) return;
+      const cards = Array.from(track.querySelectorAll('.carousel-item'));
+      const totalCards = cards.length;
+      if (totalCards === 0) return;
+
+      // Determine active card based on scroll position
+      const scrollLeft = track.scrollLeft;
+      const cardWidth = cards[0].offsetWidth;
+      let currentIndex = Math.round(scrollLeft / (cardWidth + 16));
+      if (currentIndex < 0) currentIndex = 0;
+      if (currentIndex >= totalCards) currentIndex = totalCards - 1;
+
+      // Update counter
+      if (counterLabel) {
+        counterLabel.textContent = `Hito ${currentIndex + 1} de ${totalCards}`;
+      }
+
+      // Update progress bar width
+      if (progressBar) {
+        const percentage = totalCards > 1 ? (currentIndex / (totalCards - 1)) * 100 : 0;
+        progressBar.style.width = `calc(${percentage}% - 16px)`;
+      }
+
+      // Update Prev / Next button state
+      if (prevBtn) prevBtn.disabled = (currentIndex === 0);
+      if (nextBtn) nextBtn.disabled = (currentIndex === totalCards - 1);
+
+      // Read current card day
+      const currentCard = cards[currentIndex];
+      const activeDay = currentCard ? currentCard.getAttribute('data-day') : '8';
+
+      // Update contextual title
+      if (contextLabel && DAY_DESCRIPTIONS[activeDay]) {
+        contextLabel.textContent = DAY_DESCRIPTIONS[activeDay];
+      }
+
+      // Highlight timeline nodes
+      stepButtons.forEach(btn => {
+        const btnDay = btn.getAttribute('data-day');
+        const dot = btn.querySelector('.step-dot');
+        const txt = btn.querySelector('.step-text');
+        if (btnDay === activeDay) {
+          dot.className = 'step-dot w-4 h-4 rounded-full bg-primary-container ring-4 ring-surface-container-low flex items-center justify-center transition-all shadow-xs';
+          txt.className = 'step-text font-label-caps text-label-caps text-primary font-bold';
+        } else {
+          dot.className = 'step-dot w-3.5 h-3.5 rounded-full bg-surface-variant ring-2 ring-surface flex items-center justify-center transition-all';
+          txt.className = 'step-text font-label-caps text-label-caps text-on-surface-variant';
+        }
+      });
+    }
+
+    /**
+     * Scroll to the first card matching target day
+     */
+    window.goToDay = function(targetDay) {
+      const track = document.getElementById('carousel-track');
+      if (!track) return;
+      const cards = Array.from(track.querySelectorAll('.carousel-item'));
+      const targetCard = cards.find(c => c.getAttribute('data-day') === targetDay);
+      if (targetCard) {
+        const cardOffset = targetCard.offsetLeft - track.offsetLeft;
+        track.scrollTo({ left: cardOffset, behavior: 'smooth' });
+      }
+    };
+
+    /**
+     * Modal inspection
+     */
+    window.openModal = function(eventId) {
+      const ev = PAPAL_EVENTS.find(e => e.id === eventId);
+      if (!ev) return;
+
+      const modal = document.getElementById('detail-modal');
+      const box = document.getElementById('detail-modal-box');
+      const title = document.getElementById('modal-title');
+      const time = document.getElementById('modal-time');
+      const location = document.getElementById('modal-location');
+      const description = document.getElementById('modal-description');
+      const badgeBox = document.getElementById('modal-badge-container');
+
+      title.textContent = ev.title;
+      time.textContent = `${ev.dayWeekday}, ${ev.time} HS`;
+      location.textContent = `${ev.place} (${ev.city})`;
+      description.textContent = ev.description;
+
+      if (ev.recommended) {
+        badgeBox.innerHTML = `
+          <span class="inline-flex items-center gap-1 bg-secondary text-white font-label-caps text-[11px] font-bold px-2.5 py-1 rounded">
+            <span class="material-symbols-outlined text-[14px]">star</span> ACTIVIDAD RECOMENDADA
+          </span>
+        `;
+      } else {
+        badgeBox.innerHTML = `
+          <span class="inline-flex items-center gap-1 bg-primary-container text-white font-label-caps text-[11px] font-bold px-2.5 py-1 rounded">
+            ${ev.city} • ${ev.category}
+          </span>
+        `;
+      }
+
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      box.classList.remove('scale-95');
+    };
+
+    window.closeModal = function() {
+      const modal = document.getElementById('detail-modal');
+      const box = document.getElementById('detail-modal-box');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      box.classList.add('scale-95');
+    };
+
+    /**
+     * Toggle View Mode (Carousel vs List)
+     */
+    window.toggleViewMode = function() {
+      const carouselView = document.getElementById('carousel-view');
+      const listView = document.getElementById('list-view');
+      const label = document.getElementById('view-mode-label');
+
+      if (carouselView.classList.contains('hidden')) {
+        carouselView.classList.remove('hidden');
+        listView.classList.add('hidden');
+        label.textContent = 'Ver lista completa';
+      } else {
+        carouselView.classList.add('hidden');
+        listView.classList.remove('hidden');
+        renderListView();
+        label.textContent = 'Ver carrusel';
+      }
+    };
+
+    // Attach Event Listeners on DOM Load
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize Cards
+      renderCards('all');
+
+      const track = document.getElementById('carousel-track');
+      const prevBtn = document.getElementById('prev-card-btn');
+      const nextBtn = document.getElementById('next-card-btn');
+      const filterRecBtn = document.getElementById('filter-rec-btn');
+      const dayFilterBtns = document.querySelectorAll('.day-filter-btn');
+      let recFilterActive = false;
+
+      // Scroll Event Listener
+      if (track) {
+        track.addEventListener('scroll', () => {
+          window.requestAnimationFrame(updateTrackerState);
+        }, { passive: true });
+      }
+
+      // Prev / Next Button Navigation
+      if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+          const cards = track.querySelectorAll('.carousel-item');
+          if (cards.length > 0) {
+            const cardWidth = cards[0].offsetWidth + 16;
+            track.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+          }
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+          const cards = track.querySelectorAll('.carousel-item');
+          if (cards.length > 0) {
+            const cardWidth = cards[0].offsetWidth + 16;
+            track.scrollBy({ left: cardWidth, behavior: 'smooth' });
+          }
+        });
+      }
+
+      // Keyboard arrow navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' && nextBtn && !nextBtn.disabled) {
+          nextBtn.click();
+        } else if (e.key === 'ArrowLeft' && prevBtn && !prevBtn.disabled) {
+          prevBtn.click();
+        } else if (e.key === 'Escape') {
+          closeModal();
+        }
+      });
+
+      // Day Segmented Control Tabs
+      dayFilterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          dayFilterBtns.forEach(b => {
+            b.className = 'day-filter-btn px-3 py-1 rounded-DEFAULT text-on-surface-variant hover:text-on-surface font-medium transition-all whitespace-nowrap';
+          });
+          btn.className = 'day-filter-btn px-3 py-1 rounded-DEFAULT bg-surface-container-lowest text-on-surface font-headline font-semibold shadow-xs transition-all whitespace-nowrap';
+
+          const day = btn.getAttribute('data-day');
+          if (day === 'all') {
+            renderCards('all', recFilterActive);
+          } else {
+            renderCards(day, recFilterActive);
+          }
+        });
+      });
+
+      // Filter by Recommended
+      if (filterRecBtn) {
+        filterRecBtn.addEventListener('click', () => {
+          recFilterActive = !recFilterActive;
+          if (recFilterActive) {
+            filterRecBtn.className = 'px-2.5 py-1 rounded-full border border-secondary bg-secondary text-white font-label-caps text-[11px] flex items-center gap-1 transition-all';
+          } else {
+            filterRecBtn.className = 'px-2.5 py-1 rounded-full border border-secondary/30 bg-secondary-fixed/50 hover:bg-secondary-fixed text-secondary font-label-caps text-[11px] flex items-center gap-1 transition-all';
+          }
+          const activeDayBtn = document.querySelector('.day-filter-btn.bg-surface-container-lowest');
+          const day = activeDayBtn ? activeDayBtn.getAttribute('data-day') : 'all';
+          renderCards(day, recFilterActive);
+        });
+      }
+
+      // View Mode Toggle Button
+      const viewModeToggle = document.getElementById('view-mode-toggle');
+      if (viewModeToggle) {
+        viewModeToggle.addEventListener('click', toggleViewMode);
+      }
+
+      // Close modal on click outside box
+      const modal = document.getElementById('detail-modal');
+      if (modal) {
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) closeModal();
+        });
+      }
+    });
+  </script>
+</body>
+</html>

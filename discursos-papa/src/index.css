@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-surface: #fff8f3;
+    --color-surface-dim: #dfd9d4;
+    --color-surface-lowest: #ffffff;
+    --color-surface-low: #f9f2ed;
+    --color-surface-container: #f3ede7;
+    --color-surface-high: #ede7e2;
+    --color-surface-highest: #e7e1dc;
+    --color-on-surface: #1d1b18;
+    --color-on-surface-variant: #4e453a;
+    --color-primary: #775622;
+    --color-primary-ochre: #96723b;
+    --color-secondary: #28628f;
+    --color-secondary-celesta: #75aadb;
+    --color-tertiary: #006b33;
+    --color-tertiary-mint: #5ae386;
+    --color-outline: #807568;
+    --color-hairline: #d2c4b5;
+  }
+
+  * {
+    border-radius: 0 !important; /* Strict zero-radius rule per diseno.md */
+  }
+
+  body {
+    background-color: #fff8f3;
+    color: #1d1b18;
+    font-family: 'Manrope', system-ui, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, .font-editorial-serif {
+    font-family: 'Libre Caslon Text', Georgia, serif;
+  }
+}
+
+/* Print specific styles for editorial archive export */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  .article-page {
+    page-break-after: always;
+  }
+}
+
+/* Editorial Masthead Double Rule: 1px hairline over 3px solid stroke */
+.masthead-double-rule {
+  border-top: 1px solid #775622;
+  border-bottom: 3px solid #775622;
+  padding: 3px 0;
+}
+
+.masthead-double-rule-light {
+  border-top: 1px solid #d2c4b5;
+  border-bottom: 2px solid #775622;
+  padding: 2px 0;
+}
+
+/* Custom hairline borders */
+.border-hairline {
+  border-color: #d2c4b5;
+}
+
+/* Drop-cap for lead paragraphs in solemn editorial style */
+.drop-cap::first-letter {
+  font-family: 'Libre Caslon Text', serif;
+  float: left;
+  font-size: 3.5rem;
+  line-height: 2.8rem;
+  padding-right: 0.5rem;
+  padding-top: 0.25rem;
+  color: #775622;
+  font-weight: 700;
+}
