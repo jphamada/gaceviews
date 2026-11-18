@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cinco días de caídas: cronología de noviembre 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Work+Sans:wght@600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0265c2;
+      --primary-deep: #004d97;
+      --secondary: #b91c1c;
+      --tertiary: #0f766e;
+      --ink: #111827;
+      --ink-2: #4b5563;
+      --ink-3: #6b7280;
+      --surface: #ffffff;
+      --well: #f8fafc;
+      --tray: #f1f5f9;
+      --rule: #e2e8f0;
+      --pending: #cbd5e1;
+      --radius-card: 22px;
+      --radius-sm: 4px;
+      --ease: cubic-bezier(.22, .8, .24, 1);
+      --card-w: min(90vw, 546px, calc((100svh - 215px) * .8));
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html,
+    body {
+      height: 100%
+    }
+
+    body {
+      font-family: "Public Sans", system-ui, sans-serif;
+      color: var(--ink);
+      background: radial-gradient(1200px 600px at 50% -10%, #e9edff 0%, #f9f9ff 55%, #f1f5f9 100%);
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap
+    }
+
+    /* ---------- Cabecera ---------- */
+    header {
+      max-width: 820px;
+      width: 100%;
+      margin: 0 auto;
+      padding: clamp(12px, 2vh, 22px) 1rem 0;
+      text-align: center
+    }
+
+    .kicker {
+      font: 700 11px/14px "Public Sans";
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--primary)
+    }
+
+    h1 {
+      font: 700 clamp(21px, 3vw, 30px)/1.15 "Work Sans";
+      margin-top: 4px;
+      letter-spacing: -.01em
+    }
+
+    /* ---------- Línea de tiempo (navegación) ---------- */
+    .timeline {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      max-width: 680px;
+      margin: clamp(8px, 1.6vh, 16px) auto 0;
+      padding: 0 8px;
+      list-style: none
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      top: 9px;
+      height: 2px;
+      background: var(--rule)
+    }
+
+    .timeline .fill {
+      position: absolute;
+      left: 22px;
+      top: 9px;
+      height: 2px;
+      background: var(--primary);
+      transition: width .5s var(--ease)
+    }
+
+    .timeline li {
+      position: relative;
+      z-index: 1
+    }
+
+    .tl-btn {
+      all: unset;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 2px 4px;
+      border-radius: 6px
+    }
+
+    .tl-btn:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 3px
+    }
+
+    .tl-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--pending);
+      border: 3px solid #fff;
+      box-shadow: 0 0 0 1px var(--rule);
+      transition: transform .3s var(--ease), background .3s
+    }
+
+    .tl-btn[aria-current="true"] .tl-dot {
+      background: var(--primary);
+      transform: scale(1.25);
+      box-shadow: 0 0 0 4px rgba(2, 101, 194, .15)
+    }
+
+    .tl-btn.done .tl-dot {
+      background: var(--primary)
+    }
+
+    .tl-lbl {
+      font: 700 10px/12px "Public Sans";
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--ink-3)
+    }
+
+    .tl-btn[aria-current="true"] .tl-lbl {
+      color: var(--ink)
+    }
+
+    /* ---------- Carrusel ---------- */
+    .carousel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 0;
+      padding: clamp(4px, 1vh, 12px) 0
+    }
+
+    .stage {
+      position: relative
+    }
+
+    .viewport {
+      position: relative;
+      overflow: hidden;
+      padding: 10px 0 26px;
+      touch-action: pan-y;
+      cursor: grab;
+      outline: none
+    }
+
+    .viewport.dragging {
+      cursor: grabbing
+    }
+
+    .viewport:focus-visible .card.is-active {
+      outline: 3px solid var(--primary);
+      outline-offset: 4px
+    }
+
+    .track {
+      display: flex;
+      gap: clamp(14px, 2.5vw, 32px);
+      transition: transform .6s var(--ease);
+      will-change: transform;
+      user-select: none;
+      -webkit-user-select: none
+    }
+
+    .viewport.dragging .track {
+      transition: none
+    }
+
+    .card {
+      flex: 0 0 var(--card-w);
+      aspect-ratio: 4/5;
+      container-type: inline-size;
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transform: scale(.88);
+      opacity: .45;
+      filter: saturate(.6);
+      transition: transform .6s var(--ease), opacity .6s var(--ease), filter .6s, box-shadow .6s;
+      box-shadow: 0 1px 2px rgba(17, 24, 39, .06);
+    }
+
+    .card.is-active {
+      transform: none;
+      opacity: 1;
+      filter: none;
+      box-shadow: 0 28px 50px -24px rgba(15, 23, 42, .35), 0 2px 6px rgba(15, 23, 42, .06)
+    }
+
+    .card.is-near {
+      cursor: pointer
+    }
+
+    .card.is-near:hover {
+      opacity: .7
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 4.2cqi 5.2cqi 3cqi
+    }
+
+    .date {
+      display: flex;
+      align-items: baseline;
+      gap: 2cqi
+    }
+
+    .date-day {
+      font: 700 9cqi/1 "Work Sans";
+      color: var(--accent);
+      letter-spacing: -.02em;
+      font-variant-numeric: tabular-nums
+    }
+
+    .date-txt {
+      font: 700 2.8cqi/1.25 "Public Sans";
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--ink-2)
+    }
+
+    .badge {
+      font: 700 2.6cqi/1 "Public Sans";
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 1.6cqi 3cqi;
+      border-radius: 999px;
+      background: var(--tray);
+      color: #334155;
+      white-space: nowrap
+    }
+
+    .photo {
+      position: relative;
+      margin: 0 3.4cqi;
+      border-radius: 14px;
+      overflow: hidden;
+      flex: 0 0 auto;
+      aspect-ratio: 16/8.6;
+      background: var(--accent)
+    }
+
+    .photo svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block
+    }
+
+    .photo::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(5, 10, 25, .78) 100%)
+    }
+
+    .quote {
+      position: absolute;
+      left: 4cqi;
+      right: 4cqi;
+      bottom: 3.4cqi;
+      z-index: 1;
+      color: #fff
+    }
+
+    .quote q {
+      display: block;
+      font: 600 3.9cqi/1.3 "Work Sans";
+      quotes: "«" "»"
+    }
+
+    .quote.plain q {
+      quotes: none
+    }
+
+    .quote .lead {
+      display: block;
+      font: 700 2.5cqi/1 "Public Sans";
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: #9cf2e8;
+      margin-bottom: 1.4cqi
+    }
+
+    .quote .big {
+      display: flex;
+      align-items: baseline;
+      gap: 2.4cqi
+    }
+
+    .quote .big b {
+      font: 700 15cqi/.9 "Work Sans";
+      letter-spacing: -.03em
+    }
+
+    .quote .big span {
+      font: 600 3.6cqi/1.25 "Work Sans"
+    }
+
+    .quote cite {
+      display: block;
+      margin-top: 1.2cqi;
+      font: 700 2.5cqi/1 "Public Sans";
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      font-style: normal;
+      opacity: .85
+    }
+
+    .photo-tag {
+      position: absolute;
+      top: 3cqi;
+      left: 3cqi;
+      z-index: 1;
+      font: 600 2.3cqi/1 "Public Sans";
+      color: #fff;
+      background: rgba(0, 0, 0, .32);
+      backdrop-filter: blur(6px);
+      padding: 1.3cqi 2.2cqi;
+      border-radius: 999px;
+      letter-spacing: .02em
+    }
+
+    .card-body {
+      padding: 3.8cqi 5.2cqi 3cqi;
+      display: flex;
+      flex-direction: column;
+      gap: 2cqi;
+      flex: 1;
+      min-height: 0
+    }
+
+    .card h2 {
+      font: 700 5.7cqi/1.16 "Work Sans";
+      letter-spacing: -.01em;
+      color: var(--ink)
+    }
+
+    .card p {
+      font: 400 3.4cqi/1.45 "Public Sans";
+      color: var(--ink-2)
+    }
+
+    .card-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5.2cqi 4.4cqi;
+      margin-top: auto;
+      gap: 8px
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.6cqi;
+      font: 600 2.8cqi/1 "Public Sans";
+      color: var(--tertiary)
+    }
+
+    .status.alert {
+      color: var(--secondary)
+    }
+
+    .status.alert::before {
+      background: var(--secondary)
+    }
+
+    .badge-alert {
+      background: #ffdad6;
+      color: #93000a
+    }
+
+    .status::before {
+      content: "";
+      width: 1.8cqi;
+      height: 1.8cqi;
+      border-radius: 50%;
+      background: var(--tertiary)
+    }
+
+    .idx {
+      font: italic 400 2.8cqi/1 "Public Sans";
+      color: var(--ink-3);
+      font-variant-numeric: tabular-nums
+    }
+
+    .card-foot {
+      border-top: 1px solid var(--rule);
+      padding-top: 3.2cqi;
+      margin-left: 5.2cqi;
+      margin-right: 5.2cqi;
+      padding-left: 0;
+      padding-right: 0
+    }
+
+    /* ---------- Controles ---------- */
+    .controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-top: -6px
+    }
+
+    .nav-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid var(--rule);
+      background: #fff;
+      color: var(--ink);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: transform .2s, background .2s, border-color .2s, opacity .2s;
+      box-shadow: 0 1px 2px rgba(17, 24, 39, .08);
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+      transform: translateY(-1px)
+    }
+
+    .nav-btn:active:not(:disabled) {
+      transform: scale(.96)
+    }
+
+    .nav-btn:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 3px
+    }
+
+    .nav-btn:disabled {
+      opacity: .35;
+      cursor: default
+    }
+
+    .nav-btn svg {
+      width: 20px;
+      height: 20px
+    }
+
+    .counter {
+      min-width: 84px;
+      text-align: center;
+      font: 700 15px/1 "Work Sans";
+      font-variant-numeric: tabular-nums;
+      color: var(--ink)
+    }
+
+    .counter span {
+      color: var(--ink-3);
+      font-weight: 600
+    }
+
+    .progress {
+      width: 84px;
+      height: 3px;
+      background: var(--rule);
+      border-radius: 3px;
+      margin: 8px auto 0;
+      overflow: hidden
+    }
+
+    .progress i {
+      display: block;
+      height: 100%;
+      background: var(--primary);
+      transition: width .5s var(--ease)
+    }
+
+    .hint {
+      text-align: center;
+      font: italic 400 12px/16px "Public Sans";
+      color: var(--ink-3);
+      margin-top: 12px
+    }
+
+    kbd {
+      font: 600 11px/1 "Public Sans";
+      font-style: normal;
+      border: 1px solid var(--rule);
+      border-bottom-width: 2px;
+      background: #fff;
+      border-radius: 4px;
+      padding: 2px 5px;
+      color: var(--ink-2)
+    }
+
+    @media (min-width:900px) {
+      .controls {
+        position: absolute;
+        inset: 0;
+        margin: 0;
+        pointer-events: none;
+        justify-content: space-between;
+        padding: 0 calc(50% - var(--card-w)/2 - 76px);
+      }
+
+      .controls .meta {
+        display: none
+      }
+
+      .nav-btn {
+        pointer-events: auto;
+        width: 54px;
+        height: 54px
+      }
+
+      .carousel .hint {
+        display: none
+      }
+    }
+
+    .foot-hint {
+      display: none
+    }
+
+    @media (min-width:900px) {
+      .foot-hint {
+        display: inline
+      }
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      max-width: 760px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 10px 1rem 16px;
+      border-top: 1px solid var(--rule)
+    }
+
+    footer small {
+      font: italic 400 11px/15px "Public Sans";
+      color: var(--ink-3)
+    }
+
+    footer b {
+      font: 700 11px/15px "Work Sans";
+      letter-spacing: .04em;
+      color: var(--primary-deep);
+      white-space: nowrap
+    }
+
+    @media (max-width:520px) {
+      .tl-lbl {
+        font-size: 9px
+      }
+
+      .nav-btn {
+        width: 44px;
+        height: 44px
+      }
+
+      .hint .kbd-hint {
+        display: none
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+
+      .track,
+      .card,
+      .tl-dot,
+      .timeline .fill,
+      .progress i {
+        transition: none !important
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="kicker">Cronología · 12 al 17 de noviembre de 2026</div>
+    <h1>Seis caídas y un ciberataque en cinco días</h1>
+    <ol class="timeline" id="timeline" aria-label="Ir a una fecha">
+      <span class="fill" id="tlFill" aria-hidden="true"></span>
+    </ol>
+  </header>
+
+  <main class="carousel" aria-roledescription="carrusel" aria-label="Caídas de sistemas en Estados Unidos">
+    <div class="stage">
+      <div class="viewport" id="viewport" tabindex="0"
+        aria-label="Tarjetas. Usá las flechas izquierda y derecha para navegar.">
+        <div class="track" id="track">
+
+          <!-- 1 · Microsoft -->
+          <article class="card" style="--accent:#0265c2" aria-roledescription="tarjeta">
+            <div class="card-top">
+              <div class="date"><span class="date-day">12</span><span class="date-txt">Jueves<br>Nov 2026</span></div>
+              <span class="badge">Tecnología</span>
+            </div>
+            <figure class="photo">
+              <svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <defs>
+                  <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#0b3d7a" />
+                    <stop offset="1" stop-color="#0265c2" />
+                  </linearGradient>
+                </defs>
+                <rect width="400" height="260" fill="url(#g1)" />
+                <g opacity=".12" fill="#fff">
+                  <circle cx="340" cy="40" r="90" />
+                  <circle cx="40" cy="230" r="70" />
+                </g>
+                <rect x="92" y="46" width="216" height="150" rx="12" fill="#fff" opacity=".96" />
+                <rect x="92" y="46" width="216" height="26" rx="12" fill="#d6e3ff" />
+                <rect x="92" y="60" width="216" height="12" fill="#d6e3ff" />
+                <circle cx="108" cy="59" r="4" fill="#a8c8ff" />
+                <circle cx="121" cy="59" r="4" fill="#a8c8ff" />
+                <circle cx="134" cy="59" r="4" fill="#a8c8ff" />
+                <rect x="112" y="88" width="70" height="8" rx="4" fill="#dce2f7" />
+                <rect x="112" y="104" width="110" height="8" rx="4" fill="#dce2f7" />
+                <rect x="112" y="120" width="90" height="8" rx="4" fill="#dce2f7" />
+                <path d="M232 128l26-46 26 46z" fill="#b91c1c" />
+                <rect x="256" y="98" width="4" height="16" rx="2" fill="#fff" />
+                <circle cx="258" cy="120" r="2.6" fill="#fff" />
+                <g transform="translate(150 150)">
+                  <rect width="100" height="62" rx="6" fill="#0265c2" stroke="#fff" stroke-width="3" />
+                  <path d="M4 6l46 30 46-30" fill="none" stroke="#fff" stroke-width="3" />
+                </g>
+              </svg>
+              <span class="photo-tag">Imagen ilustrativa</span>
+              <figcaption class="quote"><q>Restableció por completo el servicio</q><cite>Microsoft</cite></figcaption>
+            </figure>
+            <div class="card-body">
+              <h2>Caída global de Microsoft 365</h2>
+              <p>Una falla técnica dejó sin Outlook, Teams, Copilot y Microsoft 365 a millones de usuarios en al menos
+                74 países. La empresa descartó un ciberataque y dio por restablecido el servicio el sábado 14.</p>
+            </div>
+            <div class="card-foot"><span class="status">Sin indicios de ciberataque</span><span class="idx">01 /
+                10</span></div>
+          </article>
+
+          <!-- 2 · FAA -->
+          <article class="card" style="--accent:#b91c1c" aria-roledescription="tarjeta">
+            <div class="card-top">
+              <div class="date"><span class="date-day">13</span><span class="date-txt">Viernes<br>Nov 2026</span></div>
+              <span class="badge">Transporte</span>
+            </div>
+            <figure class="photo">
+              <svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <defs>
+                  <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#1e2433" />
+                    <stop offset="1" stop-color="#3a1414" />
+                  </linearGradient>
+                </defs>
+                <rect width="400" height="260" fill="url(#g2)" />
+                <rect x="60" y="40" width="280" height="150" rx="8" fill="#0b0f19" stroke="#2b3345" />
+                <text x="76" y="64" fill="#f8c537" font-family="Work Sans" font-weight="700" font-size="13"
+                  letter-spacing="2">SALIDAS · DEPARTURES</text>
+                <g font-family="Public Sans" font-size="12" font-weight="700">
+                  <text x="76" y="92" fill="#e2e8f0">ATL</text><text x="130" y="92" fill="#e2e8f0">15:40</text><text
+                    x="250" y="92" fill="#ff6b6b">CANCELADO</text>
+                  <text x="76" y="116" fill="#e2e8f0">ORD</text><text x="130" y="116" fill="#e2e8f0">15:55</text><text
+                    x="250" y="116" fill="#ff6b6b">CANCELADO</text>
+                  <text x="76" y="140" fill="#e2e8f0">JFK</text><text x="130" y="140" fill="#e2e8f0">16:10</text><text
+                    x="250" y="140" fill="#f8c537">DEMORADO</text>
+                  <text x="76" y="164" fill="#e2e8f0">LAX</text><text x="130" y="164" fill="#e2e8f0">16:25</text><text
+                    x="250" y="164" fill="#ff6b6b">CANCELADO</text>
+                </g>
+                <path d="M232 214l-40-8-12 4 30 12-26 14 8 4 34-12 40 4c8 1 10-6 2-8z" fill="#fff" opacity=".9"
+                  transform="translate(110 -196) rotate(-14 230 220)" />
+              </svg>
+              <span class="photo-tag">Imagen ilustrativa</span>
+              <figcaption class="quote"><q>Interrupciones intermitentes de telecomunicaciones.</q><cite>FAA</cite>
+              </figcaption>
+            </figure>
+            <div class="card-body">
+              <h2>EE.UU. paraliza todos sus vuelos</h2>
+              <p>La FAA frenó todos los despegues del país por más de cuatro horas tras una falla de telecomunicaciones
+                en el control aéreo. Fue la parada más larga desde el 11-S y dejó miles de vuelos cancelados.</p>
+            </div>
+            <div class="card-foot"><span class="status">Falla de telecomunicaciones</span><span class="idx">02 /
+                10</span></div>
+          </article>
+
+          <!-- 3 · Ciberataque Optimizely -->
+          <article class="card" style="--accent:#b91c1c" aria-roledescription="tarjeta">
+            <div class="card-top">
+              <div class="date"><span class="date-day">16</span><span class="date-txt">Lunes<br>Nov 2026</span></div>
+              <span class="badge badge-alert">Ciberataque</span>
+            </div>
+            <figure class="photo">
+              <svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <defs>
+                  <linearGradient id="g10" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#410002" />
+                    <stop offset="1" stop-color="#141b2b" />
+                  </linearGradient>
+                </defs>
+                <rect width="400" height="260" fill="url(#g10)" />
+                <g transform="translate(72 4) scale(.64)">
+                  <g fill="#fff" opacity=".1">
+                    <rect x="0" y="40" width="120" height="80" rx="8" />
+                    <rect x="290" y="40" width="120" height="80" rx="8" />
+                    <rect x="0" y="140" width="120" height="80" rx="8" />
+                    <rect x="290" y="140" width="120" height="80" rx="8" />
+                  </g>
+                  <rect x="120" y="40" width="170" height="130" rx="10" fill="#f9f9ff" />
+                  <rect x="120" y="40" width="170" height="22" rx="10" fill="#ffdad6" />
+                  <rect x="120" y="52" width="170" height="10" fill="#ffdad6" />
+                  <circle cx="134" cy="51" r="3.5" fill="#ffb4ab" />
+                  <circle cx="145" cy="51" r="3.5" fill="#ffb4ab" />
+                  <circle cx="156" cy="51" r="3.5" fill="#ffb4ab" />
+                  <g font-family="Courier New, monospace" font-size="11" font-weight="700">
+                    <text x="134" y="84" fill="#414752">&lt;script src=</text>
+                    <text x="134" y="100" fill="#b91c1c">"optimizely…"&gt;</text>
+                    <text x="134" y="116" fill="#414752">steal(card)</text>
+                    <text x="134" y="132" fill="#414752">swap(wallet)</text>
+                  </g>
+                  <rect x="128" y="140" width="154" height="20" rx="4" fill="#b91c1c" />
+                  <text x="205" y="154" text-anchor="middle" font-family="Public Sans" font-size="10" font-weight="700"
+                    fill="#fff" letter-spacing="1">CÓDIGO MALICIOSO</text>
+                  <g transform="translate(330 70)">
+                    <circle r="30" fill="#f8c537" /><text y="11" text-anchor="middle" font-family="Work Sans"
+                      font-size="32" font-weight="700" fill="#7a5200">₿</text>
+                  </g>
+                  <g transform="translate(40 80)">
+                    <rect width="50" height="92" rx="10" fill="#141b2b" stroke="#c1c6d4" stroke-width="2" />
+                    <rect x="5" y="8" width="40" height="72" rx="5" fill="#293040" />
+                    <path d="M14 36l22 22M36 36L14 58" stroke="#ff6b6b" stroke-width="4" stroke-linecap="round" />
+                  </g>
+                </g>
+              </svg>
+              <span class="photo-tag">Imagen ilustrativa</span>
+              <figcaption class="quote plain"><span class="lead">Organizaciones alcanzadas</span><span
+                  class="big"><b>178</b><span>Entre ellas BBC, CNN, Zoom, Salesforce, IKEA, HSBC y Equifax</span></span>
+              </figcaption>
+            </figure>
+            <div class="card-body">
+              <h2>Ciberataque a 178 sitios, de la BBC a IKEA</h2>
+              <p>Hackers inyectaron código en Optimizely, una herramienta para probar páginas, y llegaron a sitios como
+                BBC, CNN y Zoom. Buscaban robar criptomonedas y tarjetas, e infectar iPhones desactualizados.</p>
+            </div>
+            <div class="card-foot"><span class="status alert">Ataque confirmado</span><span class="idx">03 / 10</span>
+            </div>
+          </article>
+
+          <!-- 3 · Bancos -->
+          <article class="card" style="--accent:#0f766e" aria-roledescription="tarjeta">
+            <div class="card-top">
+              <div class="date"><span class="date-day">16</span><span class="date-txt">Lunes<br>Nov 2026</span></div>
+              <span class="badge">Finanzas</span>
+            </div>
+            <figure class="photo">
+              <svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <defs>
+                  <linearGradient id="g3" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#00403b" />
+                    <stop offset="1" stop-color="#0f766e" />
+                  </linearGradient>
+                </defs>
+                <rect width="400" height="260" fill="url(#g3)" />
+                <g opacity=".1" fill="#fff">
+                  <circle cx="60" cy="50" r="80" />
+                  <circle cx="360" cy="240" r="90" />
+                </g>
+                <g fill="#fff">
+                  <path d="M110 92L200 46l90 46z" />
+                  <rect x="112" y="96" width="176" height="10" rx="2" />
+                  <rect x="124" y="112" width="16" height="66" rx="2" />
+                  <rect x="160" y="112" width="16" height="66" rx="2" />
+                  <rect x="224" y="112" width="16" height="66" rx="2" />
+                  <rect x="260" y="112" width="16" height="66" rx="2" />
+                  <rect x="104" y="182" width="192" height="12" rx="2" />
+                </g>
+                <g transform="translate(232 150)">
+                  <rect width="104" height="66" rx="10" fill="#fff" />
+                  <rect y="14" width="104" height="12" fill="#04726a" />
+                  <rect x="10" y="38" width="34" height="8" rx="4" fill="#c1c6d4" />
+                  <circle cx="80" cy="46" r="16" fill="#b91c1c" />
+                  <path d="M73 39l14 14M87 39L73 53" stroke="#fff" stroke-width="3.5" stroke-linecap="round" />
+                </g>
+              </svg>
+              <span class="photo-tag">Imagen ilustrativa</span>
+              <figcaption class="quote"><q>Las transacciones ya se registran con normalidad.</q><cite>JPMorgan
+                  Chase</cite></figcaption>
+            </figure>
+            <div class="card-body">
+              <h2>Cuatro grandes bancos, sin servicio</h2>
+              <p>Clientes de Chase, Bank of America, Wells Fargo y U.S. Bank no pudieron entrar a sus cuentas ni mover
+                dinero. JPMorgan atribuyó la falla a un error de software propio y descartó un ciberataque.</p>
+            </div>
+            <div class="card-foot"><span class="status">Error de software</span><span class="idx">04 / 10</span></div>
+          </article>
+
+          <!-- 4 · United -->
+          <article class="card" style="--accent:#004d97" aria-roledescription="tarjeta">
+            <div class="card-top">
+              <div class="date"><span class="date-day">16</span><span class="date-txt">Lunes<br>Nov 2026</span></div>
+              <span class="badge">Transporte</span>
+            </div>
+            <figure class="photo">
+              <svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <defs>
+                  <linearGradient id="g4" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#7aa7e0" />
+                    <stop offset=".62" stop-color="#d6e3ff" />
+                    <stop offset=".62" stop-color="#3a4252" />
+                    <stop offset="1" stop-color="#293040" />
+                  </linearGradient>
+                </defs>
+                <rect width="400" height="260" fill="url(#g4)" />
+                <g stroke="#f9f9ff" stroke-width="4" stroke-dasharray="22 18" opacity=".7">
+                  <path d="M0 214h400" />
+                </g>
+                <g fill="#fff" transform="translate(60 112)">
+                  <path
+                    d="M0 40c0-8 8-14 18-14h170l30-24h14l-12 26h30c12 0 20 6 20 12s-8 12-20 12H18C8 52 0 48 0 40z" />
+                  <path d="M110 30l-30-26h18l46 26z" opacity=".9" />
+                  <path d="M110 52l-26 26h18l40-26z" opacity=".9" />
+                  <g fill="#004d97">
+                    <circle cx="40" cy="38" r="3" />
+                    <circle cx="54" cy="38" r="3" />
+                    <circle cx="68" cy="38" r="3" />
+                    <circle cx="82" cy="38" r="3" />
+                    <circle cx="96" cy="38" r="3" />
+                  </g>
+                </g>
+                <g transform="translate(272 22)">
+                  <rect width="104" height="70" rx="10" fill="#fff" stroke="#c1c6d4" />
+                  <text x="12" y="22" font-family="Public Sans" font-weight="700" font-size="10" fill="#6b7280"
+                    letter-spacing="1">PESO FINAL</text>
+                  <text x="12" y="52" font-family="Work Sans" font-weight="700" font-size="24" fill="#b91c1c">— —
+                    kg</text>
+                </g>
+              </svg>
+              <span class="photo-tag">Imagen ilustrativa</span>
+              <figcaption class="quote"><q>Estamos al tanto de la caída generalizada del sistema.</q><cite>United
+                  Airlines</cite></figcaption>
+            </figure>
+            <div class="card-body">
+              <h2>United Airlines: falla en sus sistemas</h2>
+              <p>Una caída informática impidió a los pilotos de United recibir los datos de peso necesarios para
+                despegar. Duró unos 30 minutos, afectó a menos de 150 vuelos y la aerolínea descartó un ciberataque.</p>
+            </div>
+            <div class="card-foot"><span class="status">Sin indicios de ciberataque</span><span class="idx">05 /
+                10</span></div>
+          </article>
+
+          <!-- 5 · NSA -->
+          <article class="card" style="--accent:#293040" aria-roledescription="tarjeta">
+            <div class="card-top">
+              <div class="date"><span class="date-day">17</span><span class="date-txt">Martes<br>Nov 2026</span></div>
+              <span class="badge">Seguridad</span>
+            </div>
+            <figure class="photo">
+              <svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <defs>
+                  <radialGradient id="g5" cx=".5" cy=".4" r=".8">
+                    <stop offset="0" stop-color="#1d2a44" />
+                    <stop offset="1" stop-color="#0b0f19" />
+                  </radialGradient>
+                </defs>
+                <rect width="400" height="260" fill="url(#g5)" />
+                <g stroke="#a8c8ff" stroke-width="2" opacity=".55">
+                  <path
+                    d="M80 70L160 110M160 110L120 190M160 110L240 120M240 120L320 70M320 70L340 170M80 70L60 160M60 160L120 190" />
+                </g>
+                <path d="M240 120L300 180" stroke="#ff6b6b" stroke-width="2.5" stroke-dasharray="6 6" />
+                <g fill="#a8c8ff">
+                  <circle cx="80" cy="70" r="7" />
+                  <circle cx="160" cy="110" r="9" />
+                  <circle cx="120" cy="190" r="7" />
+                  <circle cx="60" cy="160" r="6" />
+                  <circle cx="320" cy="70" r="7" />
+                  <circle cx="340" cy="170" r="6" />
+                </g>
+                <circle cx="300" cy="180" r="8" fill="#ff6b6b" />
+                <g transform="translate(210 88)">
+                  <circle cx="30" cy="32" r="40" fill="#b91c1c" opacity=".18" />
+                  <rect x="8" y="26" width="44" height="36" rx="6" fill="#fff" />
+                  <path d="M18 26v-8a12 12 0 0124 0v8" fill="none" stroke="#fff" stroke-width="5" />
+                  <circle cx="30" cy="42" r="5" fill="#293040" />
+                  <rect x="28" y="44" width="4" height="9" rx="2" fill="#293040" />
+                </g>
+              </svg>
+              <span class="photo-tag">Imagen ilustrativa</span>
+              <figcaption class="quote"><q>Degradación temporal durante un mantenimiento de rutina.</q><cite>NSA</cite>
+              </figcaption>
+            </figure>
+            <div class="card-body">
+              <h2>Se cae la red interna de la NSA</h2>
+              <p>NSANet, la red clasificada que la NSA usa para comunicarse internamente, quedó fuera de servicio y
+                parte del personal debió demorar su ingreso. La agencia lo atribuyó a un mantenimiento de rutina.</p>
+            </div>
+            <div class="card-foot"><span class="status">Mantenimiento, según la NSA</span><span class="idx">06 /
+                10</span></div>
+          </article>
+
+          <!-- 6 · Apple -->
+          <article class="card" style="--accent:#0265c2" aria-roledescription="tarjeta">
+            <div class="card-top">
+              <div class="date"><span class="date-day">17</span><span class="date-txt">Martes<br>Nov 2026</span></div>
+              <span class="badge">Tecnología</span>
+            </div>
+            <figure class="photo">
+              <svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <defs>
+                  <linearGradient id="g6" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#e1e8fd" />
+                    <stop offset="1" stop-color="#a8c8ff" />
+                  </linearGradient>
+                </defs>
+                <rect width="400" height="260" fill="url(#g6)" />
+                <g opacity=".5" fill="#fff">
+                  <circle cx="70" cy="60" r="60" />
+                  <circle cx="340" cy="210" r="80" />
+                </g>
+                <rect x="150" y="24" width="100" height="196" rx="20" fill="#141b2b" />
+                <rect x="157" y="31" width="86" height="182" rx="14" fill="#f9f9ff" />
+                <rect x="185" y="38" width="30" height="8" rx="4" fill="#141b2b" />
+                <g transform="translate(170 78)">
+                  <path d="M14 46a16 16 0 01-1-32 22 22 0 0142-4 14 14 0 011 36z" fill="#d6e3ff" stroke="#0265c2"
+                    stroke-width="3" />
+                  <path d="M24 22l14 14M38 22L24 36" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round" />
+                </g>
+                <rect x="172" y="146" width="56" height="7" rx="3.5" fill="#dce2f7" />
+                <rect x="180" y="160" width="40" height="7" rx="3.5" fill="#dce2f7" />
+                <rect x="170" y="182" width="60" height="18" rx="9" fill="#0265c2" />
+                <g transform="translate(278 60)">
+                  <rect width="78" height="30" rx="15" fill="#fff" />
+                  <circle cx="16" cy="15" r="6" fill="#b91c1c" />
+                  <rect x="28" y="11" width="38" height="8" rx="4" fill="#c1c6d4" />
+                </g>
+                <g transform="translate(46 150)">
+                  <rect width="78" height="30" rx="15" fill="#fff" />
+                  <circle cx="16" cy="15" r="6" fill="#b91c1c" />
+                  <rect x="28" y="11" width="38" height="8" rx="4" fill="#c1c6d4" />
+                </g>
+              </svg>
+              <span class="photo-tag">Imagen ilustrativa</span>
+              <figcaption class="quote"><q>Trabajamos para volver a poner en línea los sistemas
+                  restantes.</q><cite>Apple</cite></figcaption>
+            </figure>
+            <div class="card-body">
+              <h2>Apple sufre una caída masiva</h2>
+              <p>Una actualización interna provocó fallas en iCloud, App Store, Apple Pay y Apple Music, además de
+                sistemas de tiendas y empleados. Apple trabajó durante la tarde para restablecer los servicios.</p>
+            </div>
+            <div class="card-foot"><span class="status">Actualización interna</span><span class="idx">07 / 10</span>
+            </div>
+          </article>
+
+          <!-- 7 · Trump -->
+          <article class="card" style="--accent:#b91c1c" aria-roledescription="tarjeta">
+            <div class="card-top">
+              <div class="date"><span class="date-day">17</span><span class="date-txt">Martes<br>Nov 2026</span></div>
+              <span class="badge">Gobierno</span>
+            </div>
+            <figure class="photo">
+              <svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <defs>
+                  <linearGradient id="g7" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#141b2b" />
+                    <stop offset="1" stop-color="#004d97" />
+                  </linearGradient>
+                </defs>
+                <rect width="400" height="260" fill="url(#g7)" />
+                <g opacity=".14">
+                  <rect x="0" y="0" width="400" height="14" fill="#fff" />
+                  <rect x="0" y="28" width="400" height="14" fill="#fff" />
+                  <rect x="0" y="56" width="400" height="14" fill="#fff" />
+                </g>
+                <g fill="#f9f9ff" opacity=".12">
+                  <circle cx="40" cy="20" r="3" />
+                  <circle cx="60" cy="34" r="3" />
+                  <circle cx="80" cy="20" r="3" />
+                  <circle cx="100" cy="34" r="3" />
+                  <circle cx="120" cy="20" r="3" />
+                </g>
+                <path d="M140 250l14-118h92l14 118z" fill="#293040" />
+                <rect x="146" y="124" width="108" height="16" rx="4" fill="#414752" />
+                <circle cx="200" cy="190" r="16" fill="none" stroke="#a8c8ff" stroke-width="3" opacity=".6" />
+                <g stroke="#c1c6d4" stroke-width="3" stroke-linecap="round" fill="none">
+                  <path d="M182 124c-4-20-12-34-26-44" />
+                  <path d="M200 124V72" />
+                  <path d="M218 124c4-20 12-34 26-44" />
+                </g>
+                <g fill="#141b2b" stroke="#727784" stroke-width="2">
+                  <rect x="146" y="64" width="18" height="28" rx="9" />
+                  <rect x="191" y="54" width="18" height="28" rx="9" />
+                  <rect x="236" y="64" width="18" height="28" rx="9" />
+                </g>
+                <rect x="296" y="30" width="70" height="26" rx="13" fill="#b91c1c" />
+                <circle cx="312" cy="43" r="5" fill="#fff" /><text x="324" y="48" font-family="Public Sans"
+                  font-weight="700" font-size="13" fill="#fff">VIVO</text>
+              </svg>
+              <span class="photo-tag">Imagen ilustrativa</span>
+              <figcaption class="quote"><q>Así es la vida. Cuando eres grande, poderoso y tienes todo el dinero, ocurren
+                  cosas así.</q><cite>Donald Trump · Manila</cite></figcaption>
+            </figure>
+            <div class="card-body">
+              <h2>Trump: «No pasa nada»</h2>
+              <p>Desde Manila, Trump minimizó la serie de fallas y aseguró que la gente está a salvo. Su gobierno
+                sostiene que no hubo un ciberataque y que los incidentes no están relacionados entre sí.</p>
+            </div>
+            <div class="card-foot"><span class="status">Postura oficial</span><span class="idx">08 / 10</span></div>
+          </article>
+
+          <!-- 8 · Google: IA automatiza ataques -->
+          <article class="card" style="--accent:#004d97" aria-roledescription="tarjeta">
+            <div class="card-top">
+              <div class="date"><span class="date-day">IA</span><span class="date-txt">Informe<br>de Google</span></div>
+              <span class="badge">Ciberseguridad</span>
+            </div>
+            <figure class="photo">
+              <svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <defs>
+                  <radialGradient id="g8" cx=".45" cy=".35" r=".85">
+                    <stop offset="0" stop-color="#0265c2" />
+                    <stop offset="1" stop-color="#001b3d" />
+                  </radialGradient>
+                </defs>
+                <rect width="400" height="260" fill="url(#g8)" />
+                <g transform="translate(60 -22) scale(.72)">
+                  <g stroke="#a8c8ff" stroke-width="2" opacity=".6" fill="none">
+                    <path d="M180 92L96 52M180 92L84 128M180 92L132 176M180 92L250 44" />
+                  </g>
+                  <path d="M200 100L300 110" stroke="#ff6b6b" stroke-width="3" stroke-dasharray="7 6" />
+                  <g transform="translate(180 92)">
+                    <polygon points="0,-30 26,-15 26,15 0,30 -26,15 -26,-15" fill="#fff" /><text x="0" y="7"
+                      text-anchor="middle" font-family="Work Sans" font-weight="700" font-size="20"
+                      fill="#004d97">IA</text>
+                  </g>
+                  <g fill="#d6e3ff" stroke="#fff" stroke-width="2">
+                    <circle cx="96" cy="52" r="12" />
+                    <circle cx="84" cy="128" r="12" />
+                    <circle cx="132" cy="176" r="12" />
+                    <circle cx="250" cy="44" r="12" />
+                  </g>
+                  <g fill="#004d97">
+                    <rect x="91" y="48" width="10" height="8" rx="2" />
+                    <rect x="79" y="124" width="10" height="8" rx="2" />
+                    <rect x="127" y="172" width="10" height="8" rx="2" />
+                    <rect x="245" y="40" width="10" height="8" rx="2" />
+                  </g>
+                  <g transform="translate(300 74)">
+                    <rect width="64" height="76" rx="8" fill="#141b2b" stroke="#ff6b6b" stroke-width="2" />
+                    <rect x="10" y="12" width="44" height="8" rx="3" fill="#414752" />
+                    <rect x="10" y="28" width="44" height="8" rx="3" fill="#414752" />
+                    <rect x="10" y="44" width="44" height="8" rx="3" fill="#414752" />
+                    <circle cx="48" cy="16" r="3" fill="#ff6b6b" />
+                    <circle cx="48" cy="32" r="3" fill="#ff6b6b" />
+                  </g>
+                </g>
+              </svg>
+              <span class="photo-tag">Imagen ilustrativa</span>
+              <figcaption class="quote plain"><span class="lead">Herramientas detectadas</span><span
+                  class="big"><b>5</b><span>ARTEX, CAIRN, CyberStrikeAI, PentAGI y HexStrike AI</span></span>
+              </figcaption>
+            </figure>
+            <div class="card-body">
+              <h2>Google: la IA ya automatiza ciberataques</h2>
+              <p>El grupo de inteligencia de amenazas de Google detectó herramientas de IA que buscan fallas, escriben
+                código para explotarlas y atacan sistemas, con agentes que se reparten las tareas.</p>
+            </div>
+            <div class="card-foot"><span class="status">Uso en aumento, según Google</span><span class="idx">09 /
+                10</span></div>
+          </article>
+
+          <!-- 9 · Google: sistemas sin actualizar -->
+          <article class="card" style="--accent:#0f766e" aria-roledescription="tarjeta">
+            <div class="card-top">
+              <div class="date"><span class="date-day">IA</span><span class="date-txt">Informe<br>de Google</span></div>
+              <span class="badge">Ciberseguridad</span>
+            </div>
+            <figure class="photo">
+              <svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <defs>
+                  <linearGradient id="g9" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#00201d" />
+                    <stop offset="1" stop-color="#04726a" />
+                  </linearGradient>
+                </defs>
+                <rect width="400" height="260" fill="url(#g9)" />
+                <g opacity=".1" fill="#fff">
+                  <circle cx="350" cy="40" r="90" />
+                </g>
+                <g transform="translate(60 6) scale(.7)">
+                  <path d="M200 30l62 22v46c0 40-28 68-62 82-34-14-62-42-62-82V52z" fill="#fff" opacity=".95" />
+                  <path d="M200 46l46 16v36c0 30-20 52-46 64z" fill="#9cf2e8" />
+                  <g transform="translate(200 102)">
+                    <circle r="20" fill="#0f766e" />
+                    <path d="M0-11V0l8 6" stroke="#fff" stroke-width="3.5" stroke-linecap="round" fill="none" />
+                  </g>
+                </g>
+                <g transform="translate(22 96)">
+                  <text x="0" y="-8" font-family="Public Sans" font-weight="700" font-size="10" fill="#9cf2e8"
+                    letter-spacing="1">PARCHE</text>
+                  <rect width="130" height="10" rx="5" fill="#00504a" />
+                  <rect width="52" height="10" rx="5" fill="#9cf2e8" />
+                </g>
+                <g transform="translate(250 96)">
+                  <text x="0" y="-8" font-family="Public Sans" font-weight="700" font-size="10" fill="#ffb4ab"
+                    letter-spacing="1">ATAQUE AUTOMATIZADO</text>
+                  <rect width="130" height="10" rx="5" fill="#410002" />
+                  <rect width="112" height="10" rx="5" fill="#ff6b6b" />
+                </g>
+              </svg>
+              <span class="photo-tag">Imagen ilustrativa</span>
+              <figcaption class="quote plain"><span class="lead">La clave</span><q>Reducir el tiempo entre detectar una
+                  falla y corregirla.</q><cite>Recomendación de Google</cite></figcaption>
+            </figure>
+            <div class="card-body">
+              <h2>Los sistemas sin actualizar, el blanco</h2>
+              <p>La IA puede estudiar un parche y atacar antes de que las empresas lo instalen. Google recomienda
+                acortar ese plazo, limitar lo expuesto a internet y vigilar actividad inusual en las redes.</p>
+            </div>
+            <div class="card-foot"><span class="status">Prevención: actualizar rápido</span><span class="idx">10 /
+                10</span></div>
+          </article>
+
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="nav-btn" id="prev" aria-label="Tarjeta anterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
+        <div class="meta">
+          <div class="counter" id="counter" aria-hidden="true">01 <span>/ 10</span></div>
+          <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+        </div>
+        <button class="nav-btn" id="next" aria-label="Tarjeta siguiente">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M9 6l6 6-6 6" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="sr-only" aria-live="polite" id="live"></div>
+  </main>
+
+  <footer>
+
+  </footer>
+
+  <script>
+    (() => {
+      const viewport = document.getElementById('viewport');
+      const track = document.getElementById('track');
+      const cards = [...track.children];
+      const prev = document.getElementById('prev');
+      const next = document.getElementById('next');
+      const counter = document.getElementById('counter');
+      const bar = document.getElementById('bar');
+      const live = document.getElementById('live');
+      const tl = document.getElementById('timeline');
+      const tlFill = document.getElementById('tlFill');
+      const n = cards.length;
+      const pad = v => String(v).padStart(2, '0');
+      let i = 0;
+
+      // Línea de tiempo
+      const tlBtns = cards.map((c, k) => {
+        const day = c.querySelector('.date-day').textContent;
+        const isDay = /^\d+$/.test(day);
+        const wd = isDay ? c.querySelector('.date-txt').textContent.slice(0, 3) : 'Google';
+        const li = document.createElement('li');
+        const b = document.createElement('button');
+        b.className = 'tl-btn';
+        b.innerHTML = `<span class="tl-dot"></span><span class="tl-lbl">${isDay ? wd + ' ' + day : wd}</span>`;
+        b.setAttribute('aria-label', `${c.querySelector('h2').textContent}${isDay ? ', ' + wd + ' ' + day : ''}`);
+        b.addEventListener('click', () => go(k));
+        li.appendChild(b); tl.appendChild(li);
+        return b;
+      });
+
+      function offsetFor(k) {
+        const c = cards[k];
+        return c.offsetLeft + c.offsetWidth / 2 - viewport.clientWidth / 2;
+      }
+
+      function render(announce = true) {
+        track.style.transform = `translateX(${-offsetFor(i)}px)`;
+        cards.forEach((c, k) => {
+          const active = k === i;
+          c.classList.toggle('is-active', active);
+          c.classList.toggle('is-near', Math.abs(k - i) === 1);
+          c.setAttribute('aria-hidden', active ? 'false' : 'true');
+          c.setAttribute('aria-label', `${k + 1} de ${n}`);
+        });
+        tlBtns.forEach((b, k) => {
+          b.setAttribute('aria-current', k === i ? 'true' : 'false');
+          b.classList.toggle('done', k < i);
+        });
+        const first = tlBtns[0].getBoundingClientRect(), cur = tlBtns[i].getBoundingClientRect(), base = tl.getBoundingClientRect();
+        tlFill.style.width = Math.max(0, (cur.left + cur.width / 2) - (first.left + first.width / 2)) + 'px';
+        tlFill.style.left = (first.left + first.width / 2 - base.left) + 'px';
+        counter.innerHTML = `${pad(i + 1)} <span>/ ${pad(n)}</span>`;
+        bar.style.width = ((i + 1) / n * 100) + '%';
+        prev.disabled = i === 0;
+        next.disabled = i === n - 1;
+        if (announce) live.textContent = `Tarjeta ${i + 1} de ${n}: ${cards[i].querySelector('h2').textContent}`;
+      }
+
+      function go(k) {
+        const t = Math.max(0, Math.min(n - 1, k));
+        if (t === i) { render(false); return; }
+        i = t; render();
+      }
+
+      prev.addEventListener('click', () => go(i - 1));
+      next.addEventListener('click', () => go(i + 1));
+
+      // Teclado (en toda la página)
+      document.addEventListener('keydown', e => {
+        if (e.altKey || e.ctrlKey || e.metaKey) return;
+        if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); go(i + 1); }
+        else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(i - 1); }
+        else if (e.key === 'Home') { e.preventDefault(); go(0); }
+        else if (e.key === 'End') { e.preventDefault(); go(n - 1); }
+      });
+
+      // Click en tarjeta lateral
+      cards.forEach((c, k) => c.addEventListener('click', () => { if (!moved && k !== i) go(k); }));
+
+      // Arrastre / swipe
+      let startX = 0, startY = 0, dx = 0, dragging = false, moved = false, base = 0;
+      viewport.addEventListener('pointerdown', e => {
+        if (e.button !== 0) return;
+        dragging = true; moved = false; dx = 0;
+        startX = e.clientX; startY = e.clientY; base = -offsetFor(i);
+      });
+      window.addEventListener('pointermove', e => {
+        if (!dragging) return;
+        dx = e.clientX - startX;
+        if (!moved && Math.abs(dx) > 6 && Math.abs(dx) > Math.abs(e.clientY - startY)) {
+          moved = true; viewport.classList.add('dragging');
+        }
+        if (moved) {
+          const edge = (i === 0 && dx > 0) || (i === n - 1 && dx < 0) ? .35 : 1;
+          track.style.transform = `translateX(${base + dx * edge}px)`;
+        }
+      });
+      const end = () => {
+        if (!dragging) return;
+        dragging = false; viewport.classList.remove('dragging');
+        const th = Math.min(80, cards[0].offsetWidth * .18);
+        if (moved && dx < -th) go(i + 1);
+        else if (moved && dx > th) go(i - 1);
+        else render(false);
+        setTimeout(() => { moved = false; }, 0);
+      };
+      window.addEventListener('pointerup', end);
+      window.addEventListener('pointercancel', end);
+
+      // Rueda / trackpad horizontal
+      let wheelLock = false;
+      viewport.addEventListener('wheel', e => {
+        if (Math.abs(e.deltaX) <= Math.abs(e.deltaY) || Math.abs(e.deltaX) < 20 || wheelLock) return;
+        e.preventDefault(); wheelLock = true;
+        go(i + (e.deltaX > 0 ? 1 : -1));
+        setTimeout(() => wheelLock = false, 550);
+      }, { passive: false });
+
+      window.addEventListener('resize', () => render(false));
+      document.fonts && document.fonts.ready.then(() => render(false));
+      render(false);
+    })();
+  </script>
+</body>
+
+</html>
